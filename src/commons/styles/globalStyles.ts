@@ -6,7 +6,6 @@ export const globalStyles = css`
     margin: 0;
     padding: 0;
     font-family: "NotoSansKR";
-    background-color: #f5f5f5;
   }
 
   @font-face {
