@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const LayoutBody = styled.div`
   width: 1200px;
-  margin: 0 auto;
+  margin: 30px auto 0;
 `;
 
 export default function Layout(props: ILayoutPros): JSX.Element {
