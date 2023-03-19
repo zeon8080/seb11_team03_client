@@ -4,12 +4,10 @@ export default function LayoutHeader(): JSX.Element {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.ImgWrapper>
-          <img src="/eats_me_logo.png" />
-        </S.ImgWrapper>
+        <S.Logo src="/logo_bk.webp" />
         <S.BtnWrapper>
           <S.LoginBox>
-            <img src="/login_icon.png" />
+            <img src="/login_wh.webp" />
             <S.LoginBtn>로그인</S.LoginBtn>
           </S.LoginBox>
 
