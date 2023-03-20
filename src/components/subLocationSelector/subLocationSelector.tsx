@@ -5,7 +5,7 @@ interface ILocationSelectorProps {
   setSubLocation: Dispatch<SetStateAction<string>>;
 }
 
-export default function LocationSelector(
+export default function SubLocationSelector(
   props: ILocationSelectorProps
 ): JSX.Element {
   const subLocation = [
