@@ -14,14 +14,6 @@ export const Container = styled.div<IBgPos>`
   color: black;
   margin: 0;
   overflow: hidden;
-  img {
-    position: absolute;
-    width: 100%;
-    object-fit: none;
-    object-position: ${(props) => `${props.bgXpos}% ${props.bgYpos}%`};
-    transition: object-position 0.6s cubic-bezier(0.55, 0, 0.1, 1);
-    will-change: object-position;
-  }
 `;
 
 export const Wrapper = styled.div<IPos>`
