@@ -48,7 +48,7 @@ export default function ReserveMiddle(): JSX.Element {
             <div>
               {selectedDate ? selectedDate.format("YYYY.MM.DD") : "날짜"}
             </div>
-            <div>{selectedDate ? selectedDate.format("HH:00") : "시간"}</div>
+            <div>{selectedDate !== null ? selectedTime : "시간"}</div>
             <button>예약</button>
           </S.ReserveBox>
         </div>
