@@ -4,9 +4,11 @@ import { Modal } from "antd";
 import * as S from "./mainPanelStyles";
 
 interface IMainPanel {
+  title?: string;
+  areaImg: string;
   panelXpos: number;
   panelYpos: number;
-  areaNames: string[];
+  areaNames?: string[];
   xPos: number;
   bgXpos: number;
   yPos: number;
@@ -33,10 +35,15 @@ export default function MainPanel(props: IMainPanel): JSX.Element {
     setIsModalOpen(false);
   };
 
+  console.log(props);
+
   return (
     <S.Container panelXpos={props.panelXpos} panelYpos={props.panelYpos}>
+      <img src={props.areaImg} alt="" />
       <S.AreaModal>
-        <S.ModalBtn onClick={showModal}></S.ModalBtn>
+        <S.ModalBtn className="shake" onClick={showModal}>
+          {props.title}
+        </S.ModalBtn>
         <Modal
           open={isModalOpen}
           onOk={handleOk}
@@ -59,10 +66,10 @@ export default function MainPanel(props: IMainPanel): JSX.Element {
           onMoveUp();
         }}
       >
-        {props.areaNames[0]}
+        {props.areaNames?.[0]}
       </S.AreaName>
       <S.AreaName className="up x_center" onClick={onMoveUp}>
-        {props.areaNames[1]}
+        {props.areaNames?.[1]}
       </S.AreaName>
       <S.AreaName
         className="right up"
@@ -71,13 +78,13 @@ export default function MainPanel(props: IMainPanel): JSX.Element {
           onMoveUp();
         }}
       >
-        {props.areaNames[2]}
+        {props.areaNames?.[2]}
       </S.AreaName>
       <S.AreaName className="left y_center" onClick={onMoveLeft}>
-        {props.areaNames[3]}
+        {props.areaNames?.[3]}
       </S.AreaName>
       <S.AreaName className="right y_center" onClick={onMoveRight}>
-        {props.areaNames[4]}
+        {props.areaNames?.[4]}
       </S.AreaName>
       <S.AreaName
         className="left down"
@@ -86,10 +93,10 @@ export default function MainPanel(props: IMainPanel): JSX.Element {
           onMoveLeft();
         }}
       >
-        {props.areaNames[5]}
+        {props.areaNames?.[5]}
       </S.AreaName>
       <S.AreaName className="down x_center" onClick={onMoveDown}>
-        {props.areaNames[6]}
+        {props.areaNames?.[6]}
       </S.AreaName>
       <S.AreaName
         className="right down"
@@ -98,7 +105,7 @@ export default function MainPanel(props: IMainPanel): JSX.Element {
           onMoveRight();
         }}
       >
-        {props.areaNames[7]}
+        {props.areaNames?.[7]}
       </S.AreaName>
     </S.Container>
   );

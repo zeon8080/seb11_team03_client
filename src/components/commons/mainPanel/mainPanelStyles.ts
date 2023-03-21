@@ -40,15 +40,38 @@ export const Container = styled.div<IPanelPos>`
     transform: translateY(50%) rotateZ(-90deg);
     transform-origin: top left;
   }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 export const AreaModal = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40vw;
-  height: 300px;
   transform: translate(-50%, -50%);
   background-color: transparent;
+  .shake:hover {
+    animation: shake 0.5s ease-in-out infinite;
+  }
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 `;
 
 export const ModalBtn = styled.button`
@@ -56,22 +79,26 @@ export const ModalBtn = styled.button`
   height: 100%;
   border: none;
   background-color: transparent;
+  color: white;
+  font-size: 150px;
+  font-weight: 800;
+  cursor: pointer;
 `;
 export const ModalBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 15vw;
+  width: 360px;
   button {
     cursor: pointer;
     width: 40%;
     line-height: 40px;
-    border: none;
+    border: 2px solid #fbb240;
     font-size: 30px;
     background-color: white;
     color: #fbb240;
     font-weight: 500;
-    padding: 20px 0 10px;
+    padding: 13px 0 10px;
     border-radius: 4px;
     :hover {
       background-color: #fbb240;
