@@ -101,7 +101,7 @@ export const StoreInfoBox = styled.div`
   & > div {
     display: flex;
     flex-direction: row;
-    line-height: 24px;
+    line-height: 26px;
 
     & > span {
       font-size: 12px;
