@@ -1,4 +1,3 @@
-
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -6,15 +5,17 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 684px;
-  margin-right:20px;
+  margin-right: 20px;
   margin-bottom: 20px;
+  background-color: white;
+  border-radius: 15px;
 `;
 
 export const Title = styled.span`
   font-size: 35px;
   font-weight: bold;
   color: black;
-  margin-bottom: 100px;
+  margin: 100px 0;
 `;
 
 export const Wrapper = styled.div`
@@ -25,6 +26,8 @@ export const Wrapper = styled.div`
   background-color: #f5f5f5;
   border-radius: 10px;
   padding: 20px 36px;
+  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
+    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const ReserveBox = styled.div`
@@ -54,6 +57,10 @@ export const Align = styled.div`
   width: 100%;
   font-size: 18px;
   margin-bottom: 15px;
+
+  & > span {
+    color: black;
+  }
 `;
 
 export const ScheduleBox = styled.div`

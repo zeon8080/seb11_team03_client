@@ -9,7 +9,7 @@ export default function ReserveListMiddle(): JSX.Element {
           <S.FoodImg src="/defaultFood.webp" />
           <S.ReserveBox>
             <S.Align>
-              <S.Img src="/location_or.webp" />
+              <S.Img src="/marker_or.webp" />
               <span>지역</span>
             </S.Align>
             <S.Align>

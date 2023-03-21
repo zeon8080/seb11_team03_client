@@ -28,7 +28,7 @@ export const StoreBox = styled.div`
   border-radius: 10px;
   width: 300px;
   height: 180px;
-  padding: 4px;
+  padding: 6px;
 `;
 
 export const StoreCont = styled.div`
