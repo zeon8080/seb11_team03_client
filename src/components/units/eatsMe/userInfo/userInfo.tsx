@@ -1,4 +1,3 @@
-
 import { Tabs } from "antd";
 import styled from "@emotion/styled";
 import * as S from "./userInfoStyles";
@@ -44,10 +43,7 @@ export default function UserInfo(): JSX.Element {
   return (
     <S.Container>
       <S.Wrapper>
-        <Style
-          tabPosition={"left"}
-          defaultActiveKey="1"
-        >
+        <Style tabPosition={"left"} defaultActiveKey="1">
           <Tabs.TabPane
             tab={
               <Tab>
