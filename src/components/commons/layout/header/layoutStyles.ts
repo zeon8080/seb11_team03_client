@@ -6,7 +6,7 @@ export const Container = styled.header`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100px;
+  height: 80px;
   background-color: #fbb240;
 `;
 
@@ -17,10 +17,33 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 1200px;
   height: 100%;
+
+  & > img {
+    width: 160px;
+    height: 50px;
+    object-fit: contain;
+    cursor: pointer;
+  }
 `;
 
-export const Logo = styled.img`
-  cursor: pointer;
+export const NavBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+
+  & > button {
+    all: unset;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+
+    :hover {
+      border-bottom: 2px solid white;
+    }
+  }
 `;
 
 export const BtnWrapper = styled.div`
@@ -37,24 +60,39 @@ export const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  & > img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-right: 4px;
+    margin-bottom: 2px;
+  }
 `;
 
 export const LoginBtn = styled.button`
   all: unset;
   font-size: 14px;
   font-weight: bold;
+  height: 32px;
   color: white;
   margin-left: 4px;
+
+  :hover {
+    border-bottom: 1px solid white;
+  }
 `;
 
 export const JoinBtn = styled.button`
-  width: 84px;
+  width: 60px;
   height: 32px;
-  border: 2px solid white;
-  border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
   color: white;
   background-color: #fbb240;
   cursor: pointer;
+
+  :hover {
+    border-bottom: 1px solid white;
+  }
 `;

@@ -7,8 +7,6 @@ export const Container = styled.div`
   height: 684px;
   margin-right: 20px;
   margin-bottom: 20px;
-  background-color: white;
-  border-radius: 15px;
 `;
 
 export const Title = styled.span`
@@ -24,10 +22,7 @@ export const Wrapper = styled.div`
   width: 774px;
   height: 224px;
   background-color: #f5f5f5;
-  border-radius: 10px;
   padding: 20px 36px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const ReserveBox = styled.div`
@@ -82,7 +77,6 @@ export const Date = styled.span`
   height: 40px;
   background-color: #ff6b3f;
   color: white;
-  border-radius: 5px;
 `;
 
 export const Time = styled.span`
@@ -93,7 +87,6 @@ export const Time = styled.span`
   height: 40px;
   background-color: #ff6b3f;
   color: white;
-  border-radius: 5px;
   margin-left: 10px;
 `;
 
@@ -104,7 +97,6 @@ export const EditBtn = styled.button`
   font-size: 16px;
   width: 70px;
   height: 40px;
-  border-radius: 5px;
   color: white;
   background-color: black;
   margin-left: 10px;

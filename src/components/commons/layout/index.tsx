@@ -8,7 +8,6 @@ interface ILayoutPros {
 
 const Container = styled.div`
   height: 100vh;
-  background-color: #f5f5f5;
 `;
 
 const LayoutBody = styled.div`

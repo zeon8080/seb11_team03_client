@@ -17,9 +17,7 @@ export const Wrapper = styled.div`
   height: 100px;
   background-color: white;
   position: relative;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
-  border-radius: 15px;
+  background-color: #f5f5f5;
 `;
 
 export const SelectBox = styled.button`
@@ -29,8 +27,7 @@ export const SelectBox = styled.button`
   align-items: center;
   width: 140px;
   height: 60px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
+  background-color: white;
 
   & > div:first-of-type {
     font-weight: 500;
@@ -49,7 +46,7 @@ export const SelectBox = styled.button`
     display: block;
     position: absolute;
     top: 85px;
-    left: 20px;
+    left: -28px;
   }
 `;
 
@@ -60,8 +57,7 @@ export const SubSelectBox = styled.button`
   align-items: center;
   width: 140px;
   height: 60px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
+  background-color: white;
   margin-right: 30px;
 
   & > div:first-of-type {
@@ -81,7 +77,7 @@ export const SubSelectBox = styled.button`
     display: block;
     position: absolute;
     top: 85px;
-    left: 180px;
+    left: 136px;
   }
 `;
 

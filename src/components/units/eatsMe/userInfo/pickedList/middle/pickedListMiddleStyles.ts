@@ -8,7 +8,6 @@ export const Container = styled.div`
   gap: 20px;
   width: 100%;
   height: 684px;
-  border-radius: 15px;
 `;
 
 export const Title = styled.span`
@@ -25,19 +24,17 @@ export const ListWrapper = styled.div`
   gap: 20px;
   width: 100%;
   margin: 20px 0;
-  padding: 0 134px;
+  padding: 0 114px;
 `;
 
 export const StoreBox = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
-  border-radius: 10px;
-  width: 320px;
-  height: 200px;
-  padding: 6px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
+  width: 330px;
+  height: 220px;
+  padding: 12px;
+  margin-bottom: 18px;
 `;
 
 export const StoreCont = styled.div`
@@ -100,13 +97,14 @@ export const TimeInfoBox = styled.div`
   & > div {
     font-size: 12px;
     color: #333333;
-    margin-right: 12px;
+    margin-right: 10px;
   }
 `;
 
 export const StoreInfoBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 4px;
 
   & > div {
     display: flex;
@@ -115,7 +113,7 @@ export const StoreInfoBox = styled.div`
 
     & > span {
       font-size: 12px;
-      color: #333333;
+      color: black;
     }
   }
 `;

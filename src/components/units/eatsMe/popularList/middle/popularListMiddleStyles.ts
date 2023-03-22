@@ -3,13 +3,9 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
-  border-radius: 15px;
-  background-color: white;
 `;
 
 export const ListWrapper = styled.div`
@@ -17,7 +13,7 @@ export const ListWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
-  width: 624px;
+  width: 700px;
   margin: 20px 0;
 `;
 
@@ -25,10 +21,9 @@ export const StoreBox = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
-  border-radius: 10px;
-  width: 300px;
-  height: 180px;
-  padding: 6px;
+  width: 340px;
+  height: 200px;
+  padding: 16px;
 `;
 
 export const StoreCont = styled.div`
@@ -38,7 +33,7 @@ export const StoreCont = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 160px;
+    width: 180px;
   }
 `;
 export const RatingBox = styled.div`
@@ -58,7 +53,7 @@ export const FoodImg = styled.img`
   width: 120px;
   height: 120px;
   object-fit: contain;
-  margin-right: 10px;
+  margin-right: 14px;
 `;
 
 export const Img = styled.img`
@@ -97,6 +92,7 @@ export const TimeInfoBox = styled.div`
 export const StoreInfoBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 6px;
 
   & > div {
     display: flex;
