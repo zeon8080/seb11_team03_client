@@ -1,6 +1,7 @@
 import { Tabs } from "antd";
 import styled from "@emotion/styled";
 import * as S from "./userInfoStyles";
+import PickedList from "./pickedList/pickedList";
 import ReserveListMiddle from "./reserveList/middle/reserveListMiddle";
 
 const Style = styled(Tabs)`
@@ -51,11 +52,13 @@ export default function UserInfo(): JSX.Element {
                 <S.SelectImg src="/imgSelect.webp" />
               </Tab>
             }
-            key="1"
+            key="4"
           ></Tabs.TabPane>
-          <Tabs.TabPane tab={<Tab>찜 목록</Tab>} key="2"></Tabs.TabPane>
-          <Tabs.TabPane tab={<Tab>내가 쓴 글</Tab>} key="3"></Tabs.TabPane>
-          <Tabs.TabPane tab={<Tab>예약 확인</Tab>} key="4">
+          <Tabs.TabPane tab={<Tab>찜 목록</Tab>} key="1">
+            <PickedList />
+          </Tabs.TabPane>
+          <Tabs.TabPane tab={<Tab>내가 쓴 글</Tab>} key="2"></Tabs.TabPane>
+          <Tabs.TabPane tab={<Tab>예약 확인</Tab>} key="3">
             <ReserveListMiddle />
           </Tabs.TabPane>
         </Style>

@@ -8,6 +8,7 @@ export const Container = styled.div`
   box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
     0px 1px 2px rgba(60, 64, 67, 0.3);
   border-radius: 15px;
+  background-color: white;
 `;
 
 export const Wrapper = styled.div`
