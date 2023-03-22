@@ -1,32 +1,16 @@
 import * as S from "./reserveMiddleStyles";
 import type { Dayjs } from "dayjs";
 import { useState } from "react";
-import { Modal } from "antd";
+import ReserveSelect from "../../../../commons/reserveSelect/reserveSelect";
 
 export default function ReserveMiddle(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>("시간");
+  const [selectedTime, setSelectedTime] = useState<string>("");
 
   const onSelect = (value: Dayjs): void => {
     setSelectedDate(value);
     setIsModalOpen(true);
-  };
-
-  const handleOk = (): void => {
-    setIsModalOpen(false);
-    setSelectedDate((prev) =>
-      prev ? prev.set("hour", parseInt(selectedTime)) : null
-    ); // 선택한 시간 값을 selectedDate에 반영합니다.
-  };
-
-  const handleCancel = (): void => {
-    setIsModalOpen(false);
-  };
-
-  const handleTimeClick = (time: string): void => {
-    // 버튼 클릭시 선택한 시간을 상태값에 저장하는 함수
-    setSelectedTime(time);
   };
 
   return (
@@ -46,10 +30,21 @@ export default function ReserveMiddle(): JSX.Element {
           </S.StoreBox>
           <S.ReserveBox>
             <div>
-              {selectedDate ? selectedDate.format("YYYY.MM.DD") : "날짜"}
+              {selectedDate !== null
+                ? selectedDate.format("YYYY.MM.DD")
+                : "날짜"}
             </div>
             <div>{selectedDate !== null ? selectedTime : "시간"}</div>
-            <button>예약</button>
+            <S.ReserveBtn
+              style={{
+                backgroundColor:
+                  selectedDate !== null && selectedTime !== ""
+                    ? "#fbb240"
+                    : "#e5e5e5",
+              }}
+            >
+              예약
+            </S.ReserveBtn>
           </S.ReserveBox>
         </div>
 
@@ -58,29 +53,14 @@ export default function ReserveMiddle(): JSX.Element {
       <S.CalendarBox>
         <S.CalendarStyle fullscreen={false} onSelect={onSelect} />
       </S.CalendarBox>
-
-      <div>
-        <Modal
-          title={`선택한 날짜: ${
-            selectedDate ? selectedDate.format("YYYY-MM-DD") : ""
-          }`}
-          width={520}
-          visible={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          bodyStyle={{ height: "300px", overflow: "auto" }}
-        >
-          {["2:00", "3:00", "4:00"].map((time) => (
-            <button
-              style={{ cursor: "pointer", marginRight: "10px" }}
-              key={time}
-              onClick={() => handleTimeClick(time)}
-            >
-              {time}
-            </button>
-          ))}
-        </Modal>
-      </div>
+      <ReserveSelect
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setSelectedDate={setSelectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+        selectedDate={selectedDate}
+      />
     </S.Container>
   );
 }
