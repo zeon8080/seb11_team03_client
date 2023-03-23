@@ -4,7 +4,11 @@ export default function LayoutHeader(): JSX.Element {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Logo src="/logo_bk.webp" />
+        <img src="/logo_bk.webp" />
+        <S.NavBox>
+          <button>코스</button>
+          <button>맛집</button>
+        </S.NavBox>
         <S.BtnWrapper>
           <S.LoginBox>
             <img src="/login_wh.webp" />

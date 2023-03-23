@@ -4,7 +4,7 @@ export default function ReserveListMiddle(): JSX.Element {
   return (
     <>
       <S.Container>
-        <S.Title>~~~님의 예약 내역</S.Title>
+        <S.Title>예약</S.Title>
         <S.Wrapper>
           <S.FoodImg src="/defaultFood.webp" />
           <S.ReserveBox>
