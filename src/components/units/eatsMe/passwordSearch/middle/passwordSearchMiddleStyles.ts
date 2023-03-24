@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 
 export const Container = styled.div`
   display: flex;
@@ -63,4 +64,47 @@ export const SearchBtn = styled.button`
   color: white;
   background-color: #fbb240;
   cursor: pointer;
+`;
+
+export const ModalBtn = styled(Modal)`
+  .ant-btn-primary {
+    background-color: #fbb240;
+  }
+
+  .ant-btn-default {
+    background-color: white;
+    color: black;
+  }
+
+  .ant-btn-primary:hover {
+    background-color: #fbb240;
+    border-color: black;
+    color: white;
+  }
+
+  .ant-btn-default:hover {
+    background-color: white;
+    border-color: black;
+    color: black;
+  }
+`;
+
+export const ModalCont = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+
+  > img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 20px;
+  }
+
+  > span {
+    line-height: 30px;
+    text-align: center;
+  }
 `;
