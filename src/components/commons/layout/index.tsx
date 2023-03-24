@@ -24,7 +24,7 @@ export default function Layout(props: ILayoutPros): JSX.Element {
   return (
     <Container>
       <LayoutHeader />
-      <Chatbot />
+      {/* <Chatbot /> */}
       {!hiddenCss ? (
         <LayoutBody>{props.children}</LayoutBody>
       ) : (
