@@ -10,11 +10,11 @@ export default function LoginMiddle(): JSX.Element {
         </S.Title>
         <S.DivideLine></S.DivideLine>
         <S.EmailBox>
-          <input type="text" />
+          <input type="text" placeholder="이메일" />
           <p></p>
         </S.EmailBox>
         <S.PasswordBox>
-          <input type="password" />
+          <input type="password" placeholder="비밀번호" />
           <p></p>
         </S.PasswordBox>
         <S.LoginBox>
