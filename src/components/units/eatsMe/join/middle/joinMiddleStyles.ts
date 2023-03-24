@@ -191,11 +191,9 @@ export const BtnBox = styled.div`
     > button {
       all: unset;
       margin-left: 10px;
+      color: black;
+      border-bottom: 1px solid black;
       cursor: pointer;
-
-      :hover {
-        border-bottom: 1px solid black;
-      }
     }
   }
 `;

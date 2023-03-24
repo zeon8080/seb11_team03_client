@@ -63,7 +63,7 @@ export default function JoinMiddle(): JSX.Element {
           <S.DivideLine></S.DivideLine>
           <S.EmailBox>
             <span>이메일</span>
-            <input type="text" {...register("email")} />
+            <input type="text" placeholder="이메일" {...register("email")} />
             <p>{formState.errors.email?.message}</p>
             <button type="button" onClick={onClickAuth}>
               인증번호 보내기
@@ -92,16 +92,28 @@ export default function JoinMiddle(): JSX.Element {
           </S.EmailBox>
           <S.PasswordBox>
             <span>비밀번호</span>
-            <input type="password" {...register("password")} />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              {...register("password")}
+            />
             <p>{formState.errors.password?.message}</p>
             <span>비밀번호 확인</span>
-            <input type="password" {...register("passwordCheck")} />
+            <input
+              type="password"
+              placeholder="비밀번호 확인"
+              {...register("passwordCheck")}
+            />
             <p>{formState.errors.passwordCheck?.message}</p>
           </S.PasswordBox>
           <S.NicknameBox>
             <span>닉네임</span>
             <div>
-              <input type="text" {...register("nickname")} />
+              <input
+                type="text"
+                placeholder="닉네임"
+                {...register("nickname")}
+              />
               <button type="button">중복 확인</button>
             </div>
 
