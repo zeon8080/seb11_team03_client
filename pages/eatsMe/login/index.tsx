@@ -1,3 +1,5 @@
+import Login from "../../../src/components/units/eatsMe/login/login";
+
 export default function LoginPage(): JSX.Element {
-  return <div>로그인페이지</div>;
+  return <Login />;
 }
