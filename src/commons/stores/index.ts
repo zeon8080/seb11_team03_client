@@ -1,4 +1,5 @@
-import { getNewAccessToken } from "./../libraries/getNewAccessToken";
+import { getNewAccessToken } from "./../../components/commons/libraries/getNewAccessToken";
+
 import { atom, selector } from "recoil";
 
 export const accessTokenState = atom({

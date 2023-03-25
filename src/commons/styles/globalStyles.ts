@@ -12,7 +12,7 @@ export const globalStyles = css`
   input,
   button {
     border: none;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
   }
 
   input:focus {

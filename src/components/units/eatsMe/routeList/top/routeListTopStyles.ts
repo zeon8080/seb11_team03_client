@@ -41,6 +41,7 @@ export const LocationWrapper = styled.button`
     position: absolute;
     top: 85px;
     left: -20px;
+    z-index: 1;
   }
 `;
 
