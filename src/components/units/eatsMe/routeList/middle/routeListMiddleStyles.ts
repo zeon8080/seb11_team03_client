@@ -3,47 +3,56 @@ import styled from "@emotion/styled";
 export const Container = styled.section`
   display: flex;
   flex-direction: row;
-  padding: 45px 45px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
-  border-radius: 15px;
+  justify-content: space-between;
+  padding: 45px;
+  margin-top: 30px;
+  background: #f5f5f5;
 `;
 
 export const MapWrapper = styled.article`
+  position: sticky;
   width: 460px;
-  margin-left: 50px;
-  padding: 50px 0;
-  border: 1px solid red;
+  height: 645px;
+  top: 17vh;
+  right: 0px;
 `;
 
 export const SelectWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 450px;
   height: 85px;
-  margin: 0 auto;
+  margin: 0 auto 42px;
 `;
 
 export const StartSelect = styled.div`
   width: 160px;
   height: 60px;
-  background: #f5f5f5;
-  border-radius: 10px;
+  background: #ffffff;
   font-size: 18px;
+  text-align: center;
+  line-height: 60px;
+  font-weight: 500;
+`;
+
+export const ArrowImgWrapper = styled.div`
+  width: 85px;
+  height: 85px;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;
 
 export const EndSelect = styled.div`
   width: 160px;
   height: 60px;
-  background: #f5f5f5;
-  border-radius: 10px;
+  background: #ffffff;
   font-size: 18px;
-`;
-
-export const RouteList = styled.div`
-  width: 600px;
-  height: 80px;
-  background: #f5f5f5;
-  border-radius: 10px;
+  text-align: center;
+  line-height: 60px;
+  font-weight: 500;
 `;
