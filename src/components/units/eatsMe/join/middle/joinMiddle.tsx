@@ -1,43 +1,28 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./joinMiddleStyles";
 import { schema } from "./joinMidleValidation";
+import { useClickJoin } from "../../../../commons/hooks/custom/useClickJoin";
+import { useTimer } from "../../../../commons/hooks/custom/useTimer";
+import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
 
-// interface IJoinMiddleFormData {
-//   email: string;
-//   nickname: string;
-//   password: string;
-//   passwordCheck: string;
-// }
+export interface IJoinFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordCheck: string;
+}
 
 export default function JoinMiddle(): JSX.Element {
-  const [time, setTime] = useState(10);
-  const [isStarted, setIsStarted] = useState(false);
+  const { onClickJoin } = useClickJoin();
+  const { time, setTime, setIsStarted } = useTimer();
   const min = Math.floor(time / 60);
   const sec = String(time % 60).padStart(2, "0");
 
-  const { register, formState, handleSubmit } = useForm<IJoinMiddleFormData>({
+  const { register, formState, handleSubmit } = useForm<IJoinFormData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  useEffect(() => {
-    let timer;
-
-    if (isStarted) {
-      timer = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
-      }, 1000);
-    }
-
-    if (time <= 0) {
-      clearInterval(timer);
-      setIsStarted(false);
-    }
-
-    return () => clearInterval(timer);
-  }, [isStarted, time]);
 
   const onClickAuth = (): void => {
     setIsStarted(true);
@@ -48,8 +33,6 @@ export default function JoinMiddle(): JSX.Element {
     setIsStarted(false);
     onClickAuth();
   };
-
-  const onClickJoin = (): void => {};
 
   return (
     <form onSubmit={handleSubmit(onClickJoin)}>
@@ -75,16 +58,8 @@ export default function JoinMiddle(): JSX.Element {
                 <span id="timer">
                   {min}:{sec}
                 </span>
-                <button
-                  type="button"
-                  // style={{
-                  //   backgroundColor: time === 0 ? "#a5a5a5" : "#fbb240",
-                  // }}
-                >
-                  확인
-                </button>
+                <button type="button">확인</button>
               </S.TokenBox>
-
               <button type="button" onClick={onClickReAuth}>
                 인증번호 재전송하기
               </button>
@@ -116,14 +91,13 @@ export default function JoinMiddle(): JSX.Element {
               />
               <button type="button">중복 확인</button>
             </div>
-
             <p>{formState.errors.nickname?.message}</p>
           </S.NicknameBox>
           <S.BtnBox>
-            <button type="button">회원가입</button>
+            <button>회원가입</button>
             <div>
               이미 아이디가 있으신가요?
-              <button>로그인</button>
+              <button type="button">로그인</button>
             </div>
           </S.BtnBox>
         </S.Wrapper>

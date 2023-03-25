@@ -58,6 +58,7 @@ export const EmailBox = styled.div`
     height: 40px;
     margin: 15px 0 30px 0;
     color: white;
+    background-color: #a5a5a5;
     cursor: pointer;
   }
 
@@ -73,7 +74,7 @@ export const AccreditBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 20px 0;
   margin-bottom: 30px;
   color: #333333;
   background-color: #f5f5f5;
@@ -98,11 +99,10 @@ export const TokenBox = styled.div`
   margin: 15px 0;
 
   > input {
-    text-align: center;
     width: 220px;
     height: 40px;
     background-color: white;
-    padding: 10px;
+    padding: 0 40px;
   }
 
   > span {
@@ -117,6 +117,7 @@ export const TokenBox = styled.div`
     height: 40px;
     font-size: 14px;
     color: white;
+    background-color: #a5a5a5;
     cursor: pointer;
   }
 `;
@@ -159,6 +160,8 @@ export const NicknameBox = styled.div`
       width: 80px;
       height: 40px;
       color: white;
+      font-size: 14px;
+      background-color: #a5a5a5;
       cursor: pointer;
     }
   }
@@ -179,6 +182,7 @@ export const BtnBox = styled.div`
     width: 300px;
     height: 50px;
     color: white;
+    background-color: #a5a5a5;
     text-align: center;
     margin-bottom: 10px;
     cursor: pointer;

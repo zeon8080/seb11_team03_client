@@ -13,7 +13,7 @@ import {
   restoreAccessTokenLoadable,
 } from "../../../commons/stores";
 import { onError } from "@apollo/client/link/error";
-import { getNewAccessToken } from "../libraries/getNewAccessToken";
+import { getNewAccessToken } from "../../../commons/libraries/getNewAccessToken";
 
 interface IApolloSettingProps {
   children: JSX.Element;
@@ -23,15 +23,15 @@ const global_cache = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const accessTokenLoadable = useRecoilValueLoadable(
-    restoreAccessTokenLoadable
-  );
+  // const accessTokenLoadable = useRecoilValueLoadable(
+  //   restoreAccessTokenLoadable
+  // );
 
-  useEffect(() => {
-    accessTokenLoadable.toPromise().then((newAccessToken) => {
-      setAccessToken(newAccessToken ?? "");
-    });
-  }, []);
+  // useEffect(() => {
+  //   accessTokenLoadable.toPromise().then((newAccessToken) => {
+  //     setAccessToken(newAccessToken ?? "");
+  //   });
+  // }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {
@@ -54,7 +54,7 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://backend-practice.codebootcamp.co.kr/graphql",
+    uri: "http://34.64.75.126/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
