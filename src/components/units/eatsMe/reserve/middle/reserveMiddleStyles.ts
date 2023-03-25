@@ -8,10 +8,6 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 684px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const Wrapper = styled.div`
@@ -31,13 +27,10 @@ export const StoreBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   width: 422px;
   height: 240px;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const StoreCont = styled.div`
@@ -72,35 +65,30 @@ export const Img = styled.img`
 export const ReserveBox = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   width: 422px;
   padding: 10px 30px;
   margin-top: 8px;
-  border-radius: 15px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 
   & > div {
     font-size: 18px;
     font-weight: bold;
     width: 130px;
     height: 46px;
-    border-radius: 10px;
     background-color: white;
     margin-right: 14px;
     line-height: 46px;
     text-align: center;
   }
+`;
 
-  & > button {
-    width: 76px;
-    height: 46px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #e5e5e5;
-    border-radius: 10px;
-    cursor: pointer;
-  }
+export const ReserveBtn = styled.button`
+  width: 76px;
+  height: 46px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
 `;
 
 export const MapBox = styled.div`
@@ -108,18 +96,11 @@ export const MapBox = styled.div`
   height: 315px;
   background-color: #e5e5e5;
   margin-left: 10px;
-  border-radius: 15px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const CalendarBox = styled.div`
   margin: 10px 0;
   width: 854px;
-  height: 400px;
-  border-radius: 15px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
 `;
 
 export const CalendarStyle = styled(Calendar)`
@@ -133,8 +114,20 @@ export const CalendarStyle = styled(Calendar)`
   .ant-picker-cell-today .ant-picker-calendar-date {
     background-color: #fbb240;
   }
-
-  .ant-picker-today .ant-picker-cell-inner {
-    border-color: #fbb240;
-  }
 `;
+
+// export const TimesBtn = styled.button`
+//   align-items: center;
+//   flex-wrap: wrap;
+//   width: 70px;
+//   height: 40px;
+//   margin: 30px;
+//   padding: 6px;
+//   cursor: pointer;
+//   font-size: 20px;
+//   font-weight: bold;
+
+//   :hover {
+//     background-color: #fbb240;
+//   }
+// `;
