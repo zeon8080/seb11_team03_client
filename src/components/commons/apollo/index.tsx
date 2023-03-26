@@ -19,13 +19,13 @@ interface IApolloSettingProps {
   children: JSX.Element;
 }
 
-const global_cache = new InMemoryCache();
+const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  // const accessTokenLoadable = useRecoilValueLoadable(
-  //   restoreAccessTokenLoadable
-  // );
+  const accessTokenLoadable = useRecoilValueLoadable(
+    restoreAccessTokenLoadable
+  );
 
   // useEffect(() => {
   //   accessTokenLoadable.toPromise().then((newAccessToken) => {
@@ -33,8 +33,17 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   //   });
   // }, []);
 
+  useEffect(() => {
+    void accessTokenLoadable.toPromise().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? "");
+    });
+    void getNewAccessToken().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? "");
+    });
+  }, []);
+
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-    if (graphQLErrors) {
+    if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
         if (err.extensions.code === "UNAUTHENTICATED") {
           return fromPromise(
@@ -63,7 +72,7 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
 
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, uploadLink]),
-    cache: global_cache,
+    cache: GLOBAL_STATE,
   });
 
   // prettier-ignore
