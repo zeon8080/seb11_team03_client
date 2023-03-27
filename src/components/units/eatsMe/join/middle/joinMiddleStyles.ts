@@ -51,15 +51,7 @@ export const EmailBox = styled.div`
     height: 40px;
     margin-top: 10px;
     padding: 10px;
-  }
-
-  > button {
-    width: 400px;
-    height: 40px;
-    margin: 15px 0 30px 0;
-    color: white;
-    background-color: #a5a5a5;
-    cursor: pointer;
+    background-color: #f5f5f5;
   }
 
   > p {
@@ -67,6 +59,16 @@ export const EmailBox = styled.div`
     font-size: 12px;
     margin: 2px 0;
   }
+`;
+
+export const EmailTokenBtn = styled.button<{ isActive?: boolean }>`
+  width: 400px;
+  height: 40px;
+  margin: 15px 0 30px 0;
+  color: white;
+  background-color: ${({ isActive }) =>
+    isActive === true ? "#fbb240" : "#A5A5A5"};
+  cursor: pointer;
 `;
 
 export const AccreditBox = styled.div`
@@ -89,6 +91,12 @@ export const AccreditBox = styled.div`
     border-bottom: 1px solid #333333;
     cursor: pointer;
   }
+
+  > p {
+    color: #fa5c37;
+    font-size: 12px;
+    margin: 2px 0;
+  }
 `;
 
 export const TokenBox = styled.div`
@@ -101,7 +109,6 @@ export const TokenBox = styled.div`
   > input {
     width: 220px;
     height: 40px;
-    background-color: white;
     padding: 0 40px;
   }
 
@@ -111,15 +118,16 @@ export const TokenBox = styled.div`
     color: #fa5c37;
     margin: 0 14px;
   }
+`;
 
-  > button {
-    width: 50px;
-    height: 40px;
-    font-size: 14px;
-    color: white;
-    background-color: #a5a5a5;
-    cursor: pointer;
-  }
+export const TokenBtn = styled.button<{ isActive?: boolean }>`
+  width: 50px;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background-color: ${({ isActive }) =>
+    isActive === true ? "#fbb240" : "#A5A5A5"};
+  cursor: pointer;
 `;
 
 export const PasswordBox = styled.div`
@@ -133,6 +141,7 @@ export const PasswordBox = styled.div`
     height: 40px;
     margin-top: 10px;
     padding: 10px;
+    background-color: #f5f5f5;
   }
 
   > p {
@@ -154,6 +163,7 @@ export const NicknameBox = styled.div`
       height: 40px;
       margin: 10px 20px 0 0;
       padding: 10px;
+      background-color: #f5f5f5;
     }
 
     > button {
@@ -178,16 +188,6 @@ export const BtnBox = styled.div`
   flex-direction: column;
   align-items: center;
 
-  > button {
-    width: 300px;
-    height: 50px;
-    color: white;
-    background-color: #a5a5a5;
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-
   > div {
     font-size: 12px;
     color: #a5a5a5;
@@ -200,4 +200,15 @@ export const BtnBox = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+export const JoinBtn = styled.button<{ isActive?: boolean }>`
+  width: 300px;
+  height: 50px;
+  color: white;
+  background-color: ${({ isActive }) =>
+    isActive === true ? "#fbb240" : "#A5A5A5"};
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
 `;
