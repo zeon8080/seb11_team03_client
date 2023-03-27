@@ -96,3 +96,17 @@ export const JoinBtn = styled.button`
     border-bottom: 1px solid white;
   }
 `;
+
+export const UserInfoBtn = styled.button`
+  width: 60px;
+  height: 32px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #fbb240;
+  cursor: pointer;
+
+  :hover {
+    border-bottom: 1px solid white;
+  }
+`;

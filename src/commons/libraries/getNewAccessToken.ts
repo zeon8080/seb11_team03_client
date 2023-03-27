@@ -1,25 +1,19 @@
 import { gql, GraphQLClient } from "graphql-request";
-
 const RESTORE_ACCESS_TOKEN = gql`
   mutation {
-    restoreAccessToken {
-      accessToken
-    }
+    restoreAccessToken
   }
 `;
 
-export const getNewAccessToken = async () => {
+export const getNewAccessToken = async (): Promise<string | undefined> => {
   try {
-    const graphQLClient = new GraphQLClient(
-      "https://backend-practice.codebootcamp.co.kr/graphql",
-      { credentials: "include" }
-    );
+    const graphQLClient = new GraphQLClient("http://34.64.75.126/graphql", {
+      credentials: "include",
+    });
     const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
-    const newAccessToken = result?.restoreAccessToken.accessToken;
+    const newAccessToken = result.restoreAccessToken;
     return newAccessToken;
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-    }
+    if (error instanceof Error) console.log(error.message);
   }
 };
