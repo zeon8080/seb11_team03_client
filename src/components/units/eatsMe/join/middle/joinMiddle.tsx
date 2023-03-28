@@ -3,11 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./joinMiddleStyles";
 import { schema } from "./joinMidleValidation";
 import { useClickJoin } from "../../../../commons/hooks/custom/useClickJoin";
-import { useTimer } from "../../../../commons/hooks/custom/useTimer";
-import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
+import JoinEmail from "../../../../commons/joinEmail/joinEmail";
 
 export interface IJoinFormData {
   email: string;
+  token: string;
   nickname: string;
   password: string;
   passwordCheck: string;
@@ -15,24 +15,10 @@ export interface IJoinFormData {
 
 export default function JoinMiddle(): JSX.Element {
   const { onClickJoin } = useClickJoin();
-  const { time, setTime, setIsStarted } = useTimer();
-  const min = Math.floor(time / 60);
-  const sec = String(time % 60).padStart(2, "0");
-
-  const { register, formState, handleSubmit } = useForm<IJoinFormData>({
+  const { formState, register, handleSubmit } = useForm<IJoinFormData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  const onClickAuth = (): void => {
-    setIsStarted(true);
-  };
-
-  const onClickReAuth = (): void => {
-    setTime(5);
-    setIsStarted(false);
-    onClickAuth();
-  };
 
   return (
     <form onSubmit={handleSubmit(onClickJoin)}>
@@ -44,27 +30,8 @@ export default function JoinMiddle(): JSX.Element {
           </S.Title>
 
           <S.DivideLine></S.DivideLine>
-          <S.EmailBox>
-            <span>이메일</span>
-            <input type="text" placeholder="이메일" {...register("email")} />
-            <p>{formState.errors.email?.message}</p>
-            <button type="button" onClick={onClickAuth}>
-              인증번호 보내기
-            </button>
-            <S.AccreditBox>
-              <span>이메일로 전송된 인증코드를 입력해주세요.</span>
-              <S.TokenBox>
-                <input type="text" placeholder="인증코드 6자리 입력" />
-                <span id="timer">
-                  {min}:{sec}
-                </span>
-                <button type="button">확인</button>
-              </S.TokenBox>
-              <button type="button" onClick={onClickReAuth}>
-                인증번호 재전송하기
-              </button>
-            </S.AccreditBox>
-          </S.EmailBox>
+          <JoinEmail formState={formState} register={register} />
+
           <S.PasswordBox>
             <span>비밀번호</span>
             <input
@@ -94,7 +61,17 @@ export default function JoinMiddle(): JSX.Element {
             <p>{formState.errors.nickname?.message}</p>
           </S.NicknameBox>
           <S.BtnBox>
-            <button>회원가입</button>
+            <S.JoinBtn
+              isActive={
+                formState.dirtyFields.email &&
+                formState.dirtyFields.password &&
+                formState.dirtyFields.passwordCheck &&
+                formState.dirtyFields.nickname
+              }
+              disabled={!formState.isDirty && formState.errors !== undefined}
+            >
+              회원가입
+            </S.JoinBtn>
             <div>
               이미 아이디가 있으신가요?
               <button type="button">로그인</button>
