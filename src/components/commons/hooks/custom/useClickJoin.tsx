@@ -17,7 +17,8 @@ export const useClickJoin = () => {
           },
         },
       });
-      routerMovePage("/eatsMe/popularList");
+      console.log(result);
+      routerMovePage("/");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

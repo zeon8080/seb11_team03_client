@@ -1,7 +1,6 @@
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/stores";
 import { UseMutationLogin } from "../mutation/useMutationLogin";
-import { FETCH_USER } from "../query/useQueryFetchUser";
 import { useRouterMovePage } from "./useRouterMovePage";
 
 export interface ILoginFormData {
@@ -24,12 +23,6 @@ export const useClickLogin = () => {
               password: data.password,
             },
           },
-          refetchQueries: [
-            {
-              query: FETCH_USER,
-              variables: { userId: accessToken },
-            },
-          ],
         });
 
         console.log(result);

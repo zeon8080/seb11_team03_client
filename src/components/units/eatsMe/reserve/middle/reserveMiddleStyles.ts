@@ -25,12 +25,13 @@ export const Wrapper = styled.div`
 
 export const StoreBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: #fafafa;
   width: 422px;
   height: 240px;
-  padding: 20px;
+  padding: 0 20px;
   position: relative;
 `;
 
@@ -73,7 +74,7 @@ export const Rating = styled.span`
   color: #fbb240;
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 30px;
 `;
 
 export const ReserveBox = styled.div`
@@ -96,12 +97,14 @@ export const ReserveBox = styled.div`
   }
 `;
 
-export const ReserveBtn = styled.button`
+export const ReserveBtn = styled.button<{ isActive?: boolean }>`
   width: 76px;
   height: 46px;
   font-size: 18px;
   font-weight: bold;
   color: white;
+  background-color: ${({ isActive }) =>
+    isActive === true ? "#fbb240" : "#A5A5A5"};
   cursor: pointer;
 `;
 
@@ -129,19 +132,3 @@ export const CalendarStyle = styled(Calendar)`
     background-color: #fbb240;
   }
 `;
-
-// export const TimesBtn = styled.button`
-//   align-items: center;
-//   flex-wrap: wrap;
-//   width: 70px;
-//   height: 40px;
-//   margin: 30px;
-//   padding: 6px;
-//   cursor: pointer;
-//   font-size: 20px;
-//   font-weight: bold;
-
-//   :hover {
-//     background-color: #fbb240;
-//   }
-// `;
