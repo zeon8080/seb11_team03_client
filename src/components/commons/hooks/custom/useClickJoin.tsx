@@ -8,19 +8,16 @@ export const useClickJoin = () => {
 
   const onClickJoin = async (data: IJoinFormData): Promise<void> => {
     try {
-      if (data.email && data.nickname && data.password === data.passwordCheck) {
-        const result = await createUser({
-          variables: {
-            createUserInput: {
-              email: data.email,
-              password: data.password,
-              nickname: data.nickname,
-            },
+      const result = await createUser({
+        variables: {
+          createUserInput: {
+            email: data.email,
+            password: data.password,
+            nickname: data.nickname,
           },
-        });
-        console.log("123", result);
-        routerMovePage("/eatsMe/popularList");
-      }
+        },
+      });
+      routerMovePage("/eatsMe/popularList");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

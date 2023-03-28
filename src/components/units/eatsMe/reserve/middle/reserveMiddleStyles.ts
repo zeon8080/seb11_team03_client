@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   margin-top: 20px;
 
-  & > div {
+  > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,21 +31,25 @@ export const StoreBox = styled.div`
   width: 422px;
   height: 240px;
   padding: 20px;
+  position: relative;
 `;
 
 export const StoreCont = styled.div`
   display: flex;
   flex-direction: row;
 
-  & > div {
+  > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 180px;
 
-    & > span {
+    > div {
+      width: 180px;
       font-size: 18px;
       font-weight: bold;
+      word-break: break-all;
+      margin-left: 2px;
     }
   }
 `;
@@ -60,6 +64,16 @@ export const FoodImg = styled.img`
 export const Img = styled.img`
   width: 34px;
   height: 34px;
+  object-fit: contain;
+`;
+
+export const Rating = styled.span`
+  font-size: 30px;
+  font-weight: bold;
+  color: #fbb240;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 `;
 
 export const ReserveBox = styled.div`
@@ -70,7 +84,7 @@ export const ReserveBox = styled.div`
   padding: 10px 30px;
   margin-top: 8px;
 
-  & > div {
+  > div {
     font-size: 18px;
     font-weight: bold;
     width: 130px;

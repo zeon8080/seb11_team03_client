@@ -15,8 +15,8 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  height: calc(100vh - 100px);
-  width: 100%;
+  height: calc(100vh - 80px);
+  width: 100vw;
   transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   will-change: transform;
 `;
