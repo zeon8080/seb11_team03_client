@@ -33,7 +33,7 @@ export const NavBox = styled.div`
   align-items: center;
   width: 100px;
 
-  & > button {
+  & > a {
     all: unset;
     font-size: 20px;
     font-weight: 500;

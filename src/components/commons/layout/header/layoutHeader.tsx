@@ -4,7 +4,7 @@ import { useClickLogout } from "../../hooks/custom/useClickLogout";
 import { useRouterMovePage } from "../../hooks/custom/useRouterMovePage";
 import { FETCH_USER } from "../../hooks/query/useQueryFetchUser";
 import { accessTokenState } from "../../../../commons/stores";
-import * as S from "./layoutStyles";
+import * as S from "./layoutHeaderStyles";
 
 export default function LayoutHeader(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
@@ -44,10 +44,8 @@ export default function LayoutHeader(): JSX.Element {
         <S.Wrapper>
           <img onClick={onClickMovePage("/")} src="/logo_bk.webp" />
           <S.NavBox>
-            <button onClick={onClickMovePage("/eatsMe/routeList")}>코스</button>
-            <button onClick={onClickMovePage("/eatsMe/popularList")}>
-              맛집
-            </button>
+            <a href="/eatsMe/routeList">코스 </a>
+            <a href="/eatsMe/popularList">맛집 </a>
           </S.NavBox>
           <S.BtnWrapper>
             <S.LoginBox onClick={onClickMovePage("/eatsMe/login")}>
