@@ -22,11 +22,13 @@ export default function ReserveMiddle(): JSX.Element {
               <S.FoodImg src="/defaultFood.webp" />
               <div>
                 <S.Img src="/marker_or.webp" />
-                <span>주소</span>
+                <div>주소</div>
                 <S.Img src="/store.webp" />
-                <span>상호명</span>
+                <div>상호명</div>
               </div>
             </S.StoreCont>
+
+            <S.Rating>5.0</S.Rating>
           </S.StoreBox>
           <S.ReserveBox>
             <div>
