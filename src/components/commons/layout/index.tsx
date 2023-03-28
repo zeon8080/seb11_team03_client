@@ -6,8 +6,8 @@ import LayoutHeader from "./header/layoutHeader";
 interface ILayoutPros {
   children: JSX.Element;
 }
-const breakpoints = [576, 768, 992, 1200];
-const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 // ${mq[0]} {
 //   font-size: 50px;
 // }
@@ -19,8 +19,9 @@ const Container = styled.div`
 const LayoutBody = styled.div`
   width: 1200px;
   margin: 30px auto 0;
-  ${mq[3]} {
+  ${mq[2]} {
     width: 100%;
+    margin: 0 auto;
   }
 `;
 
