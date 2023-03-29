@@ -10,7 +10,7 @@ export const TimesBtn = styled.button`
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
-
+  background-color: #e0e0e0;
   :hover {
     background-color: #fbb240;
   }
