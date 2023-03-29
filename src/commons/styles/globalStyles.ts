@@ -5,12 +5,36 @@ export const globalStyles = css`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "NotoSansKR";
-    background-color: #f5f5f5;
+    font-size: 16px;
+    font-weight: 400;
   }
 
-  @font-face {
-    font-family: "NotoSansKR";
-    src: url("/fonts/NotoSansKR-Medium.woff2");
+  input,
+  button {
+    border: none;
+    background-color: #ffffff;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+
+  ol,
+  ul {
+    list-style: none;
   }
 `;

@@ -13,13 +13,13 @@ import {
   restoreAccessTokenLoadable,
 } from "../../../commons/stores";
 import { onError } from "@apollo/client/link/error";
-import { getNewAccessToken } from "../libraries/getNewAccessToken";
+import { getNewAccessToken } from "../../../commons/libraries/getNewAccessToken";
 
 interface IApolloSettingProps {
   children: JSX.Element;
 }
 
-const global_cache = new InMemoryCache();
+const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -28,14 +28,20 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   );
 
   useEffect(() => {
-    accessTokenLoadable.toPromise().then((newAccessToken) => {
+    void accessTokenLoadable.toPromise().then((newAccessToken) => {
+      console.log(newAccessToken, "dasdasdsadsaaaa");
+
+      setAccessToken(newAccessToken ?? "");
+    });
+    void getNewAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken ?? "");
     });
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-    if (graphQLErrors) {
+    if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
+        console.log(err, "dasdsadasds");
         if (err.extensions.code === "UNAUTHENTICATED") {
           return fromPromise(
             getNewAccessToken().then((newAccessToken) => {
@@ -54,16 +60,16 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://backend-practice.codebootcamp.co.kr/graphql",
+    uri: "https://jjjbackendclass.shop/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      credentials: "include",
     },
-    credentials: "include",
   });
 
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, uploadLink]),
-    cache: global_cache,
+    cache: GLOBAL_STATE,
   });
 
   // prettier-ignore

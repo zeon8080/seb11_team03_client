@@ -1,21 +1,21 @@
 import { Modal } from "antd";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../../commons/stores";
+import { useRecoilValueLoadable } from "recoil";
+import { restoreAccessTokenLoadable } from "../../../../commons/stores";
 import { useRouterMovePage } from "./useRouterMovePage";
 
 export const useWithAuth = (): void => {
-  const [accessToken] = useRecoilState(accessTokenState);
   const { routerMovePage } = useRouterMovePage();
+  const restoreAccess = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   useEffect(() => {
-    if (accessToken === "") {
-      Modal.info({
-        content: "로그인 후 이용 가능합니다.",
-        onOk() {
-          routerMovePage("/usedMarket/login");
-        },
-      });
-    }
+    void restoreAccess.toPromise().then((newAccessToken) => {
+      if (newAccessToken === undefined) {
+        Modal.info({
+          content: "로그인 후 이용 가능합니다",
+        });
+        routerMovePage("/eatsMe/login");
+      }
+    });
   }, []);
 };
