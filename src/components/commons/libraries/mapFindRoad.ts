@@ -33,19 +33,30 @@ export const mapFindRoad = (props: any): void => {
     }
   };
 
-  const onClickTest = async (): Promise<void> => {
+  const startFind = async (): Promise<void> => {
     const dataPos: any = {};
-    console.log(props.data, "포스");
-    for (let i = 0; i < props.data.pos.length; i++) {
+    for (let i = 0; i < props.data.info.length; i++) {
+      if (props.data.info[i].restaurantName === "상호명") {
+        break;
+      }
+
       if (i === 0) {
-        dataPos.start = props.data.pos[i];
-      } else if (i === props.data.pos.length - 1) {
-        dataPos.end = props.data.pos[i];
+        dataPos.start = props.data.info[i].location;
+      } else if (
+        Object.prototype.hasOwnProperty.call(props, "isWrite") &&
+        i === 1
+      ) {
+        dataPos.end = props.data.info[i].location;
+      } else if (
+        !Object.prototype.hasOwnProperty.call(props, "isWrite") &&
+        i === props.data.info.length - 1
+      ) {
+        dataPos.end = props.data.info[i].location;
       } else {
         if (dataPos.stopOver === undefined) {
-          dataPos.stopOver = `${props.data.pos[i].Lng},${props.data.pos[i].Lat}`;
+          dataPos.stopOver = `${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
         } else {
-          dataPos.stopOver += `_${props.data.pos[i].Lng},${props.data.pos[i].Lat}`;
+          dataPos.stopOver += `_${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
         }
       }
     }
@@ -55,10 +66,10 @@ export const mapFindRoad = (props: any): void => {
       headers: { appKey: "kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd" },
       url: "https://apis.openapi.sk.com/tmap/routes?version=1&format=json",
       data: {
-        startX: dataPos.start?.Lng,
-        startY: dataPos.start?.Lat,
-        endX: dataPos.end?.Lng,
-        endY: dataPos.end?.Lat,
+        startX: dataPos.start?.lng,
+        startY: dataPos.start?.lat,
+        endX: dataPos.end?.lng,
+        endY: dataPos.end?.lat,
         passList: dataPos.stopOver,
         reqCoordType: "WGS84GEO",
         resCoordType: "WGS84GEO",
@@ -68,5 +79,5 @@ export const mapFindRoad = (props: any): void => {
 
     drawData(result.data);
   };
-  void onClickTest();
+  void startFind();
 };

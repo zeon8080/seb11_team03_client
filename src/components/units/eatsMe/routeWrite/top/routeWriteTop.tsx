@@ -1,12 +1,10 @@
 import { Modal } from "antd";
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { usePathState } from "../../../../commons/hooks/custom/usePathState";
+import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
+import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
+import { mapMarker } from "../../../../commons/libraries/mapMarker";
+import { mapSearh } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
 type ICourse = Record<
@@ -23,332 +21,290 @@ type ICourse = Record<
   }
 >;
 
-export default function RouteWriteTop(): JSX.Element {
-  const [initialArr, setInitialArr] = useState([0, 1, 2]);
-  const ImgRef = useRef<HTMLInputElement>(null);
+export default function RouteWriteTop(props): JSX.Element {
+  const imgRef = useRef<HTMLInputElement>(null);
   const [, setFile] = useState<File>();
+  const [isToggle, changeIsToggle] = useSetIsToggle();
+  const [marker, setMarker] = useState<any[]>([]);
+  const [pickMarker, setPickMarker] = useState<any[]>([]);
+  const [infoWindow, setInfoWindow] = useState<any[]>([]);
+  const [findLine, setFindLine] = useState([]);
+  const [path, setPath] = usePathState();
   const [slideSetting, setSlideSetting] = useState({
-    slideNum: 0,
+    keyword: ["", "", "", "", "", ""],
+    nowPage: 0,
+    isActive: true,
     disabled_next: true,
     disabled_prev: true,
   });
-  const [path, setPath] = useState({
-    title: "",
-    isActive: true,
-    word: "",
-    store: "상호명",
-    menu: "",
-    imgUrl: { uri: "" },
-  });
-  const [course, setCourse] = useState<ICourse>({});
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    if (marker.length !== 0) {
+      marker.map((el) => el.setMap(null));
+      mapMarker({
+        data: path,
+        isSearch: false,
+        isWrite: true,
+        map: props.map,
+        setMap: props.setMap,
+        marker: pickMarker,
+        setMarker: setPickMarker,
+        setInfoWindow,
+        setSlideSetting,
+        setPath,
+      });
+      if (path.info[1].restaurantName !== "상호명") {
+        mapFindRoad({
+          data: path,
+          isWrite: true,
+          map: props.map,
+          findLine,
+          setFindLine,
+        });
+      } else {
+        findLine.map((el) => el.setMap(null));
+        setFindLine([]);
+      }
+    }
+    if (
+      slideSetting.nowPage !== 0 &&
+      path.info[slideSetting.nowPage - 1].restaurantName !== "상호명"
+    ) {
+      if (slideSetting.nowPage + 1 < 6 && slideSetting.nowPage !== 0) {
+        setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
+      }
+      if (slideSetting.nowPage >= 2) {
+        setSlideSetting((prev) => ({ ...prev, isActive: false }));
+      }
+    } else if (slideSetting.nowPage === 0 && path.title !== "") {
+      setSlideSetting((prev) => ({
+        ...prev,
+        disabled_next: false,
+        disabled_prev: true,
+      }));
+    } else {
+      setSlideSetting((prev) => ({
+        ...prev,
+        disabled_next: true,
+        isActive: true,
+      }));
+    }
+  }, [path.info]);
 
-  const showModal = (): void => {
-    setIsModalOpen(true);
-  };
-  const handleOk = (): void => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = (): void => {
-    setIsModalOpen(false);
+  useEffect(() => {
+    if (infoWindow.length > 1) {
+      infoWindow[0].setMap(null);
+      setInfoWindow([infoWindow[1]]);
+    }
+  }, [infoWindow]);
+
+  const onChangeInput = (pageNum) => (event) => {
+    if (pageNum === 0) {
+      setPath((prev) => ({ ...prev, title: event.target.value }));
+      setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
+    } else if (event.target.id === "recommend") {
+      setPath((prev) => ({
+        ...prev,
+        info: prev.info.map((el, idx) => {
+          if (pageNum - 1 === idx)
+            return {
+              ...el,
+              recommend: event.target.value,
+            };
+          return { ...el };
+        }),
+      }));
+    } else {
+      setSlideSetting((prev) => ({
+        ...prev,
+        keyword: prev.keyword.map((el, idx) => {
+          if (idx === pageNum - 1) {
+            return event.target.value;
+          } else {
+            return el;
+          }
+        }),
+      }));
+    }
   };
 
-  // 슬라이드 버튼이 할 일
-  const onPrev = (): void => {
-    // 첫 슬라이드에서 뒤로 가는 기능 막기
-    if (Math.abs(slideSetting.slideNum) === 1) {
+  const onClickNext = (): void => {
+    console.log("들어옴??", infoWindow);
+    if (infoWindow.length > 0) {
+      infoWindow[0].setVisible(false);
+    }
+    if (marker.length > 1) {
+      marker.map((el) => el.setMap(null));
+    }
+
+    if (path.info[slideSetting.nowPage].restaurantName === "상호명") {
+      setSlideSetting((prev) => ({
+        ...prev,
+        disabled_next: true,
+      }));
+    }
+    setSlideSetting((prev) => ({
+      ...prev,
+      disabled_prev: false,
+      nowPage: prev.nowPage + 1,
+    }));
+  };
+
+  const onClickPrev = (): void => {
+    if (slideSetting.nowPage - 1 === 0) {
       setSlideSetting((prev) => ({
         ...prev,
         disabled_prev: true,
-        slideNum: 0,
       }));
-    }
-    // 첫 슬라이드로 돌아 올시 코스제목이 있다면 다음버튼 활성화
-    if (Math.abs(slideSetting.slideNum) === 1) {
-      if (path.title.length !== 0) {
-        setSlideSetting((prev) => ({
-          ...prev,
-          disabled_next: false,
-        }));
-      }
-    }
-    // 앞 슬이이드에 데이터가 있을 경우 다음 버튼 활성화
-    if (course[Math.abs(slideSetting.slideNum)] !== undefined) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: false,
-      }));
-    }
-
-    // 돌아 온 슬라이드가 출발지 일경우
-    if (Math.abs(slideSetting.slideNum) >= 2) {
-      setPath({
-        ...path,
-        ...course[Math.abs(slideSetting.slideNum) - 1],
-      });
     }
     setSlideSetting((prev) => ({
       ...prev,
-      slideNum: slideSetting.slideNum + 1,
-    }));
-    pathRegister();
-  };
-
-  const onNext = (): void => {
-    // 다음 버튼 클릭시 첫번째 슬라이드가 아닐 경우 이전 버튼 활성화
-    if (slideSetting.slideNum <= 0) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_prev: false,
-      }));
-    }
-    // 검색창에 내용이 있을 경우 다음 버튼 활성화
-    if (path.word.length !== 0) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: false,
-      }));
-    }
-    // 다음 버튼 클릭시 경로 등록 슬라이드 생성 제한
-    if (Math.abs(slideSetting.slideNum) > 5) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: true,
-      }));
-    }
-
-    // 현재 슬라이드에 검색어가 있으면 다음버튼 활성화
-    if (path.word.length !== 0) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: false,
-      }));
-    } else if (
-      course[Math.abs(slideSetting.slideNum) + 1]?.word.length === 0 ||
-      course[Math.abs(slideSetting.slideNum) + 1]?.word === undefined
-    ) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: true,
-      }));
-    }
-
-    // 다음 슬라이드에 입력된 값이 있을 경우
-    if (course[Math.abs(slideSetting.slideNum) + 1] !== undefined) {
-      console.log(path, course, course[Math.abs(slideSetting.slideNum) + 1]);
-      setPath({
-        ...path,
-        ...course[Math.abs(slideSetting.slideNum) + 1],
-      });
-    } else {
-      // 다음 슬라이드에 입력된 값이 없을 경우
-      // 다음 버튼 클릭시 기존의 input창 초기화
-      setPath((prev) => ({
-        title: prev.title,
-        isActive: true,
-        word: "",
-        store: "상호명",
-        menu: "",
-        imgUrl: { uri: "" },
-      }));
-    }
-    // 다음 버튼 클릭시 슬라이드 넘버 변경
-    setSlideSetting((prev) => ({
-      ...prev,
-      slideNum: slideSetting.slideNum - 1,
-    }));
-
-    pathRegister();
-  };
-
-  const pathRegister = (): void => {
-    // 슬라이드 이동시 안의 경로 데이터를 저장
-    if (Math.abs(slideSetting.slideNum) >= 1) {
-      setCourse((prev) => ({
-        ...prev,
-        [Math.abs(slideSetting.slideNum)]: path,
-      }));
-    }
-  };
-
-  // 코스 이름의 내용이 들어 오면 이동 버튼 활성화
-  const onNameWrite = (e: ChangeEvent<HTMLInputElement>): void => {
-    const value = e.currentTarget.value;
-    // 코스제목 체크후 다음 버튼 활성화
-    if (e.currentTarget.value.trim().length > 0) {
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: false,
-      }));
-    }
-    setPath((prev) => ({ ...prev, title: value }));
-  };
-
-  // 다음 버튼 클릭시 출발지, 도착지를 넘겼을 경우 다음 슬라이드 추가
-  useEffect(() => {
-    if (
-      Math.abs(slideSetting.slideNum) >= 2 &&
-      Math.abs(slideSetting.slideNum) <= 6
-    ) {
-      setInitialArr((prev) => [...prev, prev[prev.length - 1] + 1]);
-    }
-  }, [slideSetting.slideNum, setInitialArr]);
-
-  // 상호 검색 활성화 함수, 등록버튼 활성화
-  const onSearch: DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >["onChange"] &
-    DetailedHTMLProps<
-      InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >["onKeyUp"] = (e) => {
-    const value = e.currentTarget.value;
-    setPath((prev) => ({
-      ...prev,
-      word: value,
-    }));
-    // 검색어 들어있을 경우 다음 버튼 활성화
-    if (value.trim().length > 0) {
-      // 출발지, 도착지를 받을 경우 코스등록 버튼 활성화
-      if (Math.abs(slideSetting.slideNum) >= 2) {
-        setPath((prev) => ({
-          ...prev,
-          isActive: false,
-        }));
-      }
-      setSlideSetting((prev) => ({
-        ...prev,
-        disabled_next: false,
-      }));
-    }
-  };
-  // 추천 메뉴 함수
-  const onMenu = (e: ChangeEvent<HTMLInputElement>): void => {
-    const value = e.currentTarget.value;
-    setPath((prev) => ({
-      ...prev,
-      menu: value,
+      disabled_next: false,
+      nowPage: prev.nowPage - 1,
     }));
   };
 
-  // 이미지 등록 버튼
-  const onImg = (): void => {
-    ImgRef.current?.click();
+  const onClickImg = (): void => {
+    imgRef.current?.click();
   };
 
-  const onFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0];
+  const onChangeFile = (event: ChangeEvent<HTMLInputElement>): void => {
+    const file = event.target.files?.[0];
     if (file === undefined) return;
 
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
-    fileReader.onload = (e) => {
-      if (typeof e.target?.result === "string") {
-        const imgObj = { uri: e.target?.result };
+    fileReader.onload = (event) => {
+      if (typeof event.target?.result === "string") {
         setPath((prev) => ({
           ...prev,
-          imgUrl: imgObj,
+          info: prev.info.map((el, idx) => {
+            if (slideSetting.nowPage - 1 === idx)
+              return {
+                ...el,
+                imgUrl: event.target?.result,
+              };
+            return { ...el };
+          }),
         }));
         setFile(file);
       }
     };
   };
 
-  const onRegister = (): void => {
-    setCourse({});
-    setPath({
-      title: "",
-      isActive: true,
-      word: "",
-      store: "상호명",
-      menu: "",
-      imgUrl: { uri: "" },
-    });
-    setSlideSetting({
-      slideNum: 0,
-      disabled_next: true,
-      disabled_prev: true,
-    });
-    setIsModalOpen(false);
-  };
-
   return (
     <S.Container>
       <S.BtnWrap>
-        <S.PrevBtn onClick={onPrev} disabled={slideSetting.disabled_prev} />
-        <S.NextBtn onClick={onNext} disabled={slideSetting.disabled_next} />
+        <S.PrevBtn
+          onClick={onClickPrev}
+          disabled={slideSetting.disabled_prev}
+        />
+        <S.NextBtn
+          onClick={onClickNext}
+          disabled={slideSetting.disabled_next}
+        />
       </S.BtnWrap>
       <S.StyledSlider>
-        {initialArr.map((el, idx) =>
-          el === 0 ? (
+        {slideSetting.keyword.map((_, idx) =>
+          idx === 0 ? (
             // 코스 타이틀 작성
-            <S.RouteBox slideNum={slideSetting.slideNum} key={idx}>
+            <S.RouteBox nowPage={slideSetting.nowPage} key={idx}>
               <input
                 className="title"
                 type="text"
                 placeholder="코스 이름을 정해주세요."
-                onChange={onNameWrite}
+                onChange={onChangeInput(idx)}
                 maxLength={35}
                 value={path.title}
               />
             </S.RouteBox>
           ) : (
             // 경유지
-            <S.RouteBox slideNum={slideSetting.slideNum} key={idx}>
+            <S.RouteBox nowPage={slideSetting.nowPage} key={idx}>
               <S.SearchContainer>
-                <S.SearchWrap word={path.word}>
+                <S.SearchWrap keyword={slideSetting.keyword[idx - 1]}>
                   <input
                     type="text"
+                    id={String(idx)}
                     placeholder={
-                      Math.abs(slideSetting.slideNum) === 1
+                      idx === 1
                         ? "출발지를 입력해주세요."
-                        : Math.abs(slideSetting.slideNum) === 2
-                        ? "도착지를 입력해주시요."
+                        : idx === 2
+                        ? "도착지를 입력해주세요."
                         : "경유지를 입력해주세요."
                     }
-                    onChange={onSearch}
-                    onKeyDown={onSearch}
-                    value={path.word}
+                    onChange={onChangeInput(idx)}
+                    value={slideSetting.keyword[idx - 1]}
                   />
-                  <button></button>
+                  <button
+                    onClick={mapSearh({
+                      map: props.map,
+                      setMap: props.setMap,
+                      keyword: slideSetting.keyword[idx - 1],
+                      idx: idx - 1,
+                      path,
+                      setPath,
+                      marker,
+                      setMarker,
+                      infoWindow,
+                      setInfoWindow,
+                      isSearch: true,
+                    })}
+                  ></button>
                 </S.SearchWrap>
                 <S.StoreWrap>
-                  <S.Store type="text" readOnly value={path.store} />
+                  <S.Store
+                    type="text"
+                    readOnly
+                    value={path.info[idx - 1].restaurantName}
+                  />
                   <S.Menu
+                    id="recommend"
                     type="text"
                     placeholder="추천메뉴"
-                    onChange={onMenu}
-                    value={path.menu}
+                    onChange={onChangeInput(idx)}
+                    value={path.info[idx - 1].recommend}
                   />
                 </S.StoreWrap>
               </S.SearchContainer>
-              <S.ImgWrap onClick={onImg} imgUrl={path.imgUrl.uri}>
-                {path.imgUrl.uri !== "" ? <img src={path.imgUrl.uri} /> : ""}
-                <input type="file" ref={ImgRef} onChange={onFile} />
+
+              <S.ImgWrap
+                onClick={onClickImg}
+                imgUrl={path.info[idx - 1].imgUrl}
+              >
+                {path.info[idx - 1].imgUrl !== "" ? (
+                  <img src={path.info[idx - 1].imgUrl} />
+                ) : (
+                  ""
+                )}
+                <input type="file" ref={imgRef} onChange={onChangeFile} />
               </S.ImgWrap>
-              <S.RegisterBtn disabled={path.isActive} onClick={showModal}>
+              <S.RegisterBtn
+                disabled={slideSetting.isActive}
+                onClick={changeIsToggle}
+              >
                 코스완료
               </S.RegisterBtn>
             </S.RouteBox>
           )
         )}
       </S.StyledSlider>
-      <Modal
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={400}
-        footer={null}
-        closable={false}
-      >
-        <S.Text>코스 등록을 하시겠습니까?</S.Text>
-        <S.ModalBtnWrap>
-          <button onClick={handleCancel}>취소</button>
-          <button onClick={onRegister}>등록</button>
-        </S.ModalBtnWrap>
-      </Modal>
+      {isToggle && (
+        <Modal
+          open={true}
+          onOk={changeIsToggle}
+          onCancel={changeIsToggle}
+          width={400}
+          footer={null}
+          closable={false}
+        >
+          <S.Text>코스 등록을 하시겠습니까?</S.Text>
+          <S.ModalBtnWrap>
+            <button onClick={changeIsToggle}>취소</button>
+            <button>등록</button>
+          </S.ModalBtnWrap>
+        </Modal>
+      )}
     </S.Container>
   );
 }

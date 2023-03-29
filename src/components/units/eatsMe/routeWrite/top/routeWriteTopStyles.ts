@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
 interface ISearch {
-  word?: string;
+  keyword?: string;
 }
 interface IImgChk {
   imgUrl?: string;
 }
 interface ISetting {
-  slideNum: number;
+  nowPage: number;
 }
 export const Container = styled.div`
   position: relative;
@@ -24,6 +24,7 @@ export const StyledSlider = styled.div`
   margin: 0 auto;
 `;
 export const BtnWrap = styled.div`
+  transition: 0s;
   button {
     position: absolute;
     top: 50%;
@@ -61,7 +62,7 @@ export const RouteBox = styled.div<ISetting>`
   position: relative;
   transition: 0.6s;
   transform: translateX(
-    ${(props) => props.slideNum !== 0 && `${props.slideNum}00%`}
+    ${(props) => props.nowPage !== 0 && `-${props.nowPage}00%`}
   );
   width: 100%;
   padding: 35px 30px;
@@ -132,7 +133,7 @@ export const SearchWrap = styled.div<ISearch>`
   width: 100%;
   padding: 10px 20px;
   border-bottom: 2px solid #eee;
-  border-color: ${(props) => props.word !== "" && "#FBB240"};
+  border-color: ${(props) => props.keyword !== "" && "#FBB240"};
   input {
     width: calc(100% - 30px);
     background-color: transparent;
@@ -188,7 +189,7 @@ export const ImgWrap = styled.div<IImgChk>`
   width: 130px;
   height: 130px;
   border: 3px dotted #d9d9d9;
-  border: ${(props) => props.imgUrl !== "" && "1px solid #FBB240"};
+  border: ${(props) => props.imgUrl !== "" && "none"};
   input {
     width: 1px;
     height: 1px;
