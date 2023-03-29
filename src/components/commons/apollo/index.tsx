@@ -27,12 +27,6 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
     restoreAccessTokenLoadable
   );
 
-  // useEffect(() => {
-  //   accessTokenLoadable.toPromise().then((newAccessToken) => {
-  //     setAccessToken(newAccessToken ?? "");
-  //   });
-  // }, []);
-
   useEffect(() => {
     void accessTokenLoadable.toPromise().then((newAccessToken) => {
       setAccessToken(newAccessToken ?? "");
@@ -63,7 +57,7 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   });
 
   const uploadLink = createUploadLink({
-    uri: "http://34.64.75.126/graphql",
+    uri: "https://jjjbackendclass.shop/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

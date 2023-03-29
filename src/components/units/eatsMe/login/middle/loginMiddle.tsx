@@ -4,10 +4,12 @@ import {
   ILoginFormData,
   useClickLogin,
 } from "../../../../commons/hooks/custom/useClickLogin";
+import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
 import * as S from "./loginMiddleStyles";
 import { schema } from "./loginMiddleValidation";
 
 export default function LoginMiddle(): JSX.Element {
+  const { onClickMovePage } = useRouterMovePage();
   const { onClickLogin } = useClickLogin();
   const { register, handleSubmit, formState } = useForm<ILoginFormData>({
     resolver: yupResolver(schema),
@@ -40,11 +42,18 @@ export default function LoginMiddle(): JSX.Element {
             <S.SuggestBox>
               <div>
                 <span>아직 회원이 아니신가요?</span>
-                <button type="button">회원가입</button>
+                <button type="button" onClick={onClickMovePage("/eatsMe/join")}>
+                  회원가입
+                </button>
               </div>
               <div>
                 <span>비밀번호를 잊어버리셨나요?</span>
-                <button type="button">비밀번호 찾기</button>
+                <button
+                  type="button"
+                  onClick={onClickMovePage("/eatsMe/passwordSearch")}
+                >
+                  비밀번호 찾기
+                </button>
               </div>
             </S.SuggestBox>
           </S.LoginBox>

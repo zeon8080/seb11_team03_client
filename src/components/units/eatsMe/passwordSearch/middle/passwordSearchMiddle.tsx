@@ -2,7 +2,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as S from "./passwordSearchMiddleStyles";
 import { schema } from "./passwordSearchMiddleValidation";
-import { Button, Modal } from "antd";
 import { useState } from "react";
 
 export default function PasswordSearchMiddle(): JSX.Element {

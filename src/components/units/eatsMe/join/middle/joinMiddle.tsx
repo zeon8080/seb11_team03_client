@@ -63,9 +63,9 @@ export default function JoinMiddle(): JSX.Element {
           <S.BtnBox>
             <S.JoinBtn
               isActive={
-                formState.dirtyFields.email &&
-                formState.dirtyFields.password &&
-                formState.dirtyFields.passwordCheck &&
+                formState.dirtyFields.email === true &&
+                formState.dirtyFields.password === true &&
+                formState.dirtyFields.passwordCheck === true &&
                 formState.dirtyFields.nickname
               }
               disabled={!formState.isDirty && formState.errors !== undefined}

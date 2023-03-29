@@ -7,9 +7,12 @@ const RESTORE_ACCESS_TOKEN = gql`
 
 export const getNewAccessToken = async (): Promise<string | undefined> => {
   try {
-    const graphQLClient = new GraphQLClient("http://34.64.75.126/graphql", {
-      credentials: "include",
-    });
+    const graphQLClient = new GraphQLClient(
+      "https://jjjbackendclass.shop/graphql",
+      {
+        credentials: "include",
+      }
+    );
     const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
     const newAccessToken = result.restoreAccessToken;
     return newAccessToken;

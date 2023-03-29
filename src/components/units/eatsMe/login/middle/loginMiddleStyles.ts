@@ -47,6 +47,7 @@ export const EmailBox = styled.div`
     height: 50px;
     margin-top: 10px;
     padding: 10px;
+    background-color: #f5f5f5;
   }
 
   > p {
@@ -64,6 +65,7 @@ export const PasswordBox = styled.div`
     height: 50px;
     margin-top: 10px;
     padding: 10px;
+    background-color: #f5f5f5;
   }
 
   > p {
