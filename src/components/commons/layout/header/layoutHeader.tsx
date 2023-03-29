@@ -14,7 +14,6 @@ export default function LayoutHeader(): JSX.Element {
       userId: accessToken,
     },
   });
-  console.log("2222", data);
 
   const { onClickLogout } = useClickLogout();
 

@@ -1,4 +1,9 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 interface IModal {
   isOpen: boolean;
@@ -7,7 +12,7 @@ export const Container = styled.div`
   position: absolute;
   display: flex;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: 100%;
   transition: transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
   left: 0;
   top: 0;
@@ -63,6 +68,12 @@ export const Modal = styled.div<IModal>`
     width: 300px;
     height: fit-content;
     padding: 0 10px;
+    ${mq[2]} {
+      width: 200px;
+    }
+    ${mq[1]} {
+      width: 140px;
+    }
     :hover {
       border-color: black;
     }
@@ -78,17 +89,25 @@ export const Modal = styled.div<IModal>`
       font-size: 30px;
       font-weight: 600;
       white-space: nowrap;
+      ${mq[2]} {
+        top: 52px;
+        font-size: 20px;
+      }
+      ${mq[1]} {
+        top: 32px;
+        font-size: 14px;
+      }
     }
   }
   .store {
-    left: 300px;
+    left: 20vw;
     bottom: ${(props) => (props.isOpen ? "20px" : "-110vh")};
     img {
       transform: translateY(8px);
     }
   }
   .register {
-    right: 300px;
+    right: 20vw;
     bottom: ${(props) => (props.isOpen ? "20px" : "-110vh")};
     img {
       transform: rotateY(180deg) translateY(8px);
