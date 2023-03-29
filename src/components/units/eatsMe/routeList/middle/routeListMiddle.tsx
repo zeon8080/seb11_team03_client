@@ -31,12 +31,38 @@ export default function RouteListMiddle(): JSX.Element {
       end: "구로",
       route: ["싱싱해요포차", "빽다방", "마피아피자앤펍", "이디야", "혼술청춘"],
       routeMenu: ["모듬 조개찜", "", "페퍼로니", "", "애플 마티니"],
-      pos: [
-        { Lat: 37.491712, Lng: 127.024212 },
-        { Lat: 37.491712, Lng: 127.037212 },
-        { Lat: 37.504912, Lng: 127.034121 },
-        { Lat: 37.510712, Lng: 127.044921 },
-        { Lat: 37.506512, Lng: 127.059212 },
+      info: [
+        {
+          location: {
+            lat: 37.491712,
+            lng: 127.024212,
+          },
+        },
+        {
+          location: {
+            lat: 37.491712,
+            lng: 127.037212,
+          },
+        },
+
+        {
+          location: {
+            lat: 37.504912,
+            lng: 127.034121,
+          },
+        },
+        {
+          location: {
+            lat: 37.510712,
+            lng: 127.044921,
+          },
+        },
+        {
+          location: {
+            lat: 37.506512,
+            lng: 127.059212,
+          },
+        },
       ],
     },
     {
@@ -48,10 +74,25 @@ export default function RouteListMiddle(): JSX.Element {
       end: "구로",
       route: ["싱싱해요포차", "빽다방", "마피아피자앤펍", "이디야", "혼술청춘"],
       routeMenu: ["모듬 조개찜", "", "페퍼로니", "", "애플 마티니"],
-      pos: [
-        { Lat: 37.490912, Lng: 127.111121 },
-        { Lat: 37.500712, Lng: 127.112212 },
-        { Lat: 37.501921, Lng: 127.138212 },
+      info: [
+        {
+          location: {
+            lat: 37.490912,
+            lng: 127.111121,
+          },
+        },
+        {
+          location: {
+            lat: 37.500712,
+            lng: 127.112212,
+          },
+        },
+        {
+          location: {
+            lat: 37.501921,
+            lng: 127.138212,
+          },
+        },
       ],
     },
     {
@@ -63,12 +104,38 @@ export default function RouteListMiddle(): JSX.Element {
       end: "구로",
       route: ["싱싱해요포차", "빽다방", "마피아피자앤펍", "이디야", "혼술청춘"],
       routeMenu: ["모듬 조개찜", "", "페퍼로니", "", "애플 마티니"],
-      pos: [
-        { Lat: 37.550912, Lng: 126.967112 },
-        { Lat: 37.547912, Lng: 126.966122 },
-        { Lat: 37.549712, Lng: 126.976212 },
-        { Lat: 37.545612, Lng: 126.983312 },
-        { Lat: 37.539121, Lng: 126.992412 },
+      info: [
+        {
+          location: {
+            lat: 37.550912,
+            lng: 126.967112,
+          },
+        },
+        {
+          location: {
+            lat: 37.547912,
+            lng: 126.966122,
+          },
+        },
+
+        {
+          location: {
+            lat: 37.549712,
+            lng: 126.976212,
+          },
+        },
+        {
+          location: {
+            lat: 37.545612,
+            lng: 126.983312,
+          },
+        },
+        {
+          location: {
+            lat: 37.539121,
+            lng: 126.992412,
+          },
+        },
       ],
     },
   ];
@@ -80,6 +147,7 @@ export default function RouteListMiddle(): JSX.Element {
     findLine,
     setFindLine,
     setInfoWindow,
+    isSearch: false,
   });
 
   const onClickRoute = (event) => {
@@ -94,6 +162,7 @@ export default function RouteListMiddle(): JSX.Element {
       marker,
       setMarker,
       setInfoWindow,
+      isSearch: false,
     });
     mapFindRoad({
       data: test[event.currentTarget.id],
@@ -107,7 +176,6 @@ export default function RouteListMiddle(): JSX.Element {
   return (
     <>
       <Head>
-        {/* <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> */}
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
       </Head>
       <S.Container>
