@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useClickCreateBoard } from "../../../../commons/hooks/custom/useClickCreateBoard";
 import { usePathState } from "../../../../commons/hooks/custom/usePathState";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
@@ -22,6 +23,7 @@ type ICourse = Record<
 >;
 
 export default function RouteWriteTop(props): JSX.Element {
+  const { onClickCreate } = useClickCreateBoard();
   const imgRef = useRef<HTMLInputElement>(null);
   const [, setFile] = useState<File>();
   const [isToggle, changeIsToggle] = useSetIsToggle();
@@ -301,7 +303,7 @@ export default function RouteWriteTop(props): JSX.Element {
           <S.Text>코스 등록을 하시겠습니까?</S.Text>
           <S.ModalBtnWrap>
             <button onClick={changeIsToggle}>취소</button>
-            <button>등록</button>
+            <button onClick={onClickCreate()}>등록</button>
           </S.ModalBtnWrap>
         </Modal>
       )}

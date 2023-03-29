@@ -41,11 +41,12 @@ export const mapMarker = (props) => {
     ) {
       break;
     }
-
     if (
       props.isSearch === true &&
-      props.data[i].name === props.path.info[props.idx].restaurantName
+      props.idx > 0 &&
+      props.data[i].name === props.path.info[props.idx - 1].restaurantName
     ) {
+      console.log("여기여기");
       continue;
     }
     const position = new window.Tmapv2.LatLng(

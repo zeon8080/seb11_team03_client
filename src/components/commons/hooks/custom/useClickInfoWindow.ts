@@ -1,5 +1,18 @@
 export const useClickInfoWindow = () => {
   const onClickAdd = (props): void => {
+    console.log(props);
+    if (props.idx === 0) {
+      props.setPath((prev) => ({
+        ...prev,
+        area: props.data.upperAddrName + "시",
+        startPoint: props.data.middleAddrName,
+      }));
+    } else if (props.idx === 1) {
+      props.setPath((prev) => ({
+        ...prev,
+        endPoint: props.data.middleAddrName,
+      }));
+    }
     props.setPath((prev) => ({
       ...prev,
       info: prev.info.map((el, idx) => {
