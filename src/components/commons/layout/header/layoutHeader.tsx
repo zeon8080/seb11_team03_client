@@ -2,14 +2,14 @@ import { useQuery } from "@apollo/client";
 import { useRecoilState } from "recoil";
 import { useClickLogout } from "../../hooks/custom/useClickLogout";
 import { useRouterMovePage } from "../../hooks/custom/useRouterMovePage";
-import { FETCH_USER } from "../../hooks/query/useQueryFetchUser";
+import { FETCH_LOGIN_USER } from "../../hooks/query/useQueryFetchLoginUser";
 import { accessTokenState } from "../../../../commons/stores";
 import * as S from "./layoutHeaderStyles";
 
 export default function LayoutHeader(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
   const [accessToken] = useRecoilState(accessTokenState);
-  const { data } = useQuery(FETCH_USER, {
+  const { data } = useQuery(FETCH_LOGIN_USER, {
     variables: {
       userId: accessToken,
     },
