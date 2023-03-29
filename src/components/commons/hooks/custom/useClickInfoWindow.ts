@@ -44,7 +44,7 @@ export const useClickInfoWindow = () => {
       ...prev,
       nowPage: prev.nowPage - 1,
     }));
-
+    console.log(props, "구아가아강가");
     props.setPath((prev) => {
       const info = [...prev.info];
       info.splice(props.idx, 1);

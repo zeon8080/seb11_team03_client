@@ -8,20 +8,6 @@ import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import { mapSearh } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
-type ICourse = Record<
-  number,
-  {
-    title: string;
-    isActive: boolean;
-    word: string;
-    store: string;
-    menu: string;
-    imgUrl: {
-      uri: string;
-    };
-  }
->;
-
 export default function RouteWriteTop(props): JSX.Element {
   const { onClickCreate } = useClickCreateBoard();
   const imgRef = useRef<HTMLInputElement>(null);
@@ -274,10 +260,10 @@ export default function RouteWriteTop(props): JSX.Element {
                 onClick={onClickImg}
                 imgUrl={path.info[idx - 1].imgUrl}
               >
-                {path.info[idx - 1].imgUrl !== "" ? (
+                {path.info[idx - 1].imgUrl !== null ? (
                   <img src={path.info[idx - 1].imgUrl} />
                 ) : (
-                  ""
+                  <></>
                 )}
                 <input type="file" ref={imgRef} onChange={onChangeFile} />
               </S.ImgWrap>
@@ -303,7 +289,7 @@ export default function RouteWriteTop(props): JSX.Element {
           <S.Text>코스 등록을 하시겠습니까?</S.Text>
           <S.ModalBtnWrap>
             <button onClick={changeIsToggle}>취소</button>
-            <button onClick={onClickCreate()}>등록</button>
+            <button onClick={onClickCreate(path)}>등록</button>
           </S.ModalBtnWrap>
         </Modal>
       )}
