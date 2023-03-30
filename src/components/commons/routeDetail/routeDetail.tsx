@@ -8,7 +8,6 @@ export default function RouteDetail(props): JSX.Element {
     "싱싱해요포차 | 모듬 조개찜",
     "싱싱해요포차 | 모듬 조개찜",
   ];
-
   return (
     <S.Container>
       <S.TopWrapper id={props.idx} onClick={props.onClickRoute}>
