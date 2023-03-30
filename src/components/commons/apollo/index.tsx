@@ -29,27 +29,25 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
 
   useEffect(() => {
     void accessTokenLoadable.toPromise().then((newAccessToken) => {
-      console.log(newAccessToken, "dasdasdsadsaaaa");
-
-      setAccessToken(newAccessToken ?? "");
-    });
-    void getNewAccessToken().then((newAccessToken) => {
-      setAccessToken(newAccessToken ?? "");
+      setAccessToken(newAccessToken !== undefined ? newAccessToken : "");
     });
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
-        console.log(err, "dasdsadasds");
         if (err.extensions.code === "UNAUTHENTICATED") {
           return fromPromise(
             getNewAccessToken().then((newAccessToken) => {
-              setAccessToken(newAccessToken ?? "");
+              setAccessToken(
+                newAccessToken !== undefined ? newAccessToken : ""
+              );
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
-                  Authorization: `Bearer ${newAccessToken}`,
+                  Authorization: `Bearer ${
+                    newAccessToken !== undefined ? newAccessToken : ""
+                  }`,
                 },
               });
             })
@@ -63,8 +61,8 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
     uri: "https://jjjbackendclass.shop/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      credentials: "include",
     },
+    credentials: "include",
   });
 
   const client = new ApolloClient({
