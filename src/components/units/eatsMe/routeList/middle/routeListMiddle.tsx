@@ -185,7 +185,7 @@ export default function RouteListMiddle(): JSX.Element {
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
       </Head>
       <S.Container>
-        <article>
+        <S.ListWrapper>
           <S.SelectWrapper>
             <S.StartSelect
               onClick={() => {
@@ -219,16 +219,18 @@ export default function RouteListMiddle(): JSX.Element {
               />
             </S.EndSelectorWrapper>
           </S.SelectWrapper>
-          {test.map((el, idx) => (
-            <RouteDetail
-              key={idx}
-              idx={idx}
-              onClickRoute={onClickRoute}
-              isActive={isActive}
-              onClickIsActive={onClickIsActive}
-            />
-          ))}
-        </article>
+          <S.ItemWrapper>
+            {test.map((el, idx) => (
+              <RouteDetail
+                key={idx}
+                idx={idx}
+                onClickRoute={onClickRoute}
+                isActive={isActive}
+                onClickIsActive={onClickIsActive}
+              />
+            ))}
+          </S.ItemWrapper>
+        </S.ListWrapper>
 
         <S.MapWrapper>
           <div
