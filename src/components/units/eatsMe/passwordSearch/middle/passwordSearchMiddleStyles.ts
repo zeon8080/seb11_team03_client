@@ -1,11 +1,20 @@
 import styled from "@emotion/styled";
 import { Modal } from "antd";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${mq[2]} {
+    height: calc(100vh - 80px);
+    justify-content: flex-start;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -16,14 +25,22 @@ export const Wrapper = styled.div`
   padding: 30px 50px;
   background-color: white;
   border: 1px solid #333333;
+  ${mq[2]} {
+    width: 100%;
+    border: none;
+    padding: 50px 60px;
+  }
+  ${mq[0]} {
+    padding: 30px 5vw;
+  }
 `;
 
 export const Title = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  width: 100%;
   font-size: 30px;
-  margin-right: 18px;
 `;
 
 export const DivideLine = styled.div`
@@ -46,6 +63,7 @@ export const EmailBox = styled.div`
     height: 50px;
     margin-top: 10px;
     padding: 10px;
+    background-color: #f5f5f5;
   }
 
   > p {

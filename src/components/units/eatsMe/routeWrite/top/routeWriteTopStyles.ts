@@ -1,4 +1,9 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 interface ISearch {
   keyword?: string;
@@ -13,7 +18,6 @@ export const Container = styled.div`
   position: relative;
   width: 100%;
   background-color: white;
-  padding: 35px 0;
   border-bottom: 3px solid #eee;
 `;
 export const StyledSlider = styled.div`
@@ -22,9 +26,14 @@ export const StyledSlider = styled.div`
   height: 100%;
   width: calc(100% - 280px);
   margin: 0 auto;
+  ${mq[2]} {
+    width: calc(100% - 200px);
+  }
+  ${mq[0]} {
+    width: calc(100% - 50px);
+  }
 `;
 export const BtnWrap = styled.div`
-  transition: 0s;
   button {
     position: absolute;
     top: 50%;
@@ -36,6 +45,9 @@ export const BtnWrap = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 1;
+    ${mq[0]} {
+      top: 80%;
+    }
   }
 `;
 export const NextBtn = styled.button`
@@ -45,6 +57,9 @@ export const NextBtn = styled.button`
     background-image: url(/nextBtn_or.webp);
     background-size: contain;
   }
+  ${mq[2]} {
+    right: 20px;
+  }
 `;
 export const PrevBtn = styled.button`
   left: 80px;
@@ -52,6 +67,9 @@ export const PrevBtn = styled.button`
   :enabled {
     background-image: url(/prevBtn_or.webp);
     background-size: contain;
+  }
+  ${mq[2]} {
+    left: 20px;
   }
 `;
 export const RouteBox = styled.div<ISetting>`
@@ -67,6 +85,15 @@ export const RouteBox = styled.div<ISetting>`
   width: 100%;
   padding: 35px 30px;
   background-color: white;
+  ${mq[2]} {
+    padding: 35px 0;
+  }
+  ${mq[1]} {
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px 0;
+  }
   .title {
     width: 100%;
     font-size: 20px;
@@ -78,18 +105,12 @@ export const RouteBox = styled.div<ISetting>`
       color: #999;
       text-align: center;
     }
-  }
-  .arrow {
-    width: 100px;
-    height: 100px;
-    background: url(/arrow_or.webp) no-repeat;
-    background-size: contain;
-  }
-  .start {
-    margin-left: 110px;
-  }
-  .end {
-    margin-right: 110px;
+    ${mq[2]} {
+      margin: 0 8vw;
+    }
+    ${mq[1]} {
+      margin: 0;
+    }
   }
 `;
 export const Text = styled.div`
@@ -114,7 +135,7 @@ export const ModalBtnWrap = styled.div`
     font-weight: 500;
     color: #757575;
     line-height: 40px;
-    background-color: transparent;
+    background-color: #fff;
     border-bottom: 2px solid #fbb240;
     :hover {
       color: black;
@@ -127,6 +148,12 @@ export const SearchContainer = styled.div`
   flex-direction: column;
   gap: 10px 0;
   width: 550px;
+  ${mq[2]} {
+    width: 56%;
+  }
+  ${mq[1]} {
+    width: 100%;
+  }
 `;
 export const SearchWrap = styled.div<ISearch>`
   display: flex;
@@ -157,6 +184,9 @@ export const StoreWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  ${mq[1]} {
+    flex-direction: column;
+  }
   input {
     width: 45%;
     padding: 10px 20px;
@@ -169,6 +199,9 @@ export const StoreWrap = styled.div`
     ::placeholder {
       color: #999;
     }
+    ${mq[1]} {
+      width: 60%;
+    }
   }
 `;
 export const Store = styled.input`
@@ -178,7 +211,7 @@ export const Store = styled.input`
 `;
 export const Menu = styled.input`
   border-color: ${(props) =>
-    props.value !== "" ? "#FBB240 !important" : "#eee !important"};
+    props.value !== null ? "#FBB240 !important" : "#eee !important"};
   color: ${(props) => props.value !== "" && "black !important"};
   font-weight: ${(props) => props.value !== "" && "500"};
 `;
@@ -189,7 +222,7 @@ export const ImgWrap = styled.div<IImgChk>`
   width: 130px;
   height: 130px;
   border: 3px dotted #d9d9d9;
-  border: ${(props) => props.imgUrl !== "" && "none"};
+  border: ${(props) => props.imgUrl !== null && "none"};
   input {
     width: 1px;
     height: 1px;
@@ -209,13 +242,19 @@ export const ImgWrap = styled.div<IImgChk>`
     height: 24px;
     background: url(/plus.webp) no-repeat;
     background-size: contain;
-    display: ${(props) => (props.imgUrl === "" ? "block" : "none")};
+    display: ${(props) => (props.imgUrl === null ? "block" : "none")};
+  }
+  ${mq[1]} {
+    position: absolute;
+    right: 0;
+    bottom: 94px;
+    width: 108px;
+    height: 108px;
   }
 `;
 export const RegisterBtn = styled.button`
   cursor: pointer;
   width: 130px;
-  height: 130px;
   background-color: #d9d9d9;
   color: white;
   font-size: 30px;
@@ -223,5 +262,13 @@ export const RegisterBtn = styled.button`
   line-height: 130px;
   :enabled {
     background-color: #fbb240;
+  }
+  ${mq[1]} {
+    width: 100%;
+    height: auto;
+    line-height: 50px;
+  }
+  ${mq[0]} {
+    width: 65%;
   }
 `;
