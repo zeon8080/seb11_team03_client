@@ -2,9 +2,11 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
+import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
 import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import RouteDetail from "../../../../commons/routeDetail/routeDetail";
+import SubLocationSelector from "../../../../subLocationSelector/subLocationSelector";
 import * as S from "./routeListMiddleStyles";
 
 export default function RouteListMiddle(): JSX.Element {
@@ -13,6 +15,10 @@ export default function RouteListMiddle(): JSX.Element {
   const [findLine, setFindLine] = useState([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
   const [isActive, onClickIsActive] = useSetIsActive();
+  const [isStart, changeIsStart] = useSetIsToggle();
+  const [isEnd, changeIsEnd] = useSetIsToggle();
+  const [startPoint, setStartPoint] = useState("출발지");
+  const [endPoint, setEndPoint] = useState("도착지");
 
   useEffect(() => {
     if (infoWindow.length > 1) {
@@ -179,24 +185,52 @@ export default function RouteListMiddle(): JSX.Element {
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
       </Head>
       <S.Container>
-        <article>
+        <S.ListWrapper>
           <S.SelectWrapper>
-            <S.StartSelect>출발지</S.StartSelect>
+            <S.StartSelect
+              onClick={() => {
+                changeIsStart();
+              }}
+            >
+              <div>{startPoint}</div>
+              <S.StartArrow isToggle={isStart} />
+            </S.StartSelect>
+            <S.StartSelectorWrapper isToggle={isStart}>
+              <SubLocationSelector
+                changeIsToggle={changeIsStart}
+                setSubLocation={setStartPoint}
+              />
+            </S.StartSelectorWrapper>
             <S.ArrowImgWrapper>
               <img src="/arrow_or.webp" />
             </S.ArrowImgWrapper>
-            <S.EndSelect>도착지</S.EndSelect>
+            <S.EndSelect
+              onClick={() => {
+                changeIsEnd();
+              }}
+            >
+              <div>{endPoint}</div>
+              <S.EndArrow isToggle={isEnd} />
+            </S.EndSelect>
+            <S.EndSelectorWrapper isToggle={isEnd}>
+              <SubLocationSelector
+                changeIsToggle={changeIsEnd}
+                setSubLocation={setEndPoint}
+              />
+            </S.EndSelectorWrapper>
           </S.SelectWrapper>
-          {test.map((el, idx) => (
-            <RouteDetail
-              key={idx}
-              idx={idx}
-              onClickRoute={onClickRoute}
-              isActive={isActive}
-              onClickIsActive={onClickIsActive}
-            />
-          ))}
-        </article>
+          <S.ItemWrapper>
+            {test.map((el, idx) => (
+              <RouteDetail
+                key={idx}
+                idx={idx}
+                onClickRoute={onClickRoute}
+                isActive={isActive}
+                onClickIsActive={onClickIsActive}
+              />
+            ))}
+          </S.ItemWrapper>
+        </S.ListWrapper>
 
         <S.MapWrapper>
           <div

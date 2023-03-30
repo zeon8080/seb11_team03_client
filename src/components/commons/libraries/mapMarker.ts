@@ -41,10 +41,10 @@ export const mapMarker = (props) => {
     ) {
       break;
     }
-
     if (
       props.isSearch === true &&
-      props.data[i].name === props.path.info[props.idx].restaurantName
+      props.idx > 0 &&
+      props.data[i].name === props.path.info[props.idx - 1].restaurantName
     ) {
       continue;
     }
@@ -62,10 +62,12 @@ export const mapMarker = (props) => {
 
     if (props.isSearch) {
       TMarker.addListener("click", () => {
+        console.log("11");
         mapPopUp({ ...props, position, data: props.data[i] });
       });
     } else {
       TMarker.addListener("click", () => {
+        console.log("11");
         mapPopUp({ ...props, position, data: props.data.info[i], idx: i });
       });
     }
@@ -83,6 +85,7 @@ export const mapMarker = (props) => {
     const latlng = props.data.info[0].location;
 
     props.map.setCenter(new window.Tmapv2.LatLng(latlng.lat, latlng.lng));
+    props.setMarker(markerArr);
     return props.map.setZoom(15);
   }
   props.map.fitBounds(PTbounds);

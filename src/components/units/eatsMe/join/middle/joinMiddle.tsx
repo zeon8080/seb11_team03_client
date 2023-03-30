@@ -21,7 +21,6 @@ export default function JoinMiddle(): JSX.Element {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  useWithAuth();
 
   return (
     <form onSubmit={wrapAsync(handleSubmit(onClickJoin))}>

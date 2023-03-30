@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useClickCreateBoard } from "../../../../commons/hooks/custom/useClickCreateBoard";
 import { usePathState } from "../../../../commons/hooks/custom/usePathState";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
@@ -7,21 +8,8 @@ import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import { mapSearh } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
-type ICourse = Record<
-  number,
-  {
-    title: string;
-    isActive: boolean;
-    word: string;
-    store: string;
-    menu: string;
-    imgUrl: {
-      uri: string;
-    };
-  }
->;
-
 export default function RouteWriteTop(props): JSX.Element {
+  const { onClickCreate } = useClickCreateBoard();
   const imgRef = useRef<HTMLInputElement>(null);
   const [, setFile] = useState<File>();
   const [isToggle, changeIsToggle] = useSetIsToggle();
@@ -37,7 +25,6 @@ export default function RouteWriteTop(props): JSX.Element {
     disabled_next: true,
     disabled_prev: true,
   });
-
   useEffect(() => {
     if (marker.length !== 0) {
       marker.map((el) => el.setMap(null));
@@ -275,7 +262,7 @@ export default function RouteWriteTop(props): JSX.Element {
                 {path.info[idx - 1].imgUrl !== "" ? (
                   <img src={path.info[idx - 1].imgUrl} />
                 ) : (
-                  ""
+                  <></>
                 )}
                 <input type="file" ref={imgRef} onChange={onChangeFile} />
               </S.ImgWrap>
@@ -301,7 +288,7 @@ export default function RouteWriteTop(props): JSX.Element {
           <S.Text>코스 등록을 하시겠습니까?</S.Text>
           <S.ModalBtnWrap>
             <button onClick={changeIsToggle}>취소</button>
-            <button>등록</button>
+            <button onClick={onClickCreate(path)}>등록</button>
           </S.ModalBtnWrap>
         </Modal>
       )}

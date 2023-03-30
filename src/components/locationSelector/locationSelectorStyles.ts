@@ -1,4 +1,9 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const SelectList = styled.div`
   width: 230px;
@@ -6,10 +11,13 @@ export const SelectList = styled.div`
   padding: 20px;
   background: #ffffff;
   border: 1px solid #bdbdbd;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   overflow: auto;
   scrollbar-width: none;
+  ${mq[2]} {
+    width: 100%;
+    padding: 10px;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -22,16 +30,16 @@ export const SelectList = styled.div`
 
 export const Location = styled.div`
   width: 100%;
-  height: 40px;
   border: 1px solid #e0e0e0;
   border-bottom: none;
   text-align: center;
-  line-height: 40px;
+  line-height: 38px;
   font-weight: 500;
   font-size: 14px;
 
   &:hover {
     border: 2px solid #fbb240;
     color: #fbb240;
+    line-height: 36px;
   }
 `;

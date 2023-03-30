@@ -13,6 +13,7 @@ export interface IReserveFormData {
 }
 
 export default function ReserveMiddle(): JSX.Element {
+  const today = new Date();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -20,27 +21,34 @@ export default function ReserveMiddle(): JSX.Element {
   const { handleSubmit, setValue } = useForm<IReserveFormData>();
 
   const onSelect = (value: Dayjs): void => {
-    setSelectedDate(value);
-    setIsModalOpen(true);
-    setValue(
-      "time",
-      selectedDate !== null ? selectedDate.format("YYYY.MM.DD") : "날짜"
-    );
+    console.log(value.toDate() > today);
+    if (value.toDate() > today) {
+      setSelectedDate(value);
+      setIsModalOpen(true);
+      setValue(
+        "time",
+        selectedDate !== null ? selectedDate.format("YYYY.MM.DD") : "날짜"
+      );
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onClickReserve)}>
       <S.Container>
         <S.Wrapper>
-          <div>
+          <div className="storeWrap">
             <S.StoreBox>
               <S.StoreCont>
                 <S.FoodImg src="/defaultFood.webp" />
                 <div>
-                  <S.Img src="/marker_or.webp" />
-                  <div>주소</div>
-                  <S.Img src="/store.webp" />
-                  <div>상호명</div>
+                  <S.InfoWrap>
+                    <img src="/marker_or.webp" />
+                    <span>주소</span>
+                  </S.InfoWrap>
+                  <S.InfoWrap>
+                    <img src="/store.webp" />
+                    <span>상호명</span>
+                  </S.InfoWrap>
                 </div>
               </S.StoreCont>
 

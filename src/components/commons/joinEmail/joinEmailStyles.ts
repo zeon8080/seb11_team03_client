@@ -1,15 +1,25 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const EmailBox = styled.div`
   display: flex;
   flex-direction: column;
-
+  width: 400px;
+  ${mq[2]} {
+    margin: 0 auto 20px;
+    align-items: center;
+  }
   > span {
+    width: 100%;
     font-size: 20px;
   }
 
   > input {
-    width: 400px;
+    width: 100%;
     height: 40px;
     margin-top: 10px;
     padding: 10px;
@@ -20,11 +30,14 @@ export const EmailBox = styled.div`
     color: #fa5c37;
     font-size: 12px;
     margin: 2px 0;
+    ${mq[2]} {
+      align-self: start;
+    }
   }
 `;
 
 export const EmailTokenBtn = styled.button<{ isActive?: boolean }>`
-  width: 400px;
+  width: 100%;
   height: 40px;
   margin: 15px 0 30px 0;
   color: white;
@@ -38,6 +51,7 @@ export const AccreditBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   padding: 20px 0;
   margin-bottom: 30px;
   color: #333333;
@@ -64,8 +78,8 @@ export const AccreditBox = styled.div`
 export const TokenBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
+  gap: 0 14px;
   margin: 15px 0;
 
   > input {
@@ -78,7 +92,6 @@ export const TokenBox = styled.div`
     width: 32px;
     font-size: 14px;
     color: #fa5c37;
-    margin: 0 14px;
   }
 `;
 

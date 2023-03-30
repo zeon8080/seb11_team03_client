@@ -2,7 +2,8 @@ import { useState } from "react";
 export const usePathState = () => {
   const [path, setPath] = useState({
     title: "",
-    imgUrl: { uri: "" },
+    boardImg: "",
+    like: 0,
     info: [
       {
         restaurantName: "상호명",
@@ -51,6 +52,5 @@ export const usePathState = () => {
       },
     ],
   });
-
   return [path, setPath];
 };
