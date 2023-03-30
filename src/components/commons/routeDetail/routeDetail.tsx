@@ -1,7 +1,15 @@
+import { MouseEvent } from "react";
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
 
-export default function RouteDetail(props): JSX.Element {
+interface IRouteDetailProps {
+  idx: number;
+  isActive: string;
+  onClickRoute: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
+}
+
+export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const menu = [
     "싱싱해요포차 | 모듬 조개찜",
     "싱싱해요포차 | 모듬 조개찜",
@@ -10,7 +18,7 @@ export default function RouteDetail(props): JSX.Element {
   ];
   return (
     <S.Container>
-      <S.TopWrapper id={props.idx} onClick={props.onClickRoute}>
+      <S.TopWrapper id={String(props.idx)} onClick={props.onClickRoute}>
         <S.HeartImg src="/heart_empty.webp" />
         <S.UserInfoWBox>
           <S.UserImg>

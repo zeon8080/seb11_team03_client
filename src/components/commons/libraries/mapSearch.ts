@@ -1,10 +1,26 @@
+import { ICreateBoardInput } from "./../../../commons/types/generated/types";
 import { Modal } from "antd";
+import { Dispatch, SetStateAction } from "react";
 import { mapMarker } from "./mapMarker";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapSearh = (props: any) => () => {
+interface IMapSearchProps {
+  map: any;
+  setMap: Dispatch<any>;
+  keyword: string;
+  idx: number;
+  path: ICreateBoardInput;
+  setPath: Dispatch<SetStateAction<ICreateBoardInput>>;
+  marker: any[];
+  setMarker: Dispatch<SetStateAction<any[]>>;
+  infoWindow: any[];
+  setInfoWindow: Dispatch<SetStateAction<any[]>>;
+  isSearch: boolean;
+}
+
+export const mapSearh = (props: IMapSearchProps) => () => {
   const onClickSearch = (): void => {
     const optionObj = {
       reqCoordType: "WGS84GEO",
@@ -18,13 +34,13 @@ export const mapSearh = (props: any) => () => {
     };
     const tData = new window.Tmapv2.extension.TData();
     tData.getPOIDataFromSearchJson(
-      encodeURIComponent(props.keyword + "음식점"),
+      encodeURIComponent(props.keyword),
       optionObj,
       params
     );
   };
 
-  const onComplete = (data) => {
+  const onComplete = (data: any): void => {
     mapMarker({
       ...props,
       data: data._responseData.searchPoiInfo.pois.poi,

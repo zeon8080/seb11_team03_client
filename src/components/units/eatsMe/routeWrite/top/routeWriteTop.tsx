@@ -1,5 +1,6 @@
 import { Modal } from "antd";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
+import { ICreateBoardInput } from "../../../../../commons/types/generated/types";
 import { useClickCreateBoard } from "../../../../commons/hooks/custom/useClickCreateBoard";
 import { usePathState } from "../../../../commons/hooks/custom/usePathState";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
@@ -8,7 +9,20 @@ import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import { mapSearh } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
-export default function RouteWriteTop(props): JSX.Element {
+export interface ISlideSetting {
+  keyword: string[];
+  nowPage: number;
+  isActive: boolean;
+  disabled_next: boolean;
+  disabled_prev: boolean;
+}
+
+export interface IRouteWriteTopProps {
+  setMap: Dispatch<any>;
+  map: any;
+}
+
+export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
   const { onClickCreate } = useClickCreateBoard();
   const imgRef = useRef<HTMLInputElement>(null);
   const [, setFile] = useState<File>();
@@ -16,9 +30,9 @@ export default function RouteWriteTop(props): JSX.Element {
   const [marker, setMarker] = useState<any[]>([]);
   const [pickMarker, setPickMarker] = useState<any[]>([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
-  const [findLine, setFindLine] = useState([]);
+  const [findLine, setFindLine] = useState<any[]>([]);
   const [path, setPath] = usePathState();
-  const [slideSetting, setSlideSetting] = useState({
+  const [slideSetting, setSlideSetting] = useState<ISlideSetting>({
     keyword: ["", "", "", "", "", ""],
     nowPage: 0,
     isActive: true,
@@ -85,35 +99,39 @@ export default function RouteWriteTop(props): JSX.Element {
     }
   }, [infoWindow]);
 
-  const onChangeInput = (pageNum) => (event) => {
-    if (pageNum === 0) {
-      setPath((prev) => ({ ...prev, title: event.target.value }));
-      setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
-    } else if (event.target.id === "recommend") {
-      setPath((prev) => ({
-        ...prev,
-        info: prev.info.map((el, idx) => {
-          if (pageNum - 1 === idx)
-            return {
-              ...el,
-              recommend: event.target.value,
-            };
-          return { ...el };
-        }),
-      }));
-    } else {
-      setSlideSetting((prev) => ({
-        ...prev,
-        keyword: prev.keyword.map((el, idx) => {
-          if (idx === pageNum - 1) {
-            return event.target.value;
-          } else {
-            return el;
-          }
-        }),
-      }));
-    }
-  };
+  const onChangeInput =
+    (pageNum: number) => (event: ChangeEvent<HTMLInputElement>) => {
+      if (pageNum === 0) {
+        setPath((prev: ICreateBoardInput) => ({
+          ...prev,
+          title: event.target.value,
+        }));
+        setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
+      } else if (event.target.id === "recommend") {
+        setPath((prev: ICreateBoardInput) => ({
+          ...prev,
+          info: prev.info.map((el, idx) => {
+            if (pageNum - 1 === idx)
+              return {
+                ...el,
+                recommend: event.target.value,
+              };
+            return { ...el };
+          }),
+        }));
+      } else {
+        setSlideSetting((prev) => ({
+          ...prev,
+          keyword: prev.keyword.map((el, idx) => {
+            if (idx === pageNum - 1) {
+              return event.target.value;
+            } else {
+              return el;
+            }
+          }),
+        }));
+      }
+    };
 
   const onClickNext = (): void => {
     console.log("들어옴??", infoWindow);
@@ -163,7 +181,7 @@ export default function RouteWriteTop(props): JSX.Element {
     fileReader.readAsDataURL(file);
     fileReader.onload = (event) => {
       if (typeof event.target?.result === "string") {
-        setPath((prev) => ({
+        setPath((prev: ICreateBoardInput) => ({
           ...prev,
           info: prev.info.map((el, idx) => {
             if (slideSetting.nowPage - 1 === idx)
