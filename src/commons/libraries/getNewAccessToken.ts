@@ -1,3 +1,4 @@
+import { IMutation } from "./../types/generated/types";
 import { gql, GraphQLClient } from "graphql-request";
 
 const RESTORE_ACCESS_TOKEN = gql`
@@ -6,17 +7,18 @@ const RESTORE_ACCESS_TOKEN = gql`
   }
 `;
 
-export const getNewAccessToken = async () => {
+export const getNewAccessToken = async (): Promise<string | undefined> => {
   try {
     const graphQLClient = new GraphQLClient(
       "https://jjjbackendclass.shop/graphql",
       { credentials: "include" }
     );
-    console.log("123123");
-    const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
-    console.log(result, "123111123");
 
-    // return newAccessToken;
+    const result = await graphQLClient.request<
+      Pick<IMutation, "restoreAccessToken">
+    >(RESTORE_ACCESS_TOKEN);
+    const newAccessToken = result.restoreAccessToken;
+    return newAccessToken;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message);
