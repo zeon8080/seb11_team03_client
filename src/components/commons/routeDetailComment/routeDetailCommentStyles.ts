@@ -7,7 +7,7 @@ export const Container = styled.div`
   background: #f5f5f5;
 `;
 
-export const WriteWrapper = styled.div`
+export const WriteWrapper = styled.form`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
