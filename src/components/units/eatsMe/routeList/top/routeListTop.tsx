@@ -14,7 +14,7 @@ export default function RouteListTop(): JSX.Element {
       <div>
         <LocationSelector setLocation={setLocation} />
       </div>
-      <S.SearchBar>서치바</S.SearchBar>
+      <S.SearchBar placeholder="검색어를 입력해주세요." />
       <S.routeWriteBtn>코스 작성</S.routeWriteBtn>
     </S.Container>
   );
