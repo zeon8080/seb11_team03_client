@@ -6,7 +6,7 @@ export const Container = styled.section`
   justify-content: space-between;
   padding: 45px;
   margin-top: 30px;
-  background: #f5f5f5;
+  background: white;
 `;
 
 export const MapWrapper = styled.article`
@@ -18,6 +18,7 @@ export const MapWrapper = styled.article`
 `;
 
 export const SelectWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -28,13 +29,36 @@ export const SelectWrapper = styled.div`
 `;
 
 export const StartSelect = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 160px;
   height: 60px;
-  background: #ffffff;
-  font-size: 18px;
-  text-align: center;
-  line-height: 60px;
-  font-weight: 500;
+  background: #f5f5f5;
+  border-radius: 10px;
+
+  & > div:first-of-type {
+    width: calc(100% - 34px);
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+  }
+`;
+
+// prettier-ignore
+export const StartArrow = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${(props: { isToggle: boolean }) => props.isToggle ? "/arrow_up.webp" : "/arrow_down.webp"});
+`;
+
+export const StartSelectorWrapper = styled.div`
+  display: ${(props: { isToggle: boolean }) =>
+    props.isToggle ? "block" : "none"};
+  position: absolute;
+  top: 80px;
+  left: -35px;
+  z-index: 1;
 `;
 
 export const ArrowImgWrapper = styled.div`
@@ -48,11 +72,34 @@ export const ArrowImgWrapper = styled.div`
 `;
 
 export const EndSelect = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 160px;
   height: 60px;
-  background: #ffffff;
-  font-size: 18px;
-  text-align: center;
-  line-height: 60px;
-  font-weight: 500;
+  background: #f5f5f5;
+  border-radius: 10px;
+
+  & > div:first-of-type {
+    width: calc(100% - 34px);
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+  }
+`;
+
+// prettier-ignore
+export const EndArrow = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${(props: { isToggle: boolean }) => props.isToggle ? "/arrow_up.webp" : "/arrow_down.webp"});
+`;
+
+export const EndSelectorWrapper = styled.div`
+  display: ${(props: { isToggle: boolean }) =>
+    props.isToggle ? "block" : "none"};
+  position: absolute;
+  top: 80px;
+  right: -35px;
+  z-index: 1;
 `;

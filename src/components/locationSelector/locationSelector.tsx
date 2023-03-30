@@ -3,6 +3,7 @@ import * as S from "./locationSelectorStyles";
 
 interface ILocationSelectorProps {
   setLocation: Dispatch<SetStateAction<string>>;
+  changeIsToggle: () => void;
 }
 
 export default function LocationSelector(
@@ -26,20 +27,18 @@ export default function LocationSelector(
     "경상남도",
     "제주도",
   ];
+  const onClickLocation = (location: string) => () => {
+    props.setLocation(location);
+    props.changeIsToggle();
+  };
+
   return (
-    <div>
-      <S.SelectList>
-        {location.map((el) => (
-          <S.Location
-            key={el}
-            onClick={() => {
-              props.setLocation(el);
-            }}
-          >
-            {el}
-          </S.Location>
-        ))}
-      </S.SelectList>
-    </div>
+    <S.SelectList>
+      {location.map((el) => (
+        <S.Location key={el} onClick={onClickLocation(el)}>
+          {el}
+        </S.Location>
+      ))}
+    </S.SelectList>
   );
 }
