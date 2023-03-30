@@ -53,7 +53,7 @@ export const Modal = styled.div<IModal>`
   transform: translateX(-50%);
   transition: width 0.6s, height 0.6s;
   background-color: #eee;
-  button {
+  a {
     position: absolute;
     cursor: pointer;
     border-bottom: 3px solid #fbb240;
