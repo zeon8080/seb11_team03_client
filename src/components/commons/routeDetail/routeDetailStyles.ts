@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
   position: relative;
-  margin-bottom: 30px;
   background-color: #f5f5f5;
 `;
 
@@ -12,6 +13,9 @@ export const TopWrapper = styled.div`
   align-items: center;
   width: 600px;
   padding: 8px;
+  ${mq[2]} {
+    width: auto;
+  }
 `;
 
 export const HeartImg = styled.img`
@@ -78,6 +82,9 @@ export const LocationBox = styled.div`
   width: 202px;
   height: 46px;
   margin-right: 65px;
+  ${mq[0]} {
+    display: none;
+  }
 `;
 
 export const StartEndLocation = styled.div`
@@ -119,11 +126,13 @@ export const BottomWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 18px;
+  width: 100%;
 `;
 
 export const RestaurantBox = styled.div`
   display: flex;
   flex-direction: row;
+  width: 40%;
 `;
 
 export const RestaurantCircle = styled.div`
