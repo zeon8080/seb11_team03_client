@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import * as S from "./subLocationSelectorStyles";
 
-interface ILocationSelectorProps {
+interface IProps {
   setSubLocation: Dispatch<SetStateAction<string>>;
+  changeIsToggle: () => void;
 }
 
-export default function SubLocationSelector(
-  props: ILocationSelectorProps
-): JSX.Element {
+export default function SubLocationSelector(props: IProps): JSX.Element {
   const subLocation = [
     "강남구",
     "강동구",
@@ -35,20 +34,19 @@ export default function SubLocationSelector(
     "중구",
     "중랑구",
   ];
+
+  const onClickLocation = (location: string) => () => {
+    props.setSubLocation(location);
+    props.changeIsToggle();
+  };
+
   return (
-    <div>
-      <S.SelectList>
-        {subLocation.map((el) => (
-          <S.Location
-            key={el}
-            onClick={() => {
-              props.setSubLocation(el);
-            }}
-          >
-            {el}
-          </S.Location>
-        ))}
-      </S.SelectList>
-    </div>
+    <S.SelectList>
+      {subLocation.map((el) => (
+        <S.Location key={el} onClick={onClickLocation(el)}>
+          {el}
+        </S.Location>
+      ))}
+    </S.SelectList>
   );
 }

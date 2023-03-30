@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   position: relative;
   margin-bottom: 30px;
-  background-color: white;
+  background-color: #f5f5f5;
 `;
 
 export const TopWrapper = styled.div`
