@@ -150,7 +150,7 @@ export default function RouteListMiddle(): JSX.Element {
     isSearch: false,
   });
 
-  const onClickRoute = (event) => {
+  const onClickRoute = (event: any): any => {
     // 데이터 생겼을때 데이터 아이디랑 이벤트 타겟 id(여기에 데이터 아이디 바인딩)을 비교해서 같지 않을때만 onClickIsActive제외 전부 실행 되게 onClickIsActive제외은 언제나 실행
     // 어차피 state라서 이전 데이터랑 같은면 변경 안됨
     if (infoWindow[0] !== undefined) {

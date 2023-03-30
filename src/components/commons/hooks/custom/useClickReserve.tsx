@@ -2,7 +2,7 @@ import { IReserveFormData } from "../../../units/eatsMe/reserve/middle/reserveMi
 import { useMutationCreateReservation } from "../mutation/useMutationCreateReservation";
 import { useRouterMovePage } from "./useRouterMovePage";
 
-export const useClickReserve = () => {
+export const useClickReserve = (): any => {
   const [createReservation] = useMutationCreateReservation();
   const { routerMovePage } = useRouterMovePage();
 
@@ -21,6 +21,7 @@ export const useClickReserve = () => {
           },
         },
       });
+      console.log(result);
 
       routerMovePage("/eatsMe/popularList");
     } catch (error) {

@@ -3,13 +3,13 @@ declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapMarker = (props) => {
+export const mapMarker = (props: any): void => {
   if (props.marker.length !== 0) {
-    props.marker.map((el) => el.setMap(null));
+    props.marker.map((el: any) => el.setMap(null));
   }
 
   const addIcon = (i: number): string => {
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       return "/marker_gr.webp";
     } else if (i === 0) {
       return "/marker_red.webp";
@@ -32,7 +32,7 @@ export const mapMarker = (props) => {
   const markerArr = [];
   for (
     let i = 0;
-    i < (props.isSearch ? props.data.length : props.data.info.length);
+    i < (props.isSearch === true ? props.data.length : props.data.info.length);
     i++
   ) {
     if (
@@ -49,8 +49,12 @@ export const mapMarker = (props) => {
       continue;
     }
     const position = new window.Tmapv2.LatLng(
-      props.isSearch ? props.data[i].noorLat : props.data.info[i].location.lat,
-      props.isSearch ? props.data[i].noorLon : props.data.info[i].location.lng
+      props.isSearch === true
+        ? props.data[i].noorLat
+        : props.data.info[i].location.lat,
+      props.isSearch === true
+        ? props.data[i].noorLon
+        : props.data.info[i].location.lng
     );
     const TMarker = new window.Tmapv2.Marker({
       position,
@@ -60,7 +64,7 @@ export const mapMarker = (props) => {
       title: "가게 정보보기",
     });
 
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       TMarker.addListener("click", () => {
         mapPopUp({ ...props, position, data: props.data[i] });
       });
@@ -73,7 +77,10 @@ export const mapMarker = (props) => {
     PTbounds.extend(position);
   }
 
-  if (!props.isSearch && props.data.info[0].restaurantName === "상호명") {
+  if (
+    props.isSearch !== true &&
+    props.data.info[0].restaurantName === "상호명"
+  ) {
     return;
   }
   if (

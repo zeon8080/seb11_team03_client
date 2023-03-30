@@ -12,7 +12,7 @@ export default function PasswordSearchMiddle(): JSX.Element {
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
+  const [, setModalText] = useState("Content of the modal");
   const showModal = (): void => {
     setOpen(true);
   };
@@ -35,6 +35,7 @@ export default function PasswordSearchMiddle(): JSX.Element {
   };
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onClickSearch)}>
       <S.Container>
         <S.Wrapper>

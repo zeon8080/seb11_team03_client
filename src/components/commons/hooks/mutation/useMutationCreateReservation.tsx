@@ -8,7 +8,7 @@ const CREATE_RESERVATION = gql`
   }
 `;
 
-export const useMutationCreateReservation = () => {
+export const useMutationCreateReservation = (): any => {
   const createReservation = useMutation(CREATE_RESERVATION);
 
   return createReservation;

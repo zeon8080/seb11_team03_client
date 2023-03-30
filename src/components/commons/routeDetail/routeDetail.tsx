@@ -1,7 +1,7 @@
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
 
-export default function RouteDetail(props): JSX.Element {
+export default function RouteDetail(props: any): JSX.Element {
   const menu = [
     "싱싱해요포차 | 모듬 조개찜",
     "싱싱해요포차 | 모듬 조개찜",

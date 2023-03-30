@@ -6,7 +6,7 @@ declare const window: typeof globalThis & {
 
 export const mapFindRoad = (props: any): void => {
   if (props.findLine.length !== 0) {
-    props.findLine.map((el) => el.setMap(null));
+    props.findLine.map((el: any) => el.setMap(null));
     props.setFindLine([]);
   }
 
@@ -28,7 +28,7 @@ export const mapFindRoad = (props: any): void => {
           strokeWeight: 4,
           map: props.map,
         });
-        props.setFindLine((prev) => [...prev, TLine]);
+        props.setFindLine((prev: any) => [...prev, TLine]);
       }
     }
   };
@@ -54,8 +54,10 @@ export const mapFindRoad = (props: any): void => {
         dataPos.end = props.data.info[i].location;
       } else {
         if (dataPos.stopOver === undefined) {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           dataPos.stopOver = `${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
         } else {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/restrict-template-expressions
           dataPos.stopOver += `_${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
         }
       }

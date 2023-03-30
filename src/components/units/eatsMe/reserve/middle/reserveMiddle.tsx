@@ -29,6 +29,7 @@ export default function ReserveMiddle(): JSX.Element {
   };
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onClickReserve)}>
       <S.Container>
         <S.Wrapper>

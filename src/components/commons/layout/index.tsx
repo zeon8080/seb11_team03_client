@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import Chatbot from "./chatbot/chatbot";
+// import Chatbot from "./chatbot/chatbot";
 import LayoutHeader from "./header/layoutHeader";
 
 interface ILayoutPros {

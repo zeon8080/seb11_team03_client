@@ -8,7 +8,7 @@ declare const window: typeof globalThis & {
 
 export const useEffectTMapLoad = (props: any): void => {
   useEffect(() => {
-    if (props.data !== undefined || props.isSearch) {
+    if (props.data !== undefined || props.isSearch === true) {
       console.log(props.isList);
       const initTmap = (): void => {
         const TMap = new window.Tmapv2.Map("TMapApp", {
@@ -18,7 +18,7 @@ export const useEffectTMapLoad = (props: any): void => {
           zoom: 15,
           zIndexInfoWindow: 11,
         });
-        if (!props.isSearch) {
+        if (props.isSearch === false) {
           mapMarker({ ...props, map: TMap });
           mapFindRoad({ ...props, map: TMap });
         }

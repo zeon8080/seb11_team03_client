@@ -3,7 +3,7 @@ declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapPopUp = (props) => {
+export const mapPopUp = (props: any): void => {
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,
@@ -16,11 +16,17 @@ export const mapPopUp = (props) => {
           </div>
           <div>
             <div style='font-weight: 600; font-size: 12px; margin-bottom: 3px'>
-              ${props.isSearch ? props.data.name : props.data.restaurantName}
+              ${
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                props.isSearch === true
+                  ? props.data.name
+                  : props.data.restaurantName
+              }
             </div>
             <div style=' margin-top: 5px; margin-bottom: 20px; font-weight: 500; font-size: 10px; word-break: break-all'>
               ${
-                props.isSearch
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                props.isSearch === true
                   ? props.data.newAddressList.newAddress[0].fullAddressRoad
                   : "데이터"
               }
@@ -30,7 +36,7 @@ export const mapPopUp = (props) => {
        
         <button class='Btn' style=' position: absolute; width: 45px; height: 20px; bottom: 6px; right: 6px; background: #fbb240; border-radius: 5px; border: none; font-weight: 500; font-size: 10px; color: #ffffff; cursor: pointer;'>
           ${
-            props.isSearch
+            props.isSearch === true
               ? "추가"
               : Object.prototype.hasOwnProperty.call(props, "isWrite")
               ? "취소"
@@ -44,7 +50,7 @@ export const mapPopUp = (props) => {
     type: 2,
     map: props.map,
   });
-  props.setInfoWindow((prev) => [...prev, TInfoWindow]);
+  props.setInfoWindow((prev: any) => [...prev, TInfoWindow]);
 
   const img = document.querySelectorAll("#deleteImg");
   img[img.length - 1].addEventListener("click", () => {
@@ -55,7 +61,7 @@ export const mapPopUp = (props) => {
 
   btn[btn.length - 1].addEventListener("click", () => {
     TInfoWindow.setVisible(false);
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       onClickAdd(props);
     } else {
       if (Object.prototype.hasOwnProperty.call(props, "isWrite")) {

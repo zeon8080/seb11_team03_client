@@ -1,5 +1,5 @@
 import { useState } from "react";
-export const usePathState = () => {
+export const usePathState = (): any => {
   const [path, setPath] = useState({
     title: "",
     imgUrl: { uri: "" },

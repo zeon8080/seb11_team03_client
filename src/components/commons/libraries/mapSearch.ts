@@ -18,13 +18,14 @@ export const mapSearh = (props: any) => () => {
     };
     const tData = new window.Tmapv2.extension.TData();
     tData.getPOIDataFromSearchJson(
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       encodeURIComponent(props.keyword + "음식점"),
       optionObj,
       params
     );
   };
 
-  const onComplete = (data) => {
+  const onComplete = (data: any): void => {
     mapMarker({
       ...props,
       data: data._responseData.searchPoiInfo.pois.poi,

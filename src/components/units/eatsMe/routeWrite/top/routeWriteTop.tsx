@@ -7,28 +7,14 @@ import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import { mapSearh } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
-type ICourse = Record<
-  number,
-  {
-    title: string;
-    isActive: boolean;
-    word: string;
-    store: string;
-    menu: string;
-    imgUrl: {
-      uri: string;
-    };
-  }
->;
-
-export default function RouteWriteTop(props): JSX.Element {
+export default function RouteWriteTop(props: any): JSX.Element {
   const imgRef = useRef<HTMLInputElement>(null);
   const [, setFile] = useState<File>();
   const [isToggle, changeIsToggle] = useSetIsToggle();
   const [marker, setMarker] = useState<any[]>([]);
   const [pickMarker, setPickMarker] = useState<any[]>([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
-  const [findLine, setFindLine] = useState([]);
+  const [findLine, setFindLine] = useState<any[]>([]);
   const [path, setPath] = usePathState();
   const [slideSetting, setSlideSetting] = useState({
     keyword: ["", "", "", "", "", ""],
@@ -98,14 +84,14 @@ export default function RouteWriteTop(props): JSX.Element {
     }
   }, [infoWindow]);
 
-  const onChangeInput = (pageNum) => (event) => {
+  const onChangeInput = (pageNum: any) => (event: any) => {
     if (pageNum === 0) {
-      setPath((prev) => ({ ...prev, title: event.target.value }));
+      setPath((prev: any) => ({ ...prev, title: event.target.value }));
       setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
     } else if (event.target.id === "recommend") {
-      setPath((prev) => ({
+      setPath((prev: any) => ({
         ...prev,
-        info: prev.info.map((el, idx) => {
+        info: prev.info.map((el: any, idx: any) => {
           if (pageNum - 1 === idx)
             return {
               ...el,
@@ -176,9 +162,9 @@ export default function RouteWriteTop(props): JSX.Element {
     fileReader.readAsDataURL(file);
     fileReader.onload = (event) => {
       if (typeof event.target?.result === "string") {
-        setPath((prev) => ({
+        setPath((prev: any) => ({
           ...prev,
-          info: prev.info.map((el, idx) => {
+          info: prev.info.map((el: any, idx: any) => {
             if (slideSetting.nowPage - 1 === idx)
               return {
                 ...el,

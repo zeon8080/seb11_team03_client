@@ -19,7 +19,7 @@ export default function LayoutHeader(): JSX.Element {
 
   return (
     <S.Container>
-      {data?.fetchUser ? (
+      {data?.fetchUser !== undefined ? (
         <S.Wrapper>
           <img onClick={onClickMovePage("/")} src="/logo_bk.webp" />
           <S.NavBox>

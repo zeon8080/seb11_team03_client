@@ -19,6 +19,7 @@ export default function LoginMiddle(): JSX.Element {
   return (
     <S.Container>
       <S.Wrapper>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form onSubmit={handleSubmit(onClickLogin)}>
           <S.Title>
             <h1>로그인</h1>

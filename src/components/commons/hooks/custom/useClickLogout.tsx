@@ -1,11 +1,11 @@
-import { UseMutationLogout } from "../mutation/useMutationlogout";
+import { UseMutationLogout } from "../mutation/useMutationLogout";
 import { useRouterMovePage } from "./useRouterMovePage";
 
-export const useClickLogout = () => {
+export const useClickLogout = (): any => {
   const [logoutUser] = UseMutationLogout();
   const { routerMovePage } = useRouterMovePage();
 
-  const onClickLogout = async () => {
+  const onClickLogout = async (): Promise<void> => {
     await logoutUser();
     routerMovePage("/");
   };

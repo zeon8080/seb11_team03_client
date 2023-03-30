@@ -1,8 +1,8 @@
-export const useClickInfoWindow = () => {
-  const onClickAdd = (props): void => {
-    props.setPath((prev) => ({
+export const useClickInfoWindow = (): any => {
+  const onClickAdd = (props: any): void => {
+    props.setPath((prev: any) => ({
       ...prev,
-      info: prev.info.map((el, idx) => {
+      info: prev.info.map((el: any, idx: any) => {
         if (idx === props.idx)
           return {
             ...el,
@@ -17,7 +17,7 @@ export const useClickInfoWindow = () => {
     }));
   };
 
-  const onClickDelete = (props) => {
+  const onClickDelete = (props: any): void => {
     const defaultInfo = {
       restaurantName: "상호명",
       recommend: "",
@@ -27,12 +27,12 @@ export const useClickInfoWindow = () => {
         lng: 0,
       },
     };
-    props.setSlideSetting((prev) => ({
+    props.setSlideSetting((prev: any) => ({
       ...prev,
       nowPage: prev.nowPage - 1,
     }));
 
-    props.setPath((prev) => {
+    props.setPath((prev: any) => {
       const info = [...prev.info];
       info.splice(props.idx, 1);
       info.push(defaultInfo);

@@ -5,9 +5,9 @@ import * as S from "./joinEmailStyles";
 
 interface IJoinEmail {
   formState: FormState<IJoinFormData>;
-  dirtyFields: Record<string, boolean>;
-  isDirty: boolean;
-  errors: Record<string, FieldError | undefined>;
+  dirtyFields?: Record<string, boolean>;
+  isDirty?: boolean;
+  errors?: Record<string, FieldError | undefined>;
   register: UseFormRegister<IJoinFormData>;
 }
 
