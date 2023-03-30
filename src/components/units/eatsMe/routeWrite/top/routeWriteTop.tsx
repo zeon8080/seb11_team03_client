@@ -25,7 +25,6 @@ export default function RouteWriteTop(props): JSX.Element {
     disabled_next: true,
     disabled_prev: true,
   });
-
   useEffect(() => {
     if (marker.length !== 0) {
       marker.map((el) => el.setMap(null));
@@ -260,7 +259,7 @@ export default function RouteWriteTop(props): JSX.Element {
                 onClick={onClickImg}
                 imgUrl={path.info[idx - 1].imgUrl}
               >
-                {path.info[idx - 1].imgUrl !== null ? (
+                {path.info[idx - 1].imgUrl !== "" ? (
                   <img src={path.info[idx - 1].imgUrl} />
                 ) : (
                   <></>
