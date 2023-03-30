@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 export default function RouteId(): JSX.Element {
   const router = useRouter();
+  console.log(router);
 
   return (
     <>
