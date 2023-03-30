@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
@@ -10,9 +10,9 @@ import SubLocationSelector from "../../../../subLocationSelector/subLocationSele
 import * as S from "./routeListMiddleStyles";
 
 export default function RouteListMiddle(): JSX.Element {
-  const [map, setMap] = useState();
-  const [marker, setMarker] = useState([]);
-  const [findLine, setFindLine] = useState([]);
+  const [map, setMap] = useState<any>();
+  const [marker, setMarker] = useState<any[]>([]);
+  const [findLine, setFindLine] = useState<any[]>([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
   const [isActive, onClickIsActive] = useSetIsActive();
   const [isStart, changeIsStart] = useSetIsToggle();
@@ -156,14 +156,14 @@ export default function RouteListMiddle(): JSX.Element {
     isSearch: false,
   });
 
-  const onClickRoute = (event) => {
+  const onClickRoute = (event: MouseEvent<HTMLDivElement>): void => {
     // 데이터 생겼을때 데이터 아이디랑 이벤트 타겟 id(여기에 데이터 아이디 바인딩)을 비교해서 같지 않을때만 onClickIsActive제외 전부 실행 되게 onClickIsActive제외은 언제나 실행
     // 어차피 state라서 이전 데이터랑 같은면 변경 안됨
     if (infoWindow[0] !== undefined) {
       infoWindow[0].setVisible(false);
     }
     mapMarker({
-      data: test[event.currentTarget.id],
+      data: test[Number(event.currentTarget.id)],
       map,
       marker,
       setMarker,
@@ -171,7 +171,7 @@ export default function RouteListMiddle(): JSX.Element {
       isSearch: false,
     });
     mapFindRoad({
-      data: test[event.currentTarget.id],
+      data: test[Number(event.currentTarget.id)],
       map,
       findLine,
       setFindLine,
@@ -220,12 +220,12 @@ export default function RouteListMiddle(): JSX.Element {
             </S.EndSelectorWrapper>
           </S.SelectWrapper>
           <S.ItemWrapper>
-            {test.map((el, idx) => (
+            {test.map((_, idx) => (
               <RouteDetail
                 key={idx}
                 idx={idx}
-                onClickRoute={onClickRoute}
                 isActive={isActive}
+                onClickRoute={onClickRoute}
                 onClickIsActive={onClickIsActive}
               />
             ))}

@@ -1,8 +1,16 @@
-import { useState } from "react";
-export const usePathState = () => {
+import { ICreateBoardInput } from "./../../../../commons/types/generated/types";
+import { Dispatch, SetStateAction, useState } from "react";
+
+export const usePathState = (): [
+  ICreateBoardInput,
+  Dispatch<SetStateAction<any>>
+] => {
   const [path, setPath] = useState({
     title: "",
     boardImg: "",
+    startPoint: "",
+    endPoint: "",
+    area: "",
     like: 0,
     info: [
       {

@@ -1,13 +1,27 @@
 import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
 
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapFindRoad = (props: any): void => {
-  if (props.findLine.length !== 0) {
-    props.findLine.map((el) => el.setMap(null));
-    props.setFindLine([]);
+interface IMapFindRoadProps {
+  isSearch?: boolean;
+  data: any;
+  setMap?: Dispatch<any>;
+  map?: any;
+  marker?: any[];
+  isWrite?: boolean;
+  setMarker?: Dispatch<SetStateAction<any[]>>;
+  findLine?: any[];
+  setFindLine?: Dispatch<SetStateAction<any[]>>;
+  setInfoWindow?: Dispatch<SetStateAction<any[]>>;
+}
+
+export const mapFindRoad = (props: IMapFindRoadProps): void => {
+  if (props.findLine?.length !== 0) {
+    props.findLine?.map((el) => el.setMap(null));
+    props.setFindLine?.([]);
   }
 
   const drawData = (result: any): void => {
@@ -28,7 +42,7 @@ export const mapFindRoad = (props: any): void => {
           strokeWeight: 4,
           map: props.map,
         });
-        props.setFindLine((prev) => [...prev, TLine]);
+        props.setFindLine?.((prev) => [...prev, TLine]);
       }
     }
   };
@@ -54,9 +68,13 @@ export const mapFindRoad = (props: any): void => {
         dataPos.end = props.data.info[i].location;
       } else {
         if (dataPos.stopOver === undefined) {
-          dataPos.stopOver = `${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
+          dataPos.stopOver = `${String(
+            props.data.info[i].location.lng
+          )},${String(props.data.info[i].location.lat)}`;
         } else {
-          dataPos.stopOver += `_${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
+          dataPos.stopOver += `_${String(
+            props.data.info[i].location.lng
+          )},${String(props.data.info[i].location.lat)}`;
         }
       }
     }

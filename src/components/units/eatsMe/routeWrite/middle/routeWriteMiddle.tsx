@@ -1,10 +1,15 @@
 import Head from "next/head";
-import { useState } from "react";
+import { Dispatch } from "react";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
-
 import * as S from "./routeWriteMiddleStyles";
 
-export default function RouteWriteMiddle(props): JSX.Element {
+interface IRouteWriteMiddleProps {
+  setMap: Dispatch<any>;
+}
+
+export default function RouteWriteMiddle(
+  props: IRouteWriteMiddleProps
+): JSX.Element {
   const test = [
     {
       userName: "나는문어나는문어",

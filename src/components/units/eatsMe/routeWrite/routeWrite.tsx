@@ -3,7 +3,7 @@ import RouteWriteMiddle from "./middle/routeWriteMiddle";
 import RouteWriteTop from "./top/routeWriteTop";
 
 export default function RouteWrite(): JSX.Element {
-  const [map, setMap] = useState();
+  const [map, setMap] = useState<any>();
   return (
     <>
       <RouteWriteTop map={map} setMap={setMap} />

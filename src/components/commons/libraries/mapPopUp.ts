@@ -1,9 +1,14 @@
+import { IMapMarkerProps } from "./mapMarker";
 import { useClickInfoWindow } from "./../hooks/custom/useClickInfoWindow";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapPopUp = (props) => {
+interface IMapPopUpProps extends IMapMarkerProps {
+  position: any;
+}
+
+export const mapPopUp = (props: IMapPopUpProps): void => {
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,
@@ -16,18 +21,23 @@ export const mapPopUp = (props) => {
           </div>
           <div>
             <div style='font-weight: 600; font-size: 12px; margin-bottom: 3px'>
-              ${props.isSearch ? props.data.name : props.data.restaurantName}
+              ${
+                props.isSearch
+                  ? String(props.data?.name)
+                  : String(props.data?.restaurantName)
+              }
             </div>
             <div style=' margin-top: 5px; margin-bottom: 20px; font-weight: 500; font-size: 10px; word-break: break-all'>
               ${
                 props.isSearch
-                  ? props.data.newAddressList.newAddress[0].fullAddressRoad
+                  ? String(
+                      props.data?.newAddressList?.newAddress[0].fullAddressRoad
+                    )
                   : "데이터"
               }
             </div>
           </div>
         </div>
-       
         <button class='Btn' style=' position: absolute; width: 45px; height: 20px; bottom: 6px; right: 6px; background: #fbb240; border-radius: 5px; border: none; font-weight: 500; font-size: 10px; color: #ffffff; cursor: pointer;'>
           ${
             props.isSearch
@@ -44,7 +54,7 @@ export const mapPopUp = (props) => {
     type: 2,
     map: props.map,
   });
-  props.setInfoWindow((prev) => [...prev, TInfoWindow]);
+  props.setInfoWindow?.((prev) => [...prev, TInfoWindow]);
 
   const img = document.querySelectorAll("#deleteImg");
   img[img.length - 1].addEventListener("click", () => {
