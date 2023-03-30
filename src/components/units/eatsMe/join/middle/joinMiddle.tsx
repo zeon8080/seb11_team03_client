@@ -4,6 +4,8 @@ import * as S from "./joinMiddleStyles";
 import { schema } from "./joinMidleValidation";
 import { useClickJoin } from "../../../../commons/hooks/custom/useClickJoin";
 import JoinEmail from "../../../../commons/joinEmail/joinEmail";
+import { useWithAuth } from "../../../../commons/hooks/custom/useWithAuth";
+import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
 
 export interface IJoinFormData {
   email: string;
@@ -21,7 +23,7 @@ export default function JoinMiddle(): JSX.Element {
   });
 
   return (
-    <form onSubmit={handleSubmit(onClickJoin)}>
+    <form onSubmit={wrapAsync(handleSubmit(onClickJoin))}>
       <S.Container>
         <S.Wrapper>
           <S.Title>

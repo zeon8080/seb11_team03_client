@@ -5,9 +5,9 @@ import * as S from "./joinEmailStyles";
 
 interface IJoinEmail {
   formState: FormState<IJoinFormData>;
-  dirtyFields: Record<string, boolean>;
-  isDirty: boolean;
-  errors: Record<string, FieldError | undefined>;
+  dirtyFields?: Record<string, boolean>;
+  isDirty?: boolean;
+  errors?: Record<string, FieldError | undefined>;
   register: UseFormRegister<IJoinFormData>;
 }
 
@@ -38,7 +38,8 @@ export default function JoinEmail(props: IJoinEmail): JSX.Element {
           isActive={
             time > 0 &&
             props.formState.errors.email === undefined &&
-            props.formState.dirtyFields.email
+            // props.formState.dirtyFields.email
+            props.formState.isDirty
           }
           disabled={
             !props.formState.isDirty ||
