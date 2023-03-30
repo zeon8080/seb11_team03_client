@@ -1,23 +1,30 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  width: 100%;
+  ${mq[2]} {
+    padding: 20px;
+  }
+  ${mq[0]} {
+    padding: 10px;
+  }
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  gap: 0 10px;
   width: 100%;
-  height: 100px;
   background-color: white;
   position: relative;
-  background-color: #f5f5f5;
 `;
 
 export const SelectBox = styled.button`
@@ -27,7 +34,7 @@ export const SelectBox = styled.button`
   align-items: center;
   width: 140px;
   height: 60px;
-  background-color: white;
+  background-color: #f5f5f5;
 
   & > div:first-of-type {
     font-weight: 500;
@@ -46,7 +53,12 @@ export const SelectBox = styled.button`
     display: block;
     position: absolute;
     top: 85px;
-    left: -28px;
+    left: -45px;
+    ${mq[2]} {
+      width: 140px;
+      left: 0;
+      top: 75px;
+    }
   }
 `;
 
@@ -57,8 +69,10 @@ export const SubSelectBox = styled.button`
   align-items: center;
   width: 140px;
   height: 60px;
-  background-color: white;
-  margin-right: 30px;
+  background-color: #f5f5f5;
+  ${mq[1]} {
+    width: 90px;
+  }
 
   & > div:first-of-type {
     font-weight: 500;
@@ -77,7 +91,18 @@ export const SubSelectBox = styled.button`
     display: block;
     position: absolute;
     top: 85px;
-    left: 136px;
+    left: 120px;
+    ${mq[2]} {
+      width: 140px;
+      left: 165px;
+      top: 75px;
+    }
+    ${mq[1]} {
+      left: 140px;
+    }
+    @media (max-width: 560px) {
+      left: 19vw;
+    }
   }
 `;
 

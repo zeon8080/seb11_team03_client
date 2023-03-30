@@ -13,9 +13,6 @@ export const Container = styled.header`
   position: relative;
   width: 100%;
   padding: 20px 25px 0;
-  ${mq[2]} {
-    font-size: 50px;
-  }
   ${mq[0]} {
     padding: 10px;
   }
