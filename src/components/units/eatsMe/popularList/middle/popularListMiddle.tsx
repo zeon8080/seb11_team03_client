@@ -43,19 +43,19 @@ export default function PopularListMiddle(): JSX.Element {
               <S.FoodImg src="/defaultfood.webp" />
               <div>
                 <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
                   <S.Rating>4.6</S.Rating>
-                  <S.Img src="/heart_fill.webp" alt="" />
                 </S.RatingBox>
-
-                <S.StoreName>
-                  <S.Img src="/store.webp" />
-                  <span>가나다라마바사아자차카</span>
-                </S.StoreName>
-                <span>월요일 휴무</span>
-                <S.TimeInfoBox>
-                  <div>Open 11:00</div>
-                  <div>Close 22:00</div>
-                </S.TimeInfoBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
               </div>
             </S.StoreCont>
             <S.StoreInfoBox>
@@ -73,16 +73,20 @@ export default function PopularListMiddle(): JSX.Element {
             <S.StoreCont>
               <S.FoodImg src="/defaultfood.webp" />
               <div>
-                <S.Rating>4.6</S.Rating>
-                <S.StoreName>
-                  <S.Img src="/store.webp" />
-                  <span>가나다라마바사아자차카</span>
-                </S.StoreName>
-                <span>월요일 휴무</span>
-                <S.TimeInfoBox>
-                  <div>Open 11:00</div>
-                  <div>Close 22:00</div>
-                </S.TimeInfoBox>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
               </div>
             </S.StoreCont>
             <S.StoreInfoBox>
@@ -100,16 +104,20 @@ export default function PopularListMiddle(): JSX.Element {
             <S.StoreCont>
               <S.FoodImg src="/defaultfood.webp" />
               <div>
-                <S.Rating>4.6</S.Rating>
-                <S.StoreName>
-                  <S.Img src="/store.webp" />
-                  <span>가나다라마바사아자차카</span>
-                </S.StoreName>
-                <span>월요일 휴무</span>
-                <S.TimeInfoBox>
-                  <div>Open 11:00</div>
-                  <div>Close 22:00</div>
-                </S.TimeInfoBox>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
               </div>
             </S.StoreCont>
             <S.StoreInfoBox>
@@ -127,16 +135,144 @@ export default function PopularListMiddle(): JSX.Element {
             <S.StoreCont>
               <S.FoodImg src="/defaultfood.webp" />
               <div>
-                <S.Rating>4.6</S.Rating>
-                <S.StoreName>
-                  <S.Img src="/store.webp" />
-                  <span>가나다라마바사아자차카</span>
-                </S.StoreName>
-                <span>월요일 휴무</span>
-                <S.TimeInfoBox>
-                  <div>Open 11:00</div>
-                  <div>Close 22:00</div>
-                </S.TimeInfoBox>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
+              </div>
+            </S.StoreCont>
+            <S.StoreInfoBox>
+              <div>
+                <S.Img src="/marker_or.webp" />
+                <span>서울특별시 구로구 디지털로 300 </span>
+              </div>
+              <div>
+                <S.Img src="/phone.webp" />
+                <span>02-123-4567</span>
+              </div>
+            </S.StoreInfoBox>
+          </S.StoreBox>
+          <S.StoreBox onClick={onClickStore} id="37.563365,126.982852">
+            <S.StoreCont>
+              <S.FoodImg src="/defaultfood.webp" />
+              <div>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
+              </div>
+            </S.StoreCont>
+            <S.StoreInfoBox>
+              <div>
+                <S.Img src="/marker_or.webp" />
+                <span>서울특별시 구로구 디지털로 300 </span>
+              </div>
+              <div>
+                <S.Img src="/phone.webp" />
+                <span>02-123-4567</span>
+              </div>
+            </S.StoreInfoBox>
+          </S.StoreBox>
+          <S.StoreBox onClick={onClickStore} id="37.483470,126.899607">
+            <S.StoreCont>
+              <S.FoodImg src="/defaultfood.webp" />
+              <div>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
+              </div>
+            </S.StoreCont>
+            <S.StoreInfoBox>
+              <div>
+                <S.Img src="/marker_or.webp" />
+                <span>서울특별시 구로구 디지털로 300 </span>
+              </div>
+              <div>
+                <S.Img src="/phone.webp" />
+                <span>02-123-4567</span>
+              </div>
+            </S.StoreInfoBox>
+          </S.StoreBox>
+          <S.StoreBox onClick={onClickStore} id="37.540027,127.053358">
+            <S.StoreCont>
+              <S.FoodImg src="/defaultfood.webp" />
+              <div>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
+              </div>
+            </S.StoreCont>
+            <S.StoreInfoBox>
+              <div>
+                <S.Img src="/marker_or.webp" />
+                <span>서울특별시 구로구 디지털로 300 </span>
+              </div>
+              <div>
+                <S.Img src="/phone.webp" />
+                <span>02-123-4567</span>
+              </div>
+            </S.StoreInfoBox>
+          </S.StoreBox>
+          <S.StoreBox onClick={onClickStore} id="37.507858,127.105266">
+            <S.StoreCont>
+              <S.FoodImg src="/defaultfood.webp" />
+              <div>
+                <S.RatingBox>
+                  <S.StoreName>
+                    <S.Img src="/store.webp" />
+                    <span>가나다라마바사아자차카</span>
+                  </S.StoreName>
+                  <S.Rating>4.6</S.Rating>
+                </S.RatingBox>
+                <S.TimeWrapper>
+                  <span>월요일 휴무</span>
+                  <S.TimeInfoBox>
+                    <div>Open 11:00</div>
+                    <div>Close 22:00</div>
+                  </S.TimeInfoBox>
+                </S.TimeWrapper>
               </div>
             </S.StoreCont>
             <S.StoreInfoBox>
