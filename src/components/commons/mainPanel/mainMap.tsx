@@ -462,14 +462,14 @@ l-31 -55 1 -155 c0 -187 22 -306 150 -827 46 -188 89 -375 95 -415 29 -185
 
       <S.ModalWrap isOpen={isOpen} onClick={onModal}>
         <S.Modal isOpen={isOpen}>
-          <button className="store">
+          <a href="/eatsMe/popularList" className="store">
             <img src="/flag_or.png" />
             <span>{area} 맛집</span>
-          </button>
-          <button className="register">
+          </a>
+          <a href="eatsMe/routeList" className="register">
             <img src="/flag_or.png" />
             <span>코스목록</span>
-          </button>
+          </a>
         </S.Modal>
       </S.ModalWrap>
     </S.Container>

@@ -87,7 +87,7 @@ export default function PopularListMiddle(): JSX.Element {
             </S.StoreCont>
             <S.StoreInfoBox>
               <div>
-                <S.Img src="/location_or_stroke.webp" />
+                <S.Img src="/marker_or.webp" />
                 <span>서울특별시 구로구 디지털로 300 </span>
               </div>
               <div>
@@ -114,7 +114,7 @@ export default function PopularListMiddle(): JSX.Element {
             </S.StoreCont>
             <S.StoreInfoBox>
               <div>
-                <S.Img src="/location_or_stroke.webp" />
+                <S.Img src="/marker_or.webp" />
                 <span>서울특별시 구로구 디지털로 300 </span>
               </div>
               <div>
@@ -141,7 +141,7 @@ export default function PopularListMiddle(): JSX.Element {
             </S.StoreCont>
             <S.StoreInfoBox>
               <div>
-                <S.Img src="/location_or_stroke.webp" />
+                <S.Img src="/marker_or.webp" />
                 <span>서울특별시 구로구 디지털로 300 </span>
               </div>
               <div>
