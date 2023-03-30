@@ -66,8 +66,8 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
     uri: "https://jjjbackendclass.shop/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      credentials: "include",
     },
+    credentials: "include",
   });
 
   const client = new ApolloClient({
