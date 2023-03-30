@@ -1,10 +1,19 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${mq[2]} {
+    height: calc(100vh - 80px);
+    justify-content: flex-start;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -14,6 +23,14 @@ export const Wrapper = styled.div`
   padding: 30px 50px;
   background-color: white;
   border: 1px solid #333333;
+  ${mq[2]} {
+    width: 100%;
+    border: none;
+    padding: 50px 60px;
+  }
+  ${mq[0]} {
+    padding: 30px 5vw;
+  }
 `;
 
 export const Title = styled.div`
@@ -40,12 +57,18 @@ export const DivideLine = styled.div`
 export const EmailBox = styled.div`
   display: flex;
   flex-direction: column;
+  width: 400px;
   margin-bottom: 20px;
-
+  ${mq[2]} {
+    margin: 0 auto 20px;
+    align-items: center;
+  }
+  ${mq[0]} {
+    width: 100%;
+  }
   > input {
-    width: 400px;
+    width: 100%;
     height: 50px;
-    margin-top: 10px;
     padding: 10px;
     background-color: #f5f5f5;
   }
@@ -54,16 +77,26 @@ export const EmailBox = styled.div`
     color: #fa5c37;
     font-size: 12px;
     margin: 2px 0;
+    ${mq[2]} {
+      align-self: start;
+    }
   }
 `;
 
 export const PasswordBox = styled.div`
-  margin-bottom: 20px;
-
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  ${mq[2]} {
+    margin: 0 auto;
+    align-items: center;
+  }
+  ${mq[0]} {
+    width: 100%;
+  }
   > input {
-    width: 400px;
+    width: 100%;
     height: 50px;
-    margin-top: 10px;
     padding: 10px;
     background-color: #f5f5f5;
   }
@@ -71,7 +104,10 @@ export const PasswordBox = styled.div`
   > p {
     color: #fa5c37;
     font-size: 12px;
-    margin: 2px 0 20px;
+    margin: 2px 0 32px;
+    ${mq[2]} {
+      align-self: start;
+    }
   }
 `;
 
@@ -131,5 +167,7 @@ export const SNSBox = styled.div`
     margin: 8px 8px;
     object-fit: contain;
     cursor: pointer;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
   }
 `;
