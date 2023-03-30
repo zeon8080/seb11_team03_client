@@ -211,7 +211,7 @@ export const Store = styled.input`
 `;
 export const Menu = styled.input`
   border-color: ${(props) =>
-    props.value !== null ? "#FBB240 !important" : "#eee !important"};
+    props.value !== "" ? "#FBB240 !important" : "#eee !important"};
   color: ${(props) => props.value !== "" && "black !important"};
   font-weight: ${(props) => props.value !== "" && "500"};
 `;
@@ -222,7 +222,7 @@ export const ImgWrap = styled.div<IImgChk>`
   width: 130px;
   height: 130px;
   border: 3px dotted #d9d9d9;
-  border: ${(props) => props.imgUrl !== null && "none"};
+  border: ${(props) => props.imgUrl !== "" && "none"};
   input {
     width: 1px;
     height: 1px;
@@ -242,7 +242,7 @@ export const ImgWrap = styled.div<IImgChk>`
     height: 24px;
     background: url(/plus.webp) no-repeat;
     background-size: contain;
-    display: ${(props) => (props.imgUrl === null ? "block" : "none")};
+    display: ${(props) => (props.imgUrl === "" ? "block" : "none")};
   }
   ${mq[1]} {
     position: absolute;

@@ -1,4 +1,14 @@
-import { gql, useMutation } from "@apollo/client";
+import {
+  ApolloCache,
+  DefaultContext,
+  gql,
+  MutationTuple,
+  useMutation,
+} from "@apollo/client";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+} from "../../../../commons/types/generated/types";
 
 const CREATE_BOARD = gql`
   mutation ($createBoardInput: CreateBoardInput!) {
@@ -7,9 +17,12 @@ const CREATE_BOARD = gql`
     }
   }
 `;
-console.log("dasodasiodsjia");
-export const useMutationCreateBoard = () => {
-  const createBoard = useMutation(CREATE_BOARD);
+
+export const useMutationCreateBoard = (): typeof createBoard => {
+  const createBoard = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
 
   return createBoard;
 };

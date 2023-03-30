@@ -2,13 +2,13 @@ import { useState } from "react";
 export const usePathState = () => {
   const [path, setPath] = useState({
     title: "",
-    imgUrl: null,
+    boardImg: "",
     like: 0,
     info: [
       {
         restaurantName: "상호명",
-        recommend: null,
-        imgUrl: null,
+        recommend: "",
+        imgUrl: "",
         location: {
           lat: 0,
           lng: 0,
@@ -16,8 +16,8 @@ export const usePathState = () => {
       },
       {
         restaurantName: "상호명",
-        recommend: null,
-        imgUrl: null,
+        recommend: "",
+        imgUrl: "",
         location: {
           lat: 0,
           lng: 0,
@@ -25,8 +25,8 @@ export const usePathState = () => {
       },
       {
         restaurantName: "상호명",
-        recommend: null,
-        imgUrl: null,
+        recommend: "",
+        imgUrl: "",
         location: {
           lat: 0,
           lng: 0,
@@ -34,8 +34,8 @@ export const usePathState = () => {
       },
       {
         restaurantName: "상호명",
-        recommend: null,
-        imgUrl: null,
+        recommend: "",
+        imgUrl: "",
         location: {
           lat: 0,
           lng: 0,
@@ -43,8 +43,8 @@ export const usePathState = () => {
       },
       {
         restaurantName: "상호명",
-        recommend: null,
-        imgUrl: null,
+        recommend: "",
+        imgUrl: "",
         location: {
           lat: 0,
           lng: 0,
@@ -52,6 +52,5 @@ export const usePathState = () => {
       },
     ],
   });
-
   return [path, setPath];
 };

@@ -21,8 +21,8 @@ export const useClickInfoWindow = () => {
             ...el,
             restaurantName: props.data.name,
             location: {
-              lat: props.data.noorLat,
-              lng: props.data.noorLon,
+              lat: Number(props.data.noorLat),
+              lng: Number(props.data.noorLon),
             },
           };
         return { ...el };
