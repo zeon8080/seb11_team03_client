@@ -1,10 +1,4 @@
-import {
-  ApolloCache,
-  DefaultContext,
-  gql,
-  MutationTuple,
-  useMutation,
-} from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateBoardArgs,
