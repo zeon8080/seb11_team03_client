@@ -1,9 +1,16 @@
+import { ICreateCommentInput } from "../../../../commons/types/generated/types";
 import { useMutationCreateComment } from "../mutation/useMutationCreateComment";
 
-export const useClickCreateComment = () => {
+interface IUseClickCreateComment {
+  onClickCreateComment: (createCommentInput: ICreateCommentInput) => void;
+}
+
+export const useClickCreateComment = (): IUseClickCreateComment => {
   const [createComment] = useMutationCreateComment();
 
-  const onClickCreateComment = (createCommentInput) => {
+  const onClickCreateComment = (
+    createCommentInput: ICreateCommentInput
+  ): void => {
     try {
       void createComment({
         variables: {
