@@ -1,11 +1,30 @@
 import { IMapMarkerProps } from "./mapMarker";
 import { useClickInfoWindow } from "./../hooks/custom/useClickInfoWindow";
+import { Dispatch, SetStateAction } from "react";
+import { ICreateBoardInput } from "../../../commons/types/generated/types";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
 interface IMapPopUpProps extends IMapMarkerProps {
   position: any;
+  isSearch: boolean;
+  isWrite?: boolean;
+  data?: any;
+  setMap?: Dispatch<any>;
+  map?: any;
+  idx?: number | undefined;
+  path?: ICreateBoardInput;
+  marker?: any[];
+  keyword?: string;
+  infoWindow?: any[];
+  setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
+  setMarker?: Dispatch<SetStateAction<any[]>>;
+  findLine?: any[];
+  setFindLine?: Dispatch<SetStateAction<any[]>>;
+  setInfoWindow?: Dispatch<SetStateAction<any[]>>;
+  setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {
