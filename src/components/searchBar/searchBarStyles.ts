@@ -15,8 +15,8 @@ export const Container = styled.div`
   height: 60px;
   padding: 0 20px;
   background-color: #f5f5f5;
-  ${mq[1]} {
-    width: calc(100% - 270px);
+  ${mq[2]} {
+    width: calc(100% - 110px);
   }
 
   & > input {

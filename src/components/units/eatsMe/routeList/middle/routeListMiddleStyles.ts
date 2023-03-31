@@ -5,41 +5,50 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 //   font-size: 50px;
 // }
 
+interface IToggleProps {
+  isStartToggle?: boolean;
+  isEndToggle?: boolean;
+  isEnd?: boolean;
+  isStart?: boolean;
+}
+
 export const Container = styled.section`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
-  padding: 45px;
-  margin-top: 30px;
+  padding: 32px 45px;
   background: white;
   ${mq[2]} {
-    height: calc(100vh - 180px);
+    padding: 15px 20px;
+  }
+`;
+export const Contents = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  ${mq[2]} {
     flex-direction: column;
-    margin-top: 0;
-    padding: 0 20px;
   }
 `;
 export const ListWrapper = styled.article`
   width: calc(55% - 25px);
   ${mq[2]} {
-    overflow: hidden;
-    min-height: 40vh;
-    height: calc(100vh - 510px);
     width: 100%;
+    height: 266px;
+    overflow: auto;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    margin-bottom: 20px;
   }
 `;
+
 export const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px 0;
   ${mq[2]} {
-    padding-bottom: 20px;
-    height: calc(100% - 105px);
-    overflow: auto;
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    gap: 15px 0;
   }
 `;
 export const MapWrapper = styled.article`
@@ -51,36 +60,43 @@ export const MapWrapper = styled.article`
   overflow: hidden;
   ${mq[2]} {
     width: 100%;
-    height: calc(100vh - 650px);
-    min-height: 36vh;
+    height: 433px;
+  }
+  ${mq[1]} {
+    height: 405px;
   }
 `;
 
 export const SelectWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto 20px;
+  ${mq[2]} {
+    margin-bottom: 15px;
+  }
+  ${mq[1]} {
+    flex-direction: column;
+  }
+`;
+export const BoxWrapper = styled.div`
+  display: flex;
+  gap: 0 20px;
+`;
+
+export const CityWrapper = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 450px;
-  margin: 0 auto 42px;
-  ${mq[2]} {
-    width: fit-content;
-    margin: 10px auto;
-  }
 `;
-
-export const StartSelect = styled.div`
+export const City = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 160px;
+  width: 150px;
   height: 60px;
   background: #f5f5f5;
   cursor: pointer;
-  ${mq[2]} {
-    width: 20vw;
-    height: 52px;
+  ${mq[1]} {
+    height: 36px;
   }
 
   & > div:first-of-type {
@@ -88,82 +104,76 @@ export const StartSelect = styled.div`
     text-align: center;
     font-weight: 500;
     font-size: 18px;
+    ${mq[1]} {
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 `;
 
-// prettier-ignore
-export const StartArrow = styled.div`
+export const Arrow = styled.div<IToggleProps>`
   width: 24px;
   height: 24px;
-  background-image: url(${(props: { isToggle: boolean }) => props.isToggle ? "/arrow_up.webp" : "/arrow_down.webp"});
+  background-image: ${(props) =>
+    props.isStartToggle === true ||
+    props.isEndToggle === true ||
+    props.isEnd === true ||
+    props.isStart === true
+      ? "url(/arrow_up.webp)"
+      : "url(/arrow_down.webp)"};
+
+  ${mq[1]} {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
-export const StartSelectorWrapper = styled.div`
+export const SelectorWrapper = styled.div`
   display: ${(props: { isToggle: boolean }) =>
     props.isToggle ? "block" : "none"};
   position: absolute;
-  top: 80px;
-  left: -35px;
+  top: 85px;
+  left: 0;
   z-index: 1;
   cursor: pointer;
   ${mq[2]} {
-    left: 0;
-    width: 20vw;
-  }
-`;
-
-export const ArrowImgWrapper = styled.div`
-  width: 85px;
-  height: 85px;
-  & > img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  ${mq[2]} {
-    width: 70px;
-    height: 70px;
   }
 `;
+export const DistrictWrapper = styled.div`
+  position: relative;
+`;
 
-export const EndSelect = styled.div`
+export const District = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 160px;
+  width: 150px;
   height: 60px;
   background: #f5f5f5;
   cursor: pointer;
-  ${mq[2]} {
-    width: 20vw;
-    height: 52px;
+  ${mq[1]} {
+    height: 36px;
   }
-
   & > div:first-of-type {
     width: calc(100% - 34px);
     text-align: center;
     font-weight: 500;
     font-size: 18px;
+    ${mq[1]} {
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 `;
 
-// prettier-ignore
-export const EndArrow = styled.div`
-  width: 24px;
-  height: 24px;
-  background-image: url(${(props: { isToggle: boolean }) => props.isToggle ? "/arrow_up.webp" : "/arrow_down.webp"});
-`;
-
-export const EndSelectorWrapper = styled.div`
-  display: ${(props: { isToggle: boolean }) =>
-    props.isToggle ? "block" : "none"};
-  position: absolute;
-  top: 80px;
-  right: -35px;
-  z-index: 1;
-  cursor: pointer;
-  ${mq[2]} {
-    right: 0;
-    width: 20vw;
+export const ArrowImg = styled.img`
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  ${mq[1]} {
+    width: 36px;
+    height: 36px;
+    transform: rotateZ(90deg);
   }
 `;
