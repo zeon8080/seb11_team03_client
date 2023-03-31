@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import {
   ILoginFormData,
@@ -9,12 +10,21 @@ import * as S from "./loginMiddleStyles";
 import { schema } from "./loginMiddleValidation";
 
 export default function LoginMiddle(): JSX.Element {
+  const router = useRouter();
   const { onClickMovePage } = useRouterMovePage();
   const { onClickLogin } = useClickLogin();
   const { register, handleSubmit, formState } = useForm<ILoginFormData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  const onClickKakao = () => {
+    void router.push("https://eatsme.site");
+  };
+
+  const onClickGoogle = () => {
+    void router.push("");
+  };
 
   return (
     <S.Container>
@@ -58,12 +68,12 @@ export default function LoginMiddle(): JSX.Element {
             </S.SuggestBox>
           </S.LoginBox>
         </form>
-
         <S.SNSBox>
           <span>SNS 로그인하기</span>
           <div>
-            <img src="/kakao.webp" />
-            <img src="/google.webp" />
+            <img onClick={onClickKakao} src="/kakao.webp" />
+
+            <img onClick={onClickGoogle} src="/google.webp" />
           </div>
         </S.SNSBox>
       </S.Wrapper>

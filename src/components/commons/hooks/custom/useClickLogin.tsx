@@ -10,7 +10,7 @@ export interface ILoginFormData {
 
 export const useClickLogin = () => {
   const [loginUser] = UseMutationLogin();
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setAccessToken] = useRecoilState(accessTokenState);
   const { routerMovePage } = useRouterMovePage();
 
   const onClickLogin = async (data: ILoginFormData): Promise<void> => {

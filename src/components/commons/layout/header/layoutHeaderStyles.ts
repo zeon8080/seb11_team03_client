@@ -92,7 +92,6 @@ export const LoginBox = styled.div`
     width: 24px;
     height: 24px;
     object-fit: contain;
-    margin-right: 4px;
     margin-bottom: 2px;
   }
 `;
@@ -127,7 +126,7 @@ export const JoinBtn = styled.button`
 export const UserInfoBtn = styled.button`
   width: 60px;
   height: 32px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: white;
   background-color: #fbb240;
