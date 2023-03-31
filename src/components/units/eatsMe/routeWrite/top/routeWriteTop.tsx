@@ -271,17 +271,17 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                     type="text"
                     placeholder="추천메뉴"
                     onChange={onChangeInput(idx)}
-                    value={path.info[idx - 1].recommend}
+                    value={path.info[idx - 1].recommend ?? ""}
                   />
                 </S.StoreWrap>
               </S.SearchContainer>
 
               <S.ImgWrap
                 onClick={onClickImg}
-                imgUrl={path.info[idx - 1].imgUrl}
+                imgUrl={path.info[idx - 1].imgUrl ?? ""}
               >
                 {path.info[idx - 1].imgUrl !== "" ? (
-                  <img src={path.info[idx - 1].imgUrl} />
+                  <img src={path.info[idx - 1].imgUrl ?? ""} />
                 ) : (
                   <></>
                 )}
@@ -309,7 +309,13 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
           <S.Text>코스 등록을 하시겠습니까?</S.Text>
           <S.ModalBtnWrap>
             <button onClick={changeIsToggle}>취소</button>
-            <button onClick={onClickCreate(path)}>등록</button>
+            <button
+              onClick={() => {
+                void onClickCreate(path);
+              }}
+            >
+              등록
+            </button>
           </S.ModalBtnWrap>
         </Modal>
       )}
