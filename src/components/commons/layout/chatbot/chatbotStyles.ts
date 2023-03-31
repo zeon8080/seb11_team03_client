@@ -1,11 +1,26 @@
 import styled from "@emotion/styled";
-
-export const Container = styled.div`
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+interface IChatbot {
+  isToggle: boolean;
+}
+export const Container = styled.div<IChatbot>`
   display: flex;
   flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  right: ${(props) => (props.isToggle ? "-100vw" : "0")};
+  transition: 0.5s;
   width: 450px;
   height: 650px;
-  border: 1px solid black;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  ${mq[0]} {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 
 export const Header = styled.div`
@@ -23,15 +38,25 @@ export const Header = styled.div`
     object-fit: contain;
     margin-right: 15px;
   }
+  button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(/close_wh.webp) no-repeat;
+    background-size: contain;
+  }
 `;
-
+export const Content = styled.div`
+  margin-top: auto;
+  padding: 10px 0;
+`;
 export const FAQBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 420px;
+  width: 100%;
   height: 120px;
-  margin: 20px 15px;
+  padding: 20px 15px;
 
   > div {
     width: 380px;
@@ -64,7 +89,6 @@ export const ChatBotText = styled.div`
     background-color: #e5e5e5;
     line-height: 40px;
     padding: 0 10px;
-    border-radius: 5px;
   }
 `;
 
@@ -76,35 +100,31 @@ export const UserText = styled.div`
 
   > div {
     height: 40px;
-    background-color: #fbb240;
+    background-color: rgba(251, 178, 64, 0.7);
     line-height: 40px;
     padding: 0 10px;
-    border-radius: 5px;
     margin-right: 10px;
   }
 `;
 
 export const ChatInput = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  position: relative;
-
+  border: 1px solid #ddd;
+  background-color: #eee;
+  margin: 0 15px 15px;
+  width: calc(100% - 30px);
   > input {
-    width: 428px;
+    width: calc(100% - 45px);
     height: 50px;
-    padding: 0 46px 0 6px;
-    border-radius: 5px;
+    padding: 0 10px;
+    background-color: transparent;
   }
 
   > img {
     width: 32px;
     height: 32px;
     object-fit: contain;
-    position: absolute;
-    right: 18px;
-    bottom: 10;
     cursor: pointer;
   }
 `;
