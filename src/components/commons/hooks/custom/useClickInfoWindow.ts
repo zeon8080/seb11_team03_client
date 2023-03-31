@@ -1,6 +1,5 @@
 export const useClickInfoWindow = () => {
   const onClickAdd = (props): void => {
-    props.setSlideSetting((prev) => ({ ...prev, isFindRoad: true }));
     if (props.idx === 0) {
       props.setPath((prev) => ({
         ...prev,
@@ -31,7 +30,6 @@ export const useClickInfoWindow = () => {
         return { ...el };
       }),
     }));
-    console.log("왜 안함??", props);
   };
 
   const onClickDelete = (props) => {
@@ -47,6 +45,7 @@ export const useClickInfoWindow = () => {
     props.setSlideSetting((prev) => ({
       ...prev,
       nowPage: prev.nowPage - 1,
+      isFindRoad: true,
     }));
     props.setPath((prev) => {
       const info = [...prev.info];

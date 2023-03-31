@@ -27,8 +27,7 @@ export const mapSearh = (props: IMapSearchProps) => () => {
     const optionObj = {
       reqCoordType: "WGS84GEO",
       resCoordType: "WGS84GEO",
-      centerLon: 126.98702028,
-      centerLat: 37.5652045,
+      count: 40,
     };
     const params = {
       onComplete,

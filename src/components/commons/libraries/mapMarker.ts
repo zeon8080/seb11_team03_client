@@ -99,7 +99,8 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     if (props.isSearch) {
       if (
         props.data[i].middleBizName === "음식점" ||
-        props.data[i].middleBizName === "카페"
+        props.data[i].middleBizName === "카페" ||
+        props.data[i].middleBizName === "술집"
       ) {
         if (props.data[i].name.indexOf("주차장") === -1) {
           addMarker(i);

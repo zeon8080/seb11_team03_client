@@ -1,5 +1,4 @@
 import { Modal } from "antd";
-import axios from "axios";
 import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
 import { ICreateBoardInput } from "../../../../../commons/types/generated/types";
 import { useClickCreateBoard } from "../../../../commons/hooks/custom/useClickCreateBoard";
@@ -70,11 +69,9 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
           findLine,
           setFindLine,
         });
-        // setSlideSetting((prev) => ({ ...prev, isFindRoad: false }));
       } else {
         findLine.map((el) => el.setMap(null));
         setFindLine([]);
-        // setSlideSetting((prev) => ({ ...prev, isFindRoad: false }));
       }
     }
     if (
