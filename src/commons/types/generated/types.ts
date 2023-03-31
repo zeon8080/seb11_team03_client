@@ -15,22 +15,25 @@ export type Scalars = {
 
 export type IAlarm = {
   __typename?: 'Alarm';
+  commentUserId: Scalars['String'];
+  commentUserName: Scalars['String'];
   comments: IComment;
   id: Scalars['String'];
   isAlarm: Scalars['Boolean'];
+  replies: IReply;
   users: IUser;
 };
 
 export type IBoard = {
   __typename?: 'Board';
-  area: Scalars['String'];
-  boardImg: Scalars['String'];
   comments: Array<IComment>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  endArea: Scalars['String'];
   endPoint: Scalars['String'];
   id: Scalars['String'];
   like: Scalars['Int'];
   personalMapData: IPersonalMapData;
+  startArea: Scalars['String'];
   startPoint: Scalars['String'];
   title: Scalars['String'];
   user: IUser;
@@ -38,13 +41,14 @@ export type IBoard = {
 
 export type IBoardReturn = {
   __typename?: 'BoardReturn';
-  boardImg?: Maybe<Scalars['String']>;
   comments?: Maybe<Array<IComment>>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  endArea?: Maybe<Scalars['String']>;
   endPoint?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   like?: Maybe<Scalars['Int']>;
   personalMapData?: Maybe<Array<IRestaurantBoardInfo>>;
+  startArea?: Maybe<Scalars['String']>;
   startPoint?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
@@ -56,15 +60,17 @@ export type IComment = {
   comment: Scalars['String'];
   id: Scalars['String'];
   replies: Array<IReply>;
+  user: Scalars['String'];
 };
 
 export type ICreateBoardInput = {
-  area: Scalars['String'];
-  boardImg: Scalars['String'];
+  boardImg?: InputMaybe<Scalars['String']>;
   createdAt?: Scalars['DateTime'];
+  endArea: Scalars['String'];
   endPoint: Scalars['String'];
   info: Array<IInfoInput>;
-  like: Scalars['Int'];
+  like?: InputMaybe<Scalars['Int']>;
+  startArea: Scalars['String'];
   startPoint: Scalars['String'];
   title: Scalars['String'];
 };
@@ -100,10 +106,12 @@ export type IFetchBoardsBySectionInput = {
 };
 
 export type IInfoInput = {
-  imgUrl: Scalars['String'];
+  area: Scalars['String'];
+  imgUrl?: InputMaybe<Scalars['String']>;
   location: ILocationInput;
-  recommend: Scalars['String'];
+  recommend?: InputMaybe<Scalars['String']>;
   restaurantName: Scalars['String'];
+  section: Scalars['String'];
 };
 
 export type ILocationInput = {
@@ -131,12 +139,14 @@ export type IMutation = {
   createReservation: IReservation;
   createUser: IUser;
   deleteBoard: Scalars['String'];
+  deleteComment: Scalars['String'];
   deleteReply: Scalars['String'];
   deleteReservation: Scalars['Boolean'];
   login: Scalars['String'];
   logout: Scalars['String'];
   restoreAccessToken: Scalars['String'];
   toggleLike: Scalars['String'];
+  updateBoard: IBoardReturn;
   updateComment: IComment;
   updateReply: IReply;
   updateUser: IUser;
@@ -178,6 +188,11 @@ export type IMutationDeleteBoardArgs = {
 };
 
 
+export type IMutationDeleteCommentArgs = {
+  commentId: Scalars['String'];
+};
+
+
 export type IMutationDeleteReplyArgs = {
   replyId: Scalars['String'];
 };
@@ -195,6 +210,11 @@ export type IMutationLoginArgs = {
 
 export type IMutationToggleLikeArgs = {
   toggleLikeInput: IToggleLikeInput;
+};
+
+
+export type IMutationUpdateBoardArgs = {
+  updateBoardInput: IUpdateBoardInput;
 };
 
 
@@ -223,10 +243,12 @@ export type IPersonalMapData = {
 
 export type IQuery = {
   __typename?: 'Query';
+  alarms: Array<IAlarm>;
   fetchBoard: IBoardReturn;
-  fetchBoardsByArea: Array<IBoardReturn>;
+  fetchBoardsByEndArea: Array<IBoardReturn>;
   fetchBoardsBySection: Array<IBoardReturn>;
-  fetchLoginUser: Scalars['String'];
+  fetchBoardsByStartArea: Array<IBoardReturn>;
+  fetchLoginUser: IUser;
   fetchMyBoard: Array<IBoardReturn>;
   fetchMyLikeBoard: Array<IBoardReturn>;
   fetchReply: IReply;
@@ -240,8 +262,8 @@ export type IQueryFetchBoardArgs = {
 };
 
 
-export type IQueryFetchBoardsByAreaArgs = {
-  area: Scalars['String'];
+export type IQueryFetchBoardsByEndAreaArgs = {
+  endArea: Scalars['String'];
 };
 
 
@@ -250,8 +272,18 @@ export type IQueryFetchBoardsBySectionArgs = {
 };
 
 
+export type IQueryFetchBoardsByStartAreaArgs = {
+  startArea: Scalars['String'];
+};
+
+
 export type IQueryFetchReplyArgs = {
   replyId: Scalars['String'];
+};
+
+
+export type IQueryFetchUserArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -261,9 +293,11 @@ export type IQueryIsValidNicknameArgs = {
 
 export type IReply = {
   __typename?: 'Reply';
+  alarms: Array<IAlarm>;
   comments: IComment;
   id: Scalars['String'];
   reply: Scalars['String'];
+  user: Scalars['String'];
 };
 
 export type IReservation = {
@@ -290,6 +324,19 @@ export type IRestaurantBoardInfo = {
 export type IToggleLikeInput = {
   boardId: Scalars['String'];
   isLike: Scalars['Boolean'];
+};
+
+export type IUpdateBoardInput = {
+  boardId: Scalars['String'];
+  boardImg?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  endArea?: InputMaybe<Scalars['String']>;
+  endPoint?: InputMaybe<Scalars['String']>;
+  info?: InputMaybe<Array<IInfoInput>>;
+  like?: InputMaybe<Scalars['Int']>;
+  startArea?: InputMaybe<Scalars['String']>;
+  startPoint?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateCommentInput = {

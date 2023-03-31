@@ -1,15 +1,9 @@
-import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../../commons/stores";
 import { useMutationCreateBoard } from "../mutation/useMutationCreateBoard";
 
 export const useClickCreateBoard = () => {
   const [createBoard] = useMutationCreateBoard();
-  const [aaa, setAAA] = useRecoilState(accessTokenState);
   const onClickCreate = (data) => () => {
-    // console.log(data, "데이타타타");
-
-    console.log(aaa, "토큰큰큰큰큰큰큰큰큰");
-
+    console.log(data, "데이타타타");
     const createBoardInput = {
       ...data,
       info: [...data.info.filter((el) => el.restaurantName !== "상호명")],

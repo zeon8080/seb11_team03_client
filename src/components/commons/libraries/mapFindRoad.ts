@@ -48,6 +48,7 @@ export const mapFindRoad = (props: IMapFindRoadProps): void => {
   };
 
   const startFind = async (): Promise<void> => {
+    console.log(props.data.info, "제발");
     const dataPos: any = {};
     for (let i = 0; i < props.data.info.length; i++) {
       if (props.data.info[i].restaurantName === "상호명") {
@@ -72,6 +73,7 @@ export const mapFindRoad = (props: IMapFindRoadProps): void => {
             props.data.info[i].location.lng
           )},${String(props.data.info[i].location.lat)}`;
         } else {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           dataPos.stopOver += `_${String(
             props.data.info[i].location.lng
           )},${String(props.data.info[i].location.lat)}`;

@@ -8,15 +8,18 @@ export const usePathState = (): [
   const [path, setPath] = useState({
     title: "",
     boardImg: "",
+    startArea: "",
+    endArea: "",
     startPoint: "",
     endPoint: "",
-    area: "",
     like: 0,
     info: [
       {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -26,6 +29,8 @@ export const usePathState = (): [
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -35,6 +40,8 @@ export const usePathState = (): [
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -44,6 +51,8 @@ export const usePathState = (): [
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -53,6 +62,8 @@ export const usePathState = (): [
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,

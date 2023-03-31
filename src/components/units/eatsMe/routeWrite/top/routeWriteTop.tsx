@@ -12,6 +12,7 @@ import * as S from "./routeWriteTopStyles";
 export interface ISlideSetting {
   keyword: string[];
   nowPage: number;
+  isFindRoad: boolean;
   isActive: boolean;
   disabled_next: boolean;
   disabled_prev: boolean;
@@ -35,12 +36,17 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
   const [slideSetting, setSlideSetting] = useState<ISlideSetting>({
     keyword: ["", "", "", "", "", ""],
     nowPage: 0,
+    isFindRoad: false,
     isActive: true,
     disabled_next: true,
     disabled_prev: true,
   });
+
+  // isFindRoad 이거 onClickAdd에거 변경이 안되고 있음
+
   useEffect(() => {
     if (marker.length !== 0) {
+      console.log(slideSetting, "진짜 뭐냐");
       marker.map((el) => el.setMap(null));
       mapMarker({
         data: path,
@@ -54,7 +60,8 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
         setSlideSetting,
         setPath,
       });
-      if (path.info[1].restaurantName !== "상호명") {
+      if (path.info[1].restaurantName !== "상호명" && slideSetting.isFindRoad) {
+        console.log("들어왔냐????");
         mapFindRoad({
           data: path,
           isWrite: true,
@@ -134,7 +141,6 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
     };
 
   const onClickNext = (): void => {
-    console.log("들어옴??", infoWindow);
     if (infoWindow.length > 0) {
       infoWindow[0].setVisible(false);
     }
@@ -254,6 +260,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                       infoWindow,
                       setInfoWindow,
                       isSearch: true,
+                      setSlideSetting,
                     })}
                   ></button>
                 </S.SearchWrap>

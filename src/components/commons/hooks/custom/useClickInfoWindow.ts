@@ -1,15 +1,15 @@
 export const useClickInfoWindow = () => {
   const onClickAdd = (props): void => {
-    console.log(props);
     if (props.idx === 0) {
       props.setPath((prev) => ({
         ...prev,
-        area: props.data.upperAddrName + "시",
+        startArea: props.data.upperAddrName + "시",
         startPoint: props.data.middleAddrName,
       }));
     } else if (props.idx === 1) {
       props.setPath((prev) => ({
         ...prev,
+        endArea: props.data.upperAddrName + "시",
         endPoint: props.data.middleAddrName,
       }));
     }
@@ -19,6 +19,8 @@ export const useClickInfoWindow = () => {
         if (idx === props.idx)
           return {
             ...el,
+            section: props.data.middleAddrName,
+            area: props.data.upperAddrName + "시",
             restaurantName: props.data.name,
             location: {
               lat: Number(props.data.noorLat),
@@ -43,8 +45,8 @@ export const useClickInfoWindow = () => {
     props.setSlideSetting((prev) => ({
       ...prev,
       nowPage: prev.nowPage - 1,
+      isFindRoad: true,
     }));
-    console.log(props, "구아가아강가");
     props.setPath((prev) => {
       const info = [...prev.info];
       info.splice(props.idx, 1);
