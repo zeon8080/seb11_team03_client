@@ -1,41 +1,37 @@
-import { useQuery } from "@apollo/client";
-import { useRecoilState } from "recoil";
 import { useClickLogout } from "../../hooks/custom/useClickLogout";
 import { useRouterMovePage } from "../../hooks/custom/useRouterMovePage";
-import { FETCH_LOGIN_USER } from "../../hooks/query/useQueryFetchLoginUser";
+import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/stores";
 import * as S from "./layoutHeaderStyles";
+import { wrapAsync } from "../../libraries/asyncFunc";
+import { useQuery } from "@apollo/client";
+import { FETCH_LOGIN_USER } from "../../hooks/query/useQueryFetchLoginUser";
+import { IQuery } from "../../../../commons/types/generated/types";
 
 export default function LayoutHeader(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
   const [accessToken] = useRecoilState(accessTokenState);
-  const { data } = useQuery(FETCH_LOGIN_USER, {
-    variables: {
-      userId: accessToken,
-    },
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchLoginUser">>(FETCH_LOGIN_USER);
 
   const { onClickLogout } = useClickLogout();
 
   return (
     <S.Container>
-      {data?.fetchUser ? (
+      {accessToken !== "" ? (
         <S.Wrapper>
           <img onClick={onClickMovePage("/")} src="/logo_bk.webp" />
           <S.NavBox>
-            <button onClick={onClickMovePage("/eatsMe/routeList")}>코스</button>
-            <button onClick={onClickMovePage("/eatsMe/popularList")}>
-              맛집
-            </button>
+            <a href="/eatsMe/routeList">코스 </a>
+            <a href="/eatsMe/popularList">맛집 </a>
           </S.NavBox>
           <S.BtnWrapper>
-            <S.LoginBox onClick={onClickLogout}>
+            <S.LoginBox onClick={wrapAsync(onClickLogout)}>
               <img src="/logout_wh.webp" />
               <S.LoginBtn>로그아웃</S.LoginBtn>
             </S.LoginBox>
 
             <S.UserInfoBtn onClick={onClickMovePage("/eatsMe/userInfo")}>
-              내 정보
+              {data?.fetchLoginUser.nickname} 님
             </S.UserInfoBtn>
           </S.BtnWrapper>
         </S.Wrapper>
@@ -51,11 +47,6 @@ export default function LayoutHeader(): JSX.Element {
               <img src="/login_wh.webp" />
               <S.LoginBtn>로그인</S.LoginBtn>
             </S.LoginBox>
-            {/* <S.LoginBox onClick={onClickLogout}>
-              <img src="/logout_wh.webp" />
-              <S.LoginBtn>로그아웃</S.LoginBtn>
-            </S.LoginBox> */}
-
             <S.JoinBtn onClick={onClickMovePage("/eatsMe/join")}>
               회원가입
             </S.JoinBtn>

@@ -236,7 +236,7 @@ export type IPersonalMapData = {
   __typename?: 'PersonalMapData';
   board: IBoard;
   id: Scalars['String'];
-  imgUrl: Scalars['String'];
+  imgUrl?: Maybe<Scalars['String']>;
   recommend: Scalars['String'];
   restaurantId: Scalars['String'];
 };
@@ -314,11 +314,11 @@ export type IRestaurantBoardInfo = {
   __typename?: 'RestaurantBoardInfo';
   address?: Maybe<Scalars['String']>;
   imgUrl?: Maybe<Scalars['String']>;
-  location?: Maybe<ILocationObject>;
+  location: ILocationObject;
   rating?: Maybe<Scalars['String']>;
   recommend?: Maybe<Scalars['String']>;
-  restaurantId?: Maybe<Scalars['String']>;
-  restaurantName?: Maybe<Scalars['String']>;
+  restaurantId: Scalars['String'];
+  restaurantName: Scalars['String'];
 };
 
 export type IToggleLikeInput = {

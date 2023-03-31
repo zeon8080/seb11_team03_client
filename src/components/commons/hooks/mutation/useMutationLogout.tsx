@@ -6,7 +6,7 @@ const LOGOUT = gql`
   }
 `;
 
-export const UseMutationLogout = () => {
+export const useMutationLogout = () => {
   const logoutUser = useMutation(LOGOUT);
 
   return logoutUser;
