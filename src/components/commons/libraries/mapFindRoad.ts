@@ -72,6 +72,7 @@ export const mapFindRoad = (props: IMapFindRoadProps): void => {
             props.data.info[i].location.lng
           )},${String(props.data.info[i].location.lat)}`;
         } else {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           dataPos.stopOver += `_${String(
             props.data.info[i].location.lng
           )},${String(props.data.info[i].location.lat)}`;

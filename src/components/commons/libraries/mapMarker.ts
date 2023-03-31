@@ -50,24 +50,7 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     }
   };
 
-  const PTbounds = new window.Tmapv2.LatLngBounds();
-  const markerArr = [];
-  for (
-    let i = 0;
-    i < (props.isSearch ? props.data.length : props.data.info.length);
-    i++
-  ) {
-    if (!props.isSearch && props.data.info[i].restaurantName === "상호명") {
-      break;
-    }
-    if (
-      props.isSearch &&
-      (props.idx ?? 0) > 0 &&
-      props.data[i].name ===
-        props.path?.info[(props.idx ?? 0) - 1].restaurantName
-    ) {
-      continue;
-    }
+  const addMarker = (i: number): void => {
     const position = new window.Tmapv2.LatLng(
       props.isSearch ? props.data[i].noorLat : props.data.info[i].location.lat,
       props.isSearch ? props.data[i].noorLon : props.data.info[i].location.lng
@@ -91,6 +74,40 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     }
     markerArr.push(TMarker);
     PTbounds.extend(position);
+  };
+
+  const PTbounds = new window.Tmapv2.LatLngBounds();
+  const markerArr: any[] = [];
+  for (
+    let i = 0;
+    i < (props.isSearch ? props.data.length : props.data.info.length);
+    i++
+  ) {
+    if (!props.isSearch && props.data.info[i].restaurantName === "상호명") {
+      break;
+    }
+
+    if (
+      props.isSearch &&
+      (props.idx ?? 0) > 0 &&
+      props.data[i].name ===
+        props.path?.info[(props.idx ?? 0) - 1].restaurantName
+    ) {
+      continue;
+    }
+
+    if (props.isSearch) {
+      if (
+        props.data[i].middleBizName === "음식점" ||
+        props.data[i].middleBizName === "카페"
+      ) {
+        if (props.data[i].name.indexOf("주차장") === -1) {
+          addMarker(i);
+        }
+      }
+    } else {
+      addMarker(i);
+    }
   }
 
   if (!props.isSearch && props.data.info[0].restaurantName === "상호명") {
