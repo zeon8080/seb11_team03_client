@@ -8,7 +8,7 @@ export default function List(): JSX.Element {
     <>
       <div>
         동적! <br />
-        dasdasdasd아이디:{router.query.routeId}
+        dasdasdasd아이디:{router.query.list}
       </div>
     </>
   );
