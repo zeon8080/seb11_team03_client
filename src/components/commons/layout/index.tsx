@@ -51,14 +51,16 @@ export default function Layout(props: ILayoutPros): JSX.Element {
 
   return (
     <Container>
-      <LayoutHeader />
-      <ChatbotWrapper>
-        <ChatBtn onClick={changeIsToggle}>쳇봇</ChatBtn>
-        <Chatbot isToggle={isToggle} changeIsToggle={changeIsToggle} />
-      </ChatbotWrapper>
+      <LayoutHeader hiddenCss={hiddenCss} />
 
       {!hiddenCss ? (
-        <LayoutBody>{props.children}</LayoutBody>
+        <LayoutBody>
+          {props.children}
+          <ChatbotWrapper>
+            <ChatBtn onClick={changeIsToggle}>쳇봇</ChatBtn>
+            <Chatbot isToggle={isToggle} changeIsToggle={changeIsToggle} />
+          </ChatbotWrapper>
+        </LayoutBody>
       ) : (
         <>{props.children}</>
       )}

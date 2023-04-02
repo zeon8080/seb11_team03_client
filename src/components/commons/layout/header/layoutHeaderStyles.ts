@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IHeader } from "./layoutHeader";
 
 const breakpoints = [576, 800, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -6,14 +7,18 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 //   font-size: 50px;
 // }
 
-export const Container = styled.header`
+export const Container = styled.header<IHeader>`
+  position: ${(props) => (props.hiddenCss ? "fixed" : "static")};
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: 1;
   width: 100%;
   height: 80px;
-  background-color: #fbb240;
+  background-color: ${(props) => (props.hiddenCss ? "transparent" : "#fbb240")};
   ${mq[1]} {
     height: 60px;
   }

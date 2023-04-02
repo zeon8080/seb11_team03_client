@@ -9,7 +9,7 @@ export const Container = styled.div<IChatbot>`
   flex-direction: column;
   position: absolute;
   bottom: 0;
-  right: ${(props) => (props.isToggle ? "-100vw" : "0")};
+  right: ${(props) => (props.isToggle ? "0" : "-100vw")};
   transition: 0.5s;
   width: 450px;
   height: 650px;
