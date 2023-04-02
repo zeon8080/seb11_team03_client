@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { MouseEvent, useEffect, useState } from "react";
+import { useClickRouteList } from "../../../../commons/hooks/custom/useClickRouteList";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
@@ -19,11 +20,27 @@ export default function RouteListMiddle(): JSX.Element {
   const [isActive, onClickIsActive] = useSetIsActive();
   const [isStart, changeIsStart] = useSetIsToggle();
   const [isEnd, changeIsEnd] = useSetIsToggle();
-  const [startPoint, setStartPoint] = useState("출발지");
-  const [endPoint, setEndPoint] = useState("도착지");
-  const [location, setLocation] = useState("서울특별시");
+  const [startPoint, setStartPoint] = useState("");
+  const [endPoint, setEndPoint] = useState("");
+  const [startArea, setStartArea] = useState("서울시");
+  const [endArea, setEndArea] = useState("");
   const [isStartToggle, changeIsStartToggle] = useSetIsToggle();
   const [isEndToggle, changeIsEndToggle] = useSetIsToggle();
+
+  const { data, refetch } = useClickRouteList({
+    fetchBoardsByEveryInput: {
+      startArea,
+    },
+  });
+
+  useEffect(() => {
+    const obj = { startPoint, endPoint, startArea, endArea };
+    const fetchBoardsByEveryInput = Object.fromEntries(
+      Object.entries(obj).filter(([_, value]) => value !== "")
+    );
+
+    void refetch({ fetchBoardsByEveryInput });
+  }, [startPoint, endPoint, startArea, endArea]);
 
   useEffect(() => {
     if (infoWindow.length > 1) {
@@ -183,7 +200,6 @@ export default function RouteListMiddle(): JSX.Element {
     });
     onClickIsActive(event);
   };
-
   return (
     <>
       <Head>
@@ -198,12 +214,12 @@ export default function RouteListMiddle(): JSX.Element {
                   changeIsStartToggle();
                 }}
               >
-                <div>{location}</div>
+                <div>{startArea === "" ? "출발지역" : startArea}</div>
                 <S.Arrow isStartToggle={isStartToggle} />
               </S.City>
               <S.SelectorWrapper isToggle={isStartToggle}>
                 <LocationSelector
-                  setLocation={setLocation}
+                  setLocation={setStartArea}
                   changeIsToggle={changeIsStartToggle}
                 />
               </S.SelectorWrapper>
@@ -215,7 +231,7 @@ export default function RouteListMiddle(): JSX.Element {
                   changeIsStart();
                 }}
               >
-                <div>{startPoint}</div>
+                <div>{startPoint === "" ? "출발지" : startPoint}</div>
                 <S.Arrow isStart={isStart} />
               </S.District>
               <S.SelectorWrapper isToggle={isStart}>
@@ -236,12 +252,12 @@ export default function RouteListMiddle(): JSX.Element {
                   changeIsEndToggle();
                 }}
               >
-                <div>{location}</div>
+                <div>{endArea === "" ? "도착지역" : endArea}</div>
                 <S.Arrow isEndToggle={isEndToggle} />
               </S.City>
               <S.SelectorWrapper isToggle={isEndToggle}>
                 <LocationSelector
-                  setLocation={setLocation}
+                  setLocation={setEndArea}
                   changeIsToggle={changeIsEndToggle}
                 />
               </S.SelectorWrapper>
@@ -253,7 +269,7 @@ export default function RouteListMiddle(): JSX.Element {
                   changeIsEnd();
                 }}
               >
-                <div>{endPoint}</div>
+                <div>{endPoint === "" ? "도착지" : endPoint}</div>
                 <S.Arrow isEnd={isEnd} />
               </S.District>
               <S.SelectorWrapper isToggle={isEnd}>

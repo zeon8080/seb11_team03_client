@@ -11,12 +11,12 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
+  Upload: any;
 };
 
 export type IAlarm = {
   __typename?: 'Alarm';
-  commentUserId: Scalars['String'];
-  commentUserName: Scalars['String'];
+  alarmMessage: Scalars['String'];
   comments: IComment;
   id: Scalars['String'];
   isAlarm: Scalars['Boolean'];
@@ -51,6 +51,7 @@ export type IBoardReturn = {
   startArea?: Maybe<Scalars['String']>;
   startPoint?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+  user: IUser;
 };
 
 export type IComment = {
@@ -60,7 +61,7 @@ export type IComment = {
   comment: Scalars['String'];
   id: Scalars['String'];
   replies: Array<IReply>;
-  user: Scalars['String'];
+  user: IUser;
 };
 
 export type ICreateBoardInput = {
@@ -99,16 +100,17 @@ export type ICreateUserInput = {
   password: Scalars['String'];
 };
 
-export type IFetchBoardsBySectionInput = {
-  area: Scalars['String'];
+export type IFetchBoardsByEveryInput = {
+  endArea?: InputMaybe<Scalars['String']>;
   endPoint?: InputMaybe<Scalars['String']>;
-  startPoint: Scalars['String'];
+  startArea?: InputMaybe<Scalars['String']>;
+  startPoint?: InputMaybe<Scalars['String']>;
 };
 
 export type IInfoInput = {
   area: Scalars['String'];
   imgUrl?: InputMaybe<Scalars['String']>;
-  location: ILocationInput;
+  location?: InputMaybe<ILocationInput>;
   recommend?: InputMaybe<Scalars['String']>;
   restaurantName: Scalars['String'];
   section: Scalars['String'];
@@ -150,6 +152,7 @@ export type IMutation = {
   updateComment: IComment;
   updateReply: IReply;
   updateUser: IUser;
+  uploadFile: Scalars['String'];
 };
 
 
@@ -174,7 +177,7 @@ export type IMutationCreateReplyArgs = {
 
 
 export type IMutationCreateReservationArgs = {
-  createReservationinput: ICreateReservationInput;
+  createReservationInput: ICreateReservationInput;
 };
 
 
@@ -232,22 +235,24 @@ export type IMutationUpdateUserArgs = {
   updateUserInput: IUpdateUserInput;
 };
 
+
+export type IMutationUploadFileArgs = {
+  file: Scalars['Upload'];
+};
+
 export type IPersonalMapData = {
   __typename?: 'PersonalMapData';
   board: IBoard;
   id: Scalars['String'];
-  imgUrl?: Maybe<Scalars['String']>;
+  imgUrl: Scalars['String'];
   recommend: Scalars['String'];
   restaurantId: Scalars['String'];
 };
 
 export type IQuery = {
   __typename?: 'Query';
-  alarms: Array<IAlarm>;
   fetchBoard: IBoardReturn;
-  fetchBoardsByEndArea: Array<IBoardReturn>;
-  fetchBoardsBySection: Array<IBoardReturn>;
-  fetchBoardsByStartArea: Array<IBoardReturn>;
+  fetchBoardsByEvery: Array<IBoardReturn>;
   fetchLoginUser: IUser;
   fetchMyBoard: Array<IBoardReturn>;
   fetchMyLikeBoard: Array<IBoardReturn>;
@@ -262,18 +267,8 @@ export type IQueryFetchBoardArgs = {
 };
 
 
-export type IQueryFetchBoardsByEndAreaArgs = {
-  endArea: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardsBySectionArgs = {
-  fetchBoardsWithSectionInput: IFetchBoardsBySectionInput;
-};
-
-
-export type IQueryFetchBoardsByStartAreaArgs = {
-  startArea: Scalars['String'];
+export type IQueryFetchBoardsByEveryArgs = {
+  fetchBoardsByEveryInput: IFetchBoardsByEveryInput;
 };
 
 
@@ -297,7 +292,7 @@ export type IReply = {
   comments: IComment;
   id: Scalars['String'];
   reply: Scalars['String'];
-  user: Scalars['String'];
+  user: IUser;
 };
 
 export type IReservation = {
@@ -314,7 +309,7 @@ export type IRestaurantBoardInfo = {
   __typename?: 'RestaurantBoardInfo';
   address?: Maybe<Scalars['String']>;
   imgUrl?: Maybe<Scalars['String']>;
-  location: ILocationObject;
+  location?: Maybe<ILocationObject>;
   rating?: Maybe<Scalars['String']>;
   recommend?: Maybe<Scalars['String']>;
   restaurantId: Scalars['String'];
@@ -340,12 +335,14 @@ export type IUpdateBoardInput = {
 };
 
 export type IUpdateCommentInput = {
-  comment: Scalars['String'];
+  boardId?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars['String']>;
   commentId: Scalars['String'];
 };
 
 export type IUpdateReplyInput = {
-  reply: Scalars['String'];
+  commentId?: InputMaybe<Scalars['String']>;
+  reply?: InputMaybe<Scalars['String']>;
   replyId: Scalars['String'];
 };
 
@@ -362,21 +359,21 @@ export type IUser = {
   id: Scalars['String'];
   nickname: Scalars['String'];
   reservations: Array<IReservation>;
-  restaurant: Array<IUserReservationRestaurantrestaurant>;
+  restaurant: Array<IUserReservationRestaurant>;
   userImg: Scalars['String'];
+};
+
+export type IUserReservationRestaurant = {
+  __typename?: 'UserReservationRestaurant';
+  _id: Scalars['String'];
+  address: Scalars['String'];
+  location: IUserReservationRestaurantLocation;
+  rating: Scalars['String'];
+  restaurantName: Scalars['String'];
 };
 
 export type IUserReservationRestaurantLocation = {
   __typename?: 'UserReservationRestaurantLocation';
   lat: Scalars['String'];
   lng: Scalars['String'];
-};
-
-export type IUserReservationRestaurantrestaurant = {
-  __typename?: 'UserReservationRestaurantrestaurant';
-  _id: Scalars['String'];
-  address: Scalars['String'];
-  location: IUserReservationRestaurantLocation;
-  rating: Scalars['String'];
-  restaurantName: Scalars['String'];
 };

@@ -10,13 +10,13 @@ export default function LocationSelector(
   props: ILocationSelectorProps
 ): JSX.Element {
   const location = [
-    "서울특별시",
-    "부산광역시",
-    "대구광역시",
-    "인천광역시",
-    "광주광역시",
-    "대전광역시",
-    "울산광역시",
+    "서울시",
+    "부산시",
+    "대구시",
+    "인천시",
+    "광주시",
+    "대전시",
+    "울산시",
     "경기도",
     "강원도",
     "충청북도",
