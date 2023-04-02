@@ -54,6 +54,9 @@ export const EmailTokenBtn = styled.button<{ isActive?: boolean }>`
   background-color: ${({ isActive }) =>
     isActive === true ? "#fbb240" : "#A5A5A5"};
   cursor: pointer;
+  ${mq[2]} {
+    margin: 15px 0 0 0;
+  }
 `;
 
 export const AccreditBox = styled.div`

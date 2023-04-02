@@ -45,8 +45,8 @@ export default function MainMap(): JSX.Element {
       <svg
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
-        width="300.000000pt"
-        height="469.000000pt"
+        width="400pt"
+        height="550pt"
         viewBox="0 0 2458.000000 3840.000000"
         preserveAspectRatio="xMidYMid meet"
       >

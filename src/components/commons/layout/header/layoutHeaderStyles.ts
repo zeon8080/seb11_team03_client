@@ -115,12 +115,13 @@ export const LoginBtn = styled.button`
 `;
 
 export const JoinBtn = styled.button`
+  all: unset;
   width: 60px;
   height: 32px;
   font-size: 14px;
   font-weight: bold;
   color: white;
-  background-color: #fbb240;
+  text-align: center;
   cursor: pointer;
 
   :hover {
@@ -129,12 +130,13 @@ export const JoinBtn = styled.button`
 `;
 
 export const UserInfoBtn = styled.button`
+  all: unset;
   width: 60px;
   height: 32px;
   font-size: 16px;
   font-weight: bold;
+  text-align: center;
   color: white;
-  background-color: #fbb240;
   cursor: pointer;
 
   :hover {
