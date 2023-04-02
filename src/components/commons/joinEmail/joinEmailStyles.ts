@@ -13,6 +13,16 @@ export const EmailBox = styled.div`
     margin: 0 auto 20px;
     align-items: center;
   }
+`;
+
+export const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  ${mq[2]} {
+    margin: 0 auto 20px;
+    align-items: center;
+  }
   > span {
     width: 100%;
     font-size: 20px;

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const schema = yup.object({
+export const schema1 = yup.object({
   nickname: yup
     .string()
     .max(8, "8글자 이내로 적어주세요")

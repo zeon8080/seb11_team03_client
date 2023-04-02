@@ -1,23 +1,20 @@
-import { FieldValues, UseFormSetValue } from "react-hook-form";
 import { useMutationCheckEmail } from "../mutation/useMutationCheckEmail";
-
-interface IArgs {
-  email: string;
-  setValue: UseFormSetValue<FieldValues>;
-}
 
 export const useClickCheckEmail = () => {
   const [checkEmail] = useMutationCheckEmail();
 
-  const onClickCheckEmail = async (args: IArgs): Promise<void> => {
-    console.log(args.email);
+  const onClickCheckEmail = async (data): Promise<void> => {
+    console.log(data, "214242");
 
-    await checkEmail({
-      variables: {
-        email: args.email,
-      },
-    });
-    args.setValue("email", args.email);
+    try {
+      await checkEmail({
+        variables: {
+          email: data.email,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+    }
   };
   return { onClickCheckEmail };
 };
