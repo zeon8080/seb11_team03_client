@@ -20,7 +20,7 @@ export const useClickJoin = () => {
         },
       });
       console.log(result);
-      routerMovePage("/");
+      routerMovePage("/eatsMe/login");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

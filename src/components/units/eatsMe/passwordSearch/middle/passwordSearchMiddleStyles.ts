@@ -73,14 +73,15 @@ export const EmailBox = styled.div`
   }
 `;
 
-export const SearchBtn = styled.button`
+export const SearchBtn = styled.button<{ isActive?: boolean }>`
   width: 400px;
   height: 50px;
   margin-bottom: 16px;
   font-size: 20px;
   font-weight: bold;
   color: white;
-  background-color: #fbb240;
+  background-color: ${({ isActive }) =>
+    isActive === true ? "#fbb240" : "#A5A5A5"};
   cursor: pointer;
 `;
 
