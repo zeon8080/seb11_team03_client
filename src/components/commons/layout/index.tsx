@@ -26,7 +26,7 @@ const ChatbotWrapper = styled.div`
   position: fixed;
   right: 120px;
   bottom: 90px;
-  z-index: 1;
+  z-index: 100;
   ${mq[2]} {
     right: 50px;
   }
