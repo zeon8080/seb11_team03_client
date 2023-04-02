@@ -51,7 +51,7 @@ export const NavBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100px;
+  gap: 0 20px;
   ${mq[1]} {
     justify-content: stretch;
     gap: 0 20px;
@@ -73,6 +73,7 @@ export const NavBox = styled.div`
 `;
 
 export const BtnWrapper = styled.div`
+  position: relative;
   width: 200px;
   display: flex;
   flex-direction: row;
