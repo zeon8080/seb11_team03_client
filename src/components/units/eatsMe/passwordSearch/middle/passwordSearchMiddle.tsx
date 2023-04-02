@@ -35,7 +35,6 @@ export default function PasswordSearchMiddle(): JSX.Element {
   };
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onClickSearch)}>
       <S.Container>
         <S.Wrapper>
