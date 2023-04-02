@@ -23,6 +23,7 @@ export default function JoinMiddle(): JSX.Element {
   useWithAuth();
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onClickJoin)}>
       <S.Container>
         <S.Wrapper>

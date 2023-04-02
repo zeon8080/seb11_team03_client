@@ -27,7 +27,7 @@ export const useClickInfoWindow = (): any => {
         lng: 0,
       },
     };
-    props.setSlideSetting((prev) => ({
+    props.setSlideSetting((prev: any) => ({
       ...prev,
       nowPage: prev.nowPage - 1,
     }));
