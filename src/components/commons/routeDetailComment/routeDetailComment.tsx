@@ -1,22 +1,74 @@
+import { MouseEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
+import {
+  ICreateCommentInput,
+  IUpdateCommentInput,
+} from "../../../commons/types/generated/types";
 import { useClickCreateComment } from "../hooks/custom/useClickCreateComment";
+import { useClickDeleteComment } from "../hooks/custom/useClickDeleteComment";
+import { useClickUpdateComment } from "../hooks/custom/useClickUpdateComment";
+import { useSetIsActive } from "../hooks/custom/useSetIsActive";
+import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
+import { wrapFormAsync } from "../libraries/asyncFunc";
+import RouteDetailCommentReply from "../routeDetailCommentReply/routeDetailCommentReply";
 import * as S from "./routeDetailCommentStyles";
 
 export default function RouteDetailComment(): JSX.Element {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit } = useForm<ICreateCommentInput>();
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    setValue: setValue2,
+  } = useForm<IUpdateCommentInput>();
+  const [isReply, changeIsReply, setIsReply] = useSetIsActive();
+  const [isCommentModify, changeIsCommentModify, setIsCommentModify] =
+    useSetIsToggle();
+  const { onClickCreateComment } = useClickCreateComment();
+  const { onClickUpdateComment } = useClickUpdateComment();
+  const { onClickDeleteComment } = useClickDeleteComment();
+  const CommentModifyRef = useRef<HTMLTextAreaElement>(null);
   const comments = [
     "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
     "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
     "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
   ];
 
-  // useEffect(()=>{
-  //   setValue("boardId", data)
-  // },[])
+  const onChangeCommentModify = (): void => {
+    if (CommentModifyRef.current !== null) {
+      CommentModifyRef.current.style.height = `${
+        CommentModifyRef.current?.scrollHeight ?? 0
+      }px`;
+    }
+    // 현재 제일 마지막 댓글만 작동되는중 아마도 여러개라서 그런듯 실제 데이터 넣고 실험해볼것
+  };
+
+  const onClickCommentModifyIcon =
+    (boardId: string) =>
+    (event: MouseEvent<HTMLImageElement>): void => {
+      event.stopPropagation();
+      setIsReply("");
+      setValue2("boardId", boardId);
+      setValue2("commentId", event.currentTarget.id);
+      changeIsCommentModify();
+    };
+
+  const onClickComment = (event: MouseEvent<HTMLDivElement>): void => {
+    // 여기에 현재 접속한 유저 정보가 있을때(아이디) 작동하게 처리
+    if (!isCommentModify) {
+      changeIsReply(event);
+    }
+  };
+
+  // 전체적으로 입력된 값을이 ""이면 모달창
+  // ImgBox를 현재 접속한 유저 아이디와 댓글작성 유저 아이디와 같으면 보이게 처리 이렇게 하면 해당 유저가 아니면 안보이디 따로 분기처리 필요없음
+  // ImgBox안 img의 id는 댓글아이디
+  // 현재 전체적으로 refetchQueries에서 variables를 생략하고 있는데 이게 정상적으로 동작 하는지 체크
 
   return (
     <S.Container>
-      <S.WriteWrapper onSubmit={handleSubmit(useClickCreateComment)}>
+      <S.WriteWrapper
+        onSubmit={wrapFormAsync(handleSubmit(onClickCreateComment))}
+      >
         <input
           type="text"
           placeholder="댓글을 입력해 주세요."
@@ -26,17 +78,48 @@ export default function RouteDetailComment(): JSX.Element {
       </S.WriteWrapper>
       <S.DivideLine></S.DivideLine>
       {comments.map((el, idx) => (
-        <S.CommentsWrapper key={idx}>
-          <S.ImgBox>
-            <img src="/modify.webp" />
-            <img src="/delete.webp" />
-          </S.ImgBox>
-          <S.userInfoBox>
-            <img src="/userImg_small.webp" />
-            <div>나는문어나는문어</div>
-          </S.userInfoBox>
-          <S.Comments>{el}</S.Comments>
-        </S.CommentsWrapper>
+        <S.CommentContainer key={idx}>
+          <S.CommentsWrapper id={String(idx)} onClick={onClickComment}>
+            <S.ImgBox>
+              <img
+                src="/modify.webp"
+                id={String(idx)}
+                onClick={onClickCommentModifyIcon("게시글아이디")}
+              />
+              <img
+                src="/delete.webp"
+                id={"댓글아이디"}
+                onClick={() => {
+                  void onClickDeleteComment;
+                }}
+              />
+            </S.ImgBox>
+            <S.UserInfoBox>
+              <img src="/userImg_small.webp" />
+              <div>나는문어나는문어</div>
+            </S.UserInfoBox>
+            {isCommentModify ? (
+              <S.CommentsModifyBox
+                onSubmit={wrapFormAsync(
+                  handleSubmit2(onClickUpdateComment(setIsCommentModify))
+                )}
+              >
+                <S.CommentsModifyTextarea
+                  {...register2("comment", { onChange: onChangeCommentModify })}
+                  ref={CommentModifyRef}
+                />
+                <S.CommentsModifySubmit>수정</S.CommentsModifySubmit>
+              </S.CommentsModifyBox>
+            ) : (
+              <S.Comments>{el}</S.Comments>
+            )}
+          </S.CommentsWrapper>
+          <RouteDetailCommentReply
+            id={String(idx)}
+            isReply={isReply}
+            setIsReply={setIsReply}
+          />
+        </S.CommentContainer>
       ))}
     </S.Container>
   );

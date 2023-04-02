@@ -1,48 +1,28 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 55%;
-  padding: 10px 10px 0;
-  margin-bottom: 36px;
-  background: #f5f5f5;
-`;
-
-export const WriteWrapper = styled.form`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: 40px;
-  padding: 6px 10px;
-  background-color: white;
+  width: 100%;
+  margin-top: 10px;
+`;
 
-  & > input {
-    width: calc(100% - 56px);
-    font-weight: 500;
-    font-size: 12px;
-  }
+export const ImgWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 34px;
 
-  & > button {
-    width: 46px;
-    font-weight: 500;
-    font-size: 12px;
-    background-color: #fbb240;
-    color: white;
-    cursor: pointer;
+  & > img {
+    width: 24px;
+    height: 24px;
   }
 `;
 
-export const DivideLine = styled.div`
-  margin: 10px 0;
-  border-bottom: 1px solid #e5e5e5;
-`;
-
-export const CommentContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-export const CommentsWrapper = styled.div`
+export const ReplyWrapper = styled.form`
   position: relative;
-  padding: 6px 10px;
+  width: 100%;
+  padding: 6px;
   background-color: white;
 `;
 
@@ -63,7 +43,7 @@ export const ImgBox = styled.div`
   }
 `;
 
-export const UserInfoBox = styled.div`
+export const ReplyUserInfoBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -81,18 +61,25 @@ export const UserInfoBox = styled.div`
   }
 `;
 
-export const Comments = styled.div`
+export const Reply = styled.div`
   margin-top: 10px;
   font-weight: 500;
   font-size: 12px;
 `;
 
-export const CommentsModifyBox = styled.form`
-  display: flex;
-  flex-direction: column;
+export const ReplySubmit = styled.button`
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  width: 46px;
+  height: 28px;
+  background-color: #fbb240;
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
 `;
 
-export const CommentsModifyTextarea = styled.textarea`
+export const ReplyTextarea = styled.textarea`
   width: 100%;
   height: auto;
   resize: none;
@@ -106,7 +93,26 @@ export const CommentsModifyTextarea = styled.textarea`
   }
 `;
 
-export const CommentsModifySubmit = styled.button`
+export const ReplyModifyBox = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ReplyMModifyTextarea = styled.textarea`
+  width: 100%;
+  height: auto;
+  resize: none;
+  border: none;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  overflow: hidden;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const ReplyModifySubmit = styled.button`
   align-self: flex-end;
   width: 46px;
   height: 28px;
