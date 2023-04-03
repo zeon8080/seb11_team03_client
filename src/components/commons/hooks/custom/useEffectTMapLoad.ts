@@ -14,13 +14,13 @@ interface IUseEffectTMapLoadProps {
   isSearch?: boolean;
   data: any;
   setPath?: Dispatch<any>;
-  setMap: Dispatch<any>;
+  setMap?: Dispatch<any>;
   map?: any;
   marker?: any[];
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];
   setFindLine?: Dispatch<SetStateAction<any[]>>;
-  slideSetting: ISlideSetting;
+  slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
 }
@@ -37,7 +37,7 @@ export const useEffectTMapLoad = (props: IUseEffectTMapLoadProps): void => {
           zoom: 15,
           zIndexInfoWindow: 11,
         });
-        props.setMap(TMap);
+        props.setMap?.(TMap);
       }
       if (
         router.asPath !== "/eatsMe/routeWrite" &&
@@ -47,7 +47,15 @@ export const useEffectTMapLoad = (props: IUseEffectTMapLoadProps): void => {
         mapMarker({ ...props });
         mapFindRoad({ ...props });
       }
+      if (
+        router.asPath === "/eatsMe/routeList" &&
+        Object.keys(props.map).length !== 0 &&
+        props.data !== undefined
+      ) {
+        mapMarker({ ...props });
+        mapFindRoad({ ...props });
+      }
     };
     initTmap();
-  }, [props.isSet]);
+  }, [props.isWrite === false ? props.data : props.isSet]);
 };

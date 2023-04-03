@@ -52,25 +52,51 @@ export const mapFindRoad = (props: IMapFindRoadProps): void => {
 
   const startFind = async (): Promise<void> => {
     const dataPos: any = {};
-    for (let i = 0; i < props.data.info.length; i++) {
-      if (props.data.info[i].restaurantName === "상호명") {
+    for (
+      let i = 0;
+      i <
+      (props.isWrite === true
+        ? props.data.info.length
+        : props.data.personalMapData.length);
+      i++
+    ) {
+      if (
+        props.isWrite === true &&
+        props.data.info[i].restaurantName === "상호명"
+      ) {
         break;
       }
 
       if (i === 0) {
-        dataPos.start = props.data.info[i].location;
+        dataPos.start =
+          props.isWrite === true
+            ? props.data.info[i].location
+            : props.data.personalMapData[i].location;
       } else if (i === 1) {
-        dataPos.end = props.data.info[i].location;
+        dataPos.end =
+          props.isWrite === true
+            ? props.data.info[i].location
+            : props.data.personalMapData[i].location;
       } else {
         if (dataPos.stopOver === undefined) {
-          dataPos.stopOver = `${String(
-            props.data.info[i].location.lng
-          )},${String(props.data.info[i].location.lat)}`;
+          dataPos.stopOver =
+            props.isWrite === true
+              ? `${String(props.data.info[i].location.lng)},${String(
+                  props.data.info[i].location.lat
+                )}`
+              : `${String(props.data.personalMapData[i].location.lng)},${String(
+                  props.data.personalMapData[i].location.lat
+                )}`;
         } else {
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-          dataPos.stopOver += `_${String(
-            props.data.info[i].location.lng
-          )},${String(props.data.info[i].location.lat)}`;
+          dataPos.stopOver +=
+            props.isWrite === true
+              ? `_${String(props.data.info[i].location.lng)},${String(
+                  props.data.info[i].location.lat
+                )}`
+              : `_${String(
+                  props.data.personalMapData[i].location.lng
+                )},${String(props.data.personalMapData[i].location.lat)}`;
         }
       }
     }

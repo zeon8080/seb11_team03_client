@@ -1,6 +1,9 @@
 import { MouseEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { fetchLoginUserState } from "../../../commons/stores";
 import {
+  IBoardReturn,
   ICreateCommentInput,
   IUpdateCommentInput,
 } from "../../../commons/types/generated/types";
@@ -13,7 +16,13 @@ import { wrapFormAsync } from "../libraries/asyncFunc";
 import RouteDetailCommentReply from "../routeDetailCommentReply/routeDetailCommentReply";
 import * as S from "./routeDetailCommentStyles";
 
-export default function RouteDetailComment(): JSX.Element {
+interface IRouteDetailCommentProps {
+  data: IBoardReturn;
+}
+
+export default function RouteDetailComment(
+  props: IRouteDetailCommentProps
+): JSX.Element {
   const { register, handleSubmit } = useForm<ICreateCommentInput>();
   const {
     register: register2,
@@ -26,12 +35,8 @@ export default function RouteDetailComment(): JSX.Element {
   const { onClickCreateComment } = useClickCreateComment();
   const { onClickUpdateComment } = useClickUpdateComment();
   const { onClickDeleteComment } = useClickDeleteComment();
+  const [fetchLoginUser] = useRecoilState(fetchLoginUserState);
   const CommentModifyRef = useRef<HTMLTextAreaElement>(null);
-  const comments = [
-    "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
-    "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
-    "댓글내용구아아아아아가라아아ㅏ아아가암내에ㅏㄴ매ㅔ앙아ㅣㅏㄱ람ㄴ암나아아아앙ㅁ나앤마안아암ㄴ",
-  ];
 
   const onChangeCommentModify = (): void => {
     if (CommentModifyRef.current !== null) {
@@ -53,8 +58,7 @@ export default function RouteDetailComment(): JSX.Element {
     };
 
   const onClickComment = (event: MouseEvent<HTMLDivElement>): void => {
-    // 여기에 현재 접속한 유저 정보가 있을때(아이디) 작동하게 처리
-    if (!isCommentModify) {
+    if (!isCommentModify && fetchLoginUser.id !== undefined) {
       changeIsReply(event);
     }
   };
@@ -64,10 +68,17 @@ export default function RouteDetailComment(): JSX.Element {
   // ImgBox안 img의 id는 댓글아이디
   // 현재 전체적으로 refetchQueries에서 variables를 생략하고 있는데 이게 정상적으로 동작 하는지 체크
 
+  const onClickCommentSubmit = (data: { comment: string }): void => {
+    void onClickCreateComment({
+      comment: data.comment,
+      boardId: props.data.id ?? "",
+    });
+  };
+
   return (
     <S.Container>
       <S.WriteWrapper
-        onSubmit={wrapFormAsync(handleSubmit(onClickCreateComment))}
+        onSubmit={wrapFormAsync(handleSubmit(onClickCommentSubmit))}
       >
         <input
           type="text"
@@ -77,26 +88,36 @@ export default function RouteDetailComment(): JSX.Element {
         <button>등록</button>
       </S.WriteWrapper>
       <S.DivideLine></S.DivideLine>
-      {comments.map((el, idx) => (
-        <S.CommentContainer key={idx}>
-          <S.CommentsWrapper id={String(idx)} onClick={onClickComment}>
-            <S.ImgBox>
-              <img
-                src="/modify.webp"
-                id={String(idx)}
-                onClick={onClickCommentModifyIcon("게시글아이디")}
-              />
-              <img
-                src="/delete.webp"
-                id={"댓글아이디"}
-                onClick={() => {
-                  void onClickDeleteComment;
-                }}
-              />
-            </S.ImgBox>
+      {props.data?.comments?.map((el) => (
+        <S.CommentContainer key={el.id}>
+          <S.CommentsWrapper id={el.id} onClick={onClickComment}>
+            {fetchLoginUser.id === el.user?.id ? (
+              <S.ImgBox>
+                <img
+                  src="/modify.webp"
+                  id={props.data.id ?? ""}
+                  onClick={onClickCommentModifyIcon(props.data.id ?? "")}
+                />
+                <img
+                  src="/delete.webp"
+                  id={el.id}
+                  onClick={() => {
+                    void onClickDeleteComment;
+                  }}
+                />
+              </S.ImgBox>
+            ) : (
+              <></>
+            )}
             <S.UserInfoBox>
-              <img src="/userImg_small.webp" />
-              <div>나는문어나는문어</div>
+              <img
+                src={
+                  el.user?.userImg !== null
+                    ? `https://storage.googleapis.com/${el.user?.userImg}`
+                    : "/userImg_small.webp"
+                }
+              />
+              <div>{el.user?.nickname}</div>
             </S.UserInfoBox>
             {isCommentModify ? (
               <S.CommentsModifyBox
@@ -111,11 +132,12 @@ export default function RouteDetailComment(): JSX.Element {
                 <S.CommentsModifySubmit>수정</S.CommentsModifySubmit>
               </S.CommentsModifyBox>
             ) : (
-              <S.Comments>{el}</S.Comments>
+              <S.Comments>{el.comment}</S.Comments>
             )}
           </S.CommentsWrapper>
           <RouteDetailCommentReply
-            id={String(idx)}
+            data={el.replies}
+            id={el.id}
             isReply={isReply}
             setIsReply={setIsReply}
           />

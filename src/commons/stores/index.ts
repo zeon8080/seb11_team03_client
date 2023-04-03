@@ -1,5 +1,6 @@
-import { atom, selector } from "recoil";
+import { atom, RecoilState, selector } from "recoil";
 import { getNewAccessToken } from "../libraries/getNewAccessToken";
+import { IUser } from "../types/generated/types";
 
 export const isEditState = atom({
   key: "isEditState",
@@ -17,4 +18,10 @@ export const restoreAccessTokenLoadable = selector({
     const newAccessToken = await getNewAccessToken();
     return newAccessToken;
   },
+});
+
+export const fetchLoginUserState: RecoilState<IUser> = atom({
+  key: "fetchLoginUserState",
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  default: {} as IUser,
 });
