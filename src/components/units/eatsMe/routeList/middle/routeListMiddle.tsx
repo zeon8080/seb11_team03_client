@@ -1,18 +1,46 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
+import { useClickRouteList } from "../../../../commons/hooks/custom/useClickRouteList";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
+import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
 import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import RouteDetail from "../../../../commons/routeDetail/routeDetail";
+import LocationSelector from "../../../../locationSelector/locationSelector";
+import SubLocationSelector from "../../../../subLocationSelector/subLocationSelector";
 import * as S from "./routeListMiddleStyles";
 
 export default function RouteListMiddle(): JSX.Element {
-  const [map, setMap] = useState();
-  const [marker, setMarker] = useState([]);
-  const [findLine, setFindLine] = useState([]);
+  const [map, setMap] = useState<any>();
+  const [marker, setMarker] = useState<any[]>([]);
+  const [findLine, setFindLine] = useState<any[]>([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
+
   const [isActive, onClickIsActive] = useSetIsActive();
+  const [isStart, changeIsStart] = useSetIsToggle();
+  const [isEnd, changeIsEnd] = useSetIsToggle();
+  const [startPoint, setStartPoint] = useState("");
+  const [endPoint, setEndPoint] = useState("");
+  const [startArea, setStartArea] = useState("서울시");
+  const [endArea, setEndArea] = useState("");
+  const [isStartToggle, changeIsStartToggle] = useSetIsToggle();
+  const [isEndToggle, changeIsEndToggle] = useSetIsToggle();
+
+  const { data, refetch } = useClickRouteList({
+    fetchBoardsByEveryInput: {
+      startArea,
+    },
+  });
+
+  useEffect(() => {
+    const obj = { startPoint, endPoint, startArea, endArea };
+    const fetchBoardsByEveryInput = Object.fromEntries(
+      Object.entries(obj).filter(([_, value]) => value !== "")
+    );
+
+    void refetch({ fetchBoardsByEveryInput });
+  }, [startPoint, endPoint, startArea, endArea]);
 
   useEffect(() => {
     if (infoWindow.length > 1) {
@@ -150,14 +178,14 @@ export default function RouteListMiddle(): JSX.Element {
     isSearch: false,
   });
 
-  const onClickRoute = (event: any): any => {
+  const onClickRoute = (event: MouseEvent<HTMLDivElement>): void => {
     // 데이터 생겼을때 데이터 아이디랑 이벤트 타겟 id(여기에 데이터 아이디 바인딩)을 비교해서 같지 않을때만 onClickIsActive제외 전부 실행 되게 onClickIsActive제외은 언제나 실행
     // 어차피 state라서 이전 데이터랑 같은면 변경 안됨
     if (infoWindow[0] !== undefined) {
       infoWindow[0].setVisible(false);
     }
     mapMarker({
-      data: test[event.currentTarget.id],
+      data: test[Number(event.currentTarget.id)],
       map,
       marker,
       setMarker,
@@ -165,48 +193,128 @@ export default function RouteListMiddle(): JSX.Element {
       isSearch: false,
     });
     mapFindRoad({
-      data: test[event.currentTarget.id],
+      data: test[Number(event.currentTarget.id)],
       map,
       findLine,
       setFindLine,
     });
     onClickIsActive(event);
   };
-
   return (
     <>
       <Head>
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
       </Head>
       <S.Container>
-        <article>
-          <S.SelectWrapper>
-            <S.StartSelect>출발지</S.StartSelect>
-            <S.ArrowImgWrapper>
-              <img src="/arrow_or.webp" />
-            </S.ArrowImgWrapper>
-            <S.EndSelect>도착지</S.EndSelect>
-          </S.SelectWrapper>
-          {test.map((el, idx) => (
-            <RouteDetail
-              key={idx}
-              idx={idx}
-              onClickRoute={onClickRoute}
-              isActive={isActive}
-              onClickIsActive={onClickIsActive}
-            />
-          ))}
-        </article>
+        <S.SelectWrapper>
+          <S.BoxWrapper className="start">
+            <S.CityWrapper>
+              <S.City
+                onClick={() => {
+                  changeIsStartToggle();
+                }}
+              >
+                <div>{startArea === "" ? "출발지역" : startArea}</div>
+                <S.Arrow isStartToggle={isStartToggle} />
+              </S.City>
+              <S.SelectorWrapper isToggle={isStartToggle}>
+                <LocationSelector
+                  setLocation={setStartArea}
+                  changeIsToggle={changeIsStartToggle}
+                />
+              </S.SelectorWrapper>
+            </S.CityWrapper>
 
-        <S.MapWrapper>
-          <div
-            id="TMapApp"
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
-          />
-        </S.MapWrapper>
+            <S.DistrictWrapper>
+              <S.District
+                onClick={() => {
+                  changeIsStart();
+                }}
+              >
+                <div>{startPoint === "" ? "출발지" : startPoint}</div>
+                <S.Arrow isStart={isStart} />
+              </S.District>
+              <S.SelectorWrapper isToggle={isStart}>
+                <SubLocationSelector
+                  changeIsToggle={changeIsStart}
+                  setSubLocation={setStartPoint}
+                />
+              </S.SelectorWrapper>
+            </S.DistrictWrapper>
+          </S.BoxWrapper>
+
+          <S.ArrowImg src="/arrow_or.webp" />
+
+          <S.BoxWrapper className="end">
+            <S.CityWrapper>
+              <S.City
+                onClick={() => {
+                  changeIsEndToggle();
+                }}
+              >
+                <div>{endArea === "" ? "도착지역" : endArea}</div>
+                <S.Arrow isEndToggle={isEndToggle} />
+              </S.City>
+              <S.SelectorWrapper isToggle={isEndToggle}>
+                <LocationSelector
+                  setLocation={setEndArea}
+                  changeIsToggle={changeIsEndToggle}
+                />
+              </S.SelectorWrapper>
+            </S.CityWrapper>
+
+            <S.DistrictWrapper>
+              <S.District
+                onClick={() => {
+                  changeIsEnd();
+                }}
+              >
+                <div>{endPoint === "" ? "도착지" : endPoint}</div>
+                <S.Arrow isEnd={isEnd} />
+              </S.District>
+              <S.SelectorWrapper isToggle={isEnd}>
+                <SubLocationSelector
+                  changeIsToggle={changeIsEnd}
+                  setSubLocation={setEndPoint}
+                />
+              </S.SelectorWrapper>
+            </S.DistrictWrapper>
+          </S.BoxWrapper>
+        </S.SelectWrapper>
+        <S.Contents>
+          <S.ListWrapper>
+            <S.ItemWrapper>
+              {test.map((_, idx) => (
+                <RouteDetail
+                  key={idx}
+                  idx={idx}
+                  isActive={isActive}
+                  onClickRoute={onClickRoute}
+                  onClickIsActive={onClickIsActive}
+                />
+              ))}
+              {test.map((_, idx) => (
+                <RouteDetail
+                  key={idx}
+                  idx={idx}
+                  isActive={isActive}
+                  onClickRoute={onClickRoute}
+                  onClickIsActive={onClickIsActive}
+                />
+              ))}
+            </S.ItemWrapper>
+          </S.ListWrapper>
+
+          <S.MapWrapper>
+            <div
+              id="TMapApp"
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            />
+          </S.MapWrapper>
+        </S.Contents>
       </S.Container>
     </>
   );

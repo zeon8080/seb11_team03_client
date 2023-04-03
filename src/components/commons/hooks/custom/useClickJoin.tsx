@@ -7,6 +7,8 @@ export const useClickJoin = (): any => {
   const { routerMovePage } = useRouterMovePage();
 
   const onClickJoin = async (data: IJoinFormData): Promise<void> => {
+    console.log(data);
+
     try {
       const result = await createUser({
         variables: {
@@ -18,7 +20,7 @@ export const useClickJoin = (): any => {
         },
       });
       console.log(result);
-      routerMovePage("/");
+      routerMovePage("/eatsMe/login");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

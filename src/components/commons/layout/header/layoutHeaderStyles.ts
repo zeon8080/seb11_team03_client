@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IHeader } from "./layoutHeader";
 
 const breakpoints = [576, 800, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -6,14 +7,18 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 //   font-size: 50px;
 // }
 
-export const Container = styled.header`
+export const Container = styled.header<IHeader>`
+  position: ${(props) => (props.hiddenCss ? "fixed" : "static")};
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: 1;
   width: 100%;
   height: 80px;
-  background-color: #fbb240;
+  background-color: ${(props) => (props.hiddenCss ? "transparent" : "#fbb240")};
   ${mq[1]} {
     height: 60px;
   }
@@ -46,7 +51,7 @@ export const NavBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100px;
+  gap: 0 20px;
   ${mq[1]} {
     justify-content: stretch;
     gap: 0 20px;
@@ -68,6 +73,7 @@ export const NavBox = styled.div`
 `;
 
 export const BtnWrapper = styled.div`
+  position: relative;
   width: 200px;
   display: flex;
   flex-direction: row;
@@ -92,7 +98,6 @@ export const LoginBox = styled.div`
     width: 24px;
     height: 24px;
     object-fit: contain;
-    margin-right: 4px;
     margin-bottom: 2px;
   }
 `;
@@ -111,12 +116,13 @@ export const LoginBtn = styled.button`
 `;
 
 export const JoinBtn = styled.button`
+  all: unset;
   width: 60px;
   height: 32px;
   font-size: 14px;
   font-weight: bold;
   color: white;
-  background-color: #fbb240;
+  text-align: center;
   cursor: pointer;
 
   :hover {
@@ -125,12 +131,13 @@ export const JoinBtn = styled.button`
 `;
 
 export const UserInfoBtn = styled.button`
+  all: unset;
   width: 60px;
   height: 32px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
   color: white;
-  background-color: #fbb240;
   cursor: pointer;
 
   :hover {

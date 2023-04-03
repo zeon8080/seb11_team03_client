@@ -1,13 +1,30 @@
 import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
 
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapFindRoad = (props: any): void => {
-  if (props.findLine.length !== 0) {
-    props.findLine.map((el: any) => el.setMap(null));
-    props.setFindLine([]);
+interface IMapFindRoadProps {
+  isSearch?: boolean;
+  data: any;
+  setMap?: Dispatch<any>;
+  map?: any;
+  marker?: any[];
+  isWrite?: boolean;
+  setMarker?: Dispatch<SetStateAction<any[]>>;
+  findLine?: any[];
+  setPath?: Dispatch<any>;
+  setFindLine?: Dispatch<SetStateAction<any[]>>;
+  setInfoWindow?: Dispatch<SetStateAction<any[]>>;
+  setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
+}
+
+export const mapFindRoad = (props: IMapFindRoadProps): void => {
+  if (props.findLine?.length !== 0) {
+    props.findLine?.map((el) => el.setMap(null));
+    props.setFindLine?.([]);
   }
 
   const drawData = (result: any): void => {
@@ -28,7 +45,7 @@ export const mapFindRoad = (props: any): void => {
           strokeWeight: 4,
           map: props.map,
         });
-        props.setFindLine((prev: any) => [...prev, TLine]);
+        props.setFindLine?.((prev) => [...prev, TLine]);
       }
     }
   };
@@ -42,27 +59,21 @@ export const mapFindRoad = (props: any): void => {
 
       if (i === 0) {
         dataPos.start = props.data.info[i].location;
-      } else if (
-        Object.prototype.hasOwnProperty.call(props, "isWrite") &&
-        i === 1
-      ) {
-        dataPos.end = props.data.info[i].location;
-      } else if (
-        !Object.prototype.hasOwnProperty.call(props, "isWrite") &&
-        i === props.data.info.length - 1
-      ) {
+      } else if (i === 1) {
         dataPos.end = props.data.info[i].location;
       } else {
         if (dataPos.stopOver === undefined) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          dataPos.stopOver = `${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
+          dataPos.stopOver = `${String(
+            props.data.info[i].location.lng
+          )},${String(props.data.info[i].location.lat)}`;
         } else {
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/restrict-template-expressions
-          dataPos.stopOver += `_${props.data.info[i].location.lng},${props.data.info[i].location.lat}`;
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          dataPos.stopOver += `_${String(
+            props.data.info[i].location.lng
+          )},${String(props.data.info[i].location.lat)}`;
         }
       }
     }
-
     const result = await axios({
       method: "POST",
       headers: { appKey: "kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd" },

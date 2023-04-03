@@ -1,12 +1,38 @@
+import { IMapMarkerProps } from "./mapMarker";
 import { useClickInfoWindow } from "./../hooks/custom/useClickInfoWindow";
+import { Dispatch, SetStateAction } from "react";
+import { ICreateBoardInput } from "../../../commons/types/generated/types";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapPopUp = (props: any): void => {
+interface IMapPopUpProps extends IMapMarkerProps {
+  position: any;
+  isSearch?: boolean;
+  isWrite?: boolean;
+  data?: any;
+  setMap?: Dispatch<any>;
+  map?: any;
+  idx?: number | undefined;
+  path?: ICreateBoardInput;
+  marker?: any[];
+  keyword?: string;
+  infoWindow?: any[];
+  slideSetting: ISlideSetting;
+  setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
+  setMarker?: Dispatch<SetStateAction<any[]>>;
+  findLine?: any[];
+  setFindLine?: Dispatch<SetStateAction<any[]>>;
+  setInfoWindow?: Dispatch<SetStateAction<any[]>>;
+  setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
+}
+
+export const mapPopUp = (props: IMapPopUpProps): void => {
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,
+    align: 12,
     content: `
     <div style=' display: flex; flex-direction: column; position: relative; width: 200px; padding: 20px 10px 10px; box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3),0px 2px 6px 2px rgba(60, 64, 67, 0.15); border-radius: 10px; background-color: white;'>
         <img src='/delete.webp' id='deleteImg' style=' position: absolute; width: 15px; height: 15px; top: 3px; right: 3px; cursor: pointer;'>
@@ -17,23 +43,22 @@ export const mapPopUp = (props: any): void => {
           <div>
             <div style='font-weight: 600; font-size: 12px; margin-bottom: 3px'>
               ${
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 props.isSearch === true
-                  ? props.data.name
-                  : props.data.restaurantName
+                  ? String(props.data?.name)
+                  : String(props.data?.restaurantName)
               }
             </div>
             <div style=' margin-top: 5px; margin-bottom: 20px; font-weight: 500; font-size: 10px; word-break: break-all'>
               ${
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 props.isSearch === true
-                  ? props.data.newAddressList.newAddress[0].fullAddressRoad
+                  ? String(
+                      props.data?.newAddressList?.newAddress[0].fullAddressRoad
+                    )
                   : "데이터"
               }
             </div>
           </div>
         </div>
-       
         <button class='Btn' style=' position: absolute; width: 45px; height: 20px; bottom: 6px; right: 6px; background: #fbb240; border-radius: 5px; border: none; font-weight: 500; font-size: 10px; color: #ffffff; cursor: pointer;'>
           ${
             props.isSearch === true
@@ -50,7 +75,7 @@ export const mapPopUp = (props: any): void => {
     type: 2,
     map: props.map,
   });
-  props.setInfoWindow((prev: any) => [...prev, TInfoWindow]);
+  props.setInfoWindow?.((prev) => [...prev, TInfoWindow]);
 
   const img = document.querySelectorAll("#deleteImg");
   img[img.length - 1].addEventListener("click", () => {

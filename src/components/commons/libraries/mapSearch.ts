@@ -1,16 +1,33 @@
+import { ISlideSetting } from "./../../units/eatsMe/routeWrite/top/routeWriteTop";
+import { ICreateBoardInput } from "./../../../commons/types/generated/types";
 import { Modal } from "antd";
+import { Dispatch, SetStateAction } from "react";
 import { mapMarker } from "./mapMarker";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export const mapSearh = (props: any) => () => {
+interface IMapSearchProps {
+  map: any;
+  setMap: Dispatch<any>;
+  keyword: string;
+  idx: number;
+  path: ICreateBoardInput;
+  setPath: Dispatch<SetStateAction<ICreateBoardInput>>;
+  marker: any[];
+  setMarker: Dispatch<SetStateAction<any[]>>;
+  infoWindow: any[];
+  setInfoWindow: Dispatch<SetStateAction<any[]>>;
+  isSearch: boolean;
+  setSlideSetting: Dispatch<SetStateAction<ISlideSetting>>;
+}
+
+export const mapSearh = (props: IMapSearchProps) => () => {
   const onClickSearch = (): void => {
     const optionObj = {
       reqCoordType: "WGS84GEO",
       resCoordType: "WGS84GEO",
-      centerLon: 126.98702028,
-      centerLat: 37.5652045,
+      count: 40,
     };
     const params = {
       onComplete,
@@ -18,14 +35,14 @@ export const mapSearh = (props: any) => () => {
     };
     const tData = new window.Tmapv2.extension.TData();
     tData.getPOIDataFromSearchJson(
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      encodeURIComponent(props.keyword + "음식점"),
+      encodeURIComponent(props.keyword),
       optionObj,
       params
     );
   };
 
   const onComplete = (data: any): void => {
+    console.log(data, "체크체크");
     mapMarker({
       ...props,
       data: data._responseData.searchPoiInfo.pois.poi,

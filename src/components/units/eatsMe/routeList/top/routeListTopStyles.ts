@@ -1,72 +1,38 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const Container = styled.header`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
+  justify-content: center;
+  gap: 0 20px;
   position: relative;
-  height: 100px;
-  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15),
-    0px 1px 2px rgba(60, 64, 67, 0.3);
-  border-radius: 15px;
-`;
-
-export const LocationWrapper = styled.button`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 140px;
-  height: 60px;
-  background: #f5f5f5;
-  border-radius: 10px;
-
-  & > div:first-of-type {
-    width: calc(100% - 34px);
-    text-align: center;
-    font-weight: 500;
-    font-size: 18px;
-  }
-
-  &:focus > div:nth-of-type(2) {
-    background-image: url("/arrow_up.webp");
-  }
-
-  & + div {
-    display: none;
-  }
-
-  &:focus + div {
-    display: block;
-    position: absolute;
-    top: 85px;
-    left: -20px;
-    z-index: 1;
+  width: 100%;
+  padding: 20px 25px 0;
+  ${mq[0]} {
+    padding: 10px;
   }
 `;
 
-export const Arrow = styled.div`
-  width: 24px;
-  height: 24px;
-  background-image: url("/arrow_down.webp");
-`;
-
-export const SearchBar = styled.div`
-  width: 810px;
-  height: 60px;
-
-  border: 1px solid red;
-`;
-
-export const routeWriteBtn = styled.button`
+export const routeWriteBtn = styled.a`
   width: 150px;
   height: 60px;
-
+  text-align: center;
+  line-height: 60px;
+  text-decoration: none;
   font-weight: 700;
   font-size: 20px;
   background: #fbb240;
-  border-radius: 10px;
   border: none;
   color: #ffffff;
   cursor: pointer;
+  ${mq[1]} {
+    width: 90px;
+    font-size: 18px;
+  }
 `;

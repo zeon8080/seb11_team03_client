@@ -15,11 +15,8 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  height: calc(100vh - 80px);
+  height: 100vh;
   width: 100vw;
   transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   will-change: transform;
-  ${mq[1]} {
-    height: calc(100vh - 60px);
-  }
 `;

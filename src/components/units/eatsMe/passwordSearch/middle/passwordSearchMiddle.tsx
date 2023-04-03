@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import * as S from "./passwordSearchMiddleStyles";
 import { schema } from "./passwordSearchMiddleValidation";
 import { useState } from "react";
+import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
+import { useClickCheckEmail } from "../../../../commons/hooks/custom/useClickCheckEmail";
 
 export default function PasswordSearchMiddle(): JSX.Element {
   const { register, formState, handleSubmit } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
+  const { onClickCheckEmail } = useClickCheckEmail();
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [, setModalText] = useState("Content of the modal");
@@ -30,13 +32,13 @@ export default function PasswordSearchMiddle(): JSX.Element {
     console.log("Clicked cancel button");
     setOpen(false);
   };
-  const onClickSearch = (): void => {
+  const onClickSearch = async (data): Promise<void> => {
     showModal();
+    await onClickCheckEmail(data);
   };
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleSubmit(onClickSearch)}>
+    <form onSubmit={wrapAsync(handleSubmit(onClickSearch))}>
       <S.Container>
         <S.Wrapper>
           <S.Title>비밀번호 찾기</S.Title>
@@ -57,10 +59,10 @@ export default function PasswordSearchMiddle(): JSX.Element {
           </S.ModalBtn>
           <S.EmailBox>
             <span>이메일</span>
-            <input type="text" {...register("email")} placeholder="E-mail" />
+            <input type="text" {...register("email")} placeholder="이메일" />
             <p>{formState.errors.email?.message}</p>
           </S.EmailBox>
-          <S.SearchBtn>확인</S.SearchBtn>
+          <S.SearchBtn isActive={formState.isDirty}>확인</S.SearchBtn>
         </S.Wrapper>
       </S.Container>
     </form>

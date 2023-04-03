@@ -1,10 +1,19 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${mq[2]} {
+    height: calc(100vh - 80px);
+    justify-content: flex-start;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -14,6 +23,14 @@ export const Wrapper = styled.div`
   padding: 30px 50px;
   background-color: white;
   border: 1px solid #333333;
+  ${mq[2]} {
+    width: 100%;
+    border: none;
+    padding: 50px 60px;
+  }
+  ${mq[0]} {
+    padding: 30px 5vw;
+  }
 `;
 
 export const Title = styled.div`
@@ -37,101 +54,14 @@ export const DivideLine = styled.div`
   border-bottom: 1px solid #a4a4a4;
   margin: 14px 0 30px 0;
 `;
-
-export const EmailBox = styled.div`
+export const PwdForm = styled.form`
   display: flex;
   flex-direction: column;
-
-  > span {
-    font-size: 20px;
-  }
-
-  > input {
-    width: 400px;
-    height: 40px;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f5f5f5;
-  }
-
-  > p {
-    color: #fa5c37;
-    font-size: 12px;
-    margin: 2px 0;
-  }
 `;
-
-export const EmailTokenBtn = styled.button<{ isActive?: boolean }>`
-  width: 400px;
-  height: 40px;
-  margin: 15px 0 30px 0;
-  color: white;
-  background-color: ${({ isActive }) =>
-    isActive === true ? "#fbb240" : "#A5A5A5"};
-  cursor: pointer;
-`;
-
-export const AccreditBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
-  margin-bottom: 30px;
-  color: #333333;
-  background-color: #f5f5f5;
-
-  > span {
-    font-size: 12px;
-  }
-
-  > button {
-    all: unset;
-    font-size: 12px;
-    border-bottom: 1px solid #333333;
-    cursor: pointer;
-  }
-
-  > p {
-    color: #fa5c37;
-    font-size: 12px;
-    margin: 2px 0;
-  }
-`;
-
-export const TokenBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 15px 0;
-
-  > input {
-    width: 220px;
-    height: 40px;
-    padding: 0 40px;
-  }
-
-  > span {
-    width: 32px;
-    font-size: 14px;
-    color: #fa5c37;
-    margin: 0 14px;
-  }
-`;
-
-export const TokenBtn = styled.button<{ isActive?: boolean }>`
-  width: 50px;
-  height: 40px;
-  font-size: 14px;
-  color: white;
-  background-color: ${({ isActive }) =>
-    isActive === true ? "#fbb240" : "#A5A5A5"};
-  cursor: pointer;
-`;
-
 export const PasswordBox = styled.div`
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
   > span {
     font-size: 20px;
   }
@@ -152,16 +82,18 @@ export const PasswordBox = styled.div`
 `;
 
 export const NicknameBox = styled.div`
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 30px;
 
   > span {
     font-size: 20px;
   }
   > div {
     > input {
-      width: 298px;
+      width: 400px;
       height: 40px;
-      margin: 10px 20px 0 0;
+      margin-top: 10px;
       padding: 10px;
       background-color: #f5f5f5;
     }

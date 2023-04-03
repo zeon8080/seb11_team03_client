@@ -29,11 +29,6 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
 
   useEffect(() => {
     void accessTokenLoadable.toPromise().then((newAccessToken) => {
-      console.log(newAccessToken, "dasdasdsadsaaaa");
-
-      setAccessToken(newAccessToken !== undefined ? newAccessToken : "");
-    });
-    void getNewAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken !== undefined ? newAccessToken : "");
     });
   }, []);
@@ -41,7 +36,6 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
-        console.log(err, "dasdsadasds");
         if (err.extensions.code === "UNAUTHENTICATED") {
           return fromPromise(
             getNewAccessToken().then((newAccessToken) => {
@@ -51,8 +45,9 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  Authorization: `Bearer ${newAccessToken}`,
+                  Authorization: `Bearer ${
+                    newAccessToken !== undefined ? newAccessToken : ""
+                  }`,
                 },
               });
             })

@@ -1,22 +1,52 @@
 import { MouseEvent, useState } from "react";
+import ReactPlayer from "react-player";
 import * as S from "./mainMapStyles";
 
 export default function MainMap(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [area, setArea] = useState("");
+  const [move, setMove] = useState<boolean>();
   const onModal = (e: MouseEvent): void => {
-    console.log(e.currentTarget.id);
     setIsOpen((prev) => !prev);
+    if (isOpen) {
+      setTimeout(function () {
+        setIsOpen((prev) => !prev);
+      }, 600);
+    }
     setArea(e.currentTarget.id);
+  };
+
+  const onMovePage = (direction: string): void => {
+    if (direction === "left") {
+      setMove(false);
+      setIsOpen((prev) => !prev);
+      setTimeout(function () {
+        window.location.href = "/eatsMe/routeList";
+      }, 1500);
+    } else if (direction === "right") {
+      setMove(true);
+      setIsOpen((prev) => !prev);
+      setTimeout(function () {
+        window.location.href = "/eatsMe/popularList";
+      }, 1500);
+    }
   };
 
   return (
     <S.Container>
+      <ReactPlayer
+        url={"/mainVideo.mp4"}
+        width="100%"
+        height="100%"
+        playing={true}
+        loop={true}
+        muted={true}
+      />
       <svg
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
-        width="300.000000pt"
-        height="469.000000pt"
+        width="400pt"
+        height="550pt"
         viewBox="0 0 2458.000000 3840.000000"
         preserveAspectRatio="xMidYMid meet"
       >
@@ -30,7 +60,7 @@ export default function MainMap(): JSX.Element {
             id="강원도"
             className="common"
             onClick={onModal}
-            fill="#727272"
+            fill="#f5f5f5"
             d="M16452 38300 c-159 -170 -261 -223 -433 -224 l-96 -1 -21 -90 c-12
 -49 -37 -166 -57 -260 -77 -374 -151 -678 -207 -855 -83 -261 -236 -448 -429
 -523 -227 -89 -476 -33 -739 164 -93 70 -160 107 -250 136 -31 10 -124 17
@@ -66,7 +96,7 @@ export default function MainMap(): JSX.Element {
             id="경기도"
             className="common"
             onClick={onModal}
-            fill="#4e4e4e"
+            fill="#efefef"
             d="M7100 35550 c-63 -4 -150 -11 -192 -15 l-78 -7 0 -54 c0 -129 70
 -246 215 -362 239 -190 290 -244 326 -348 16 -45 20 -72 15 -112 -21 -179
 -276 -496 -483 -600 -92 -47 -171 -56 -425 -47 l-218 7 0 -164 c-1 -342 -43
@@ -104,7 +134,7 @@ export default function MainMap(): JSX.Element {
             id="인천"
             className="common"
             onClick={onModal}
-            fill="#3c3c3c"
+            fill="#cfcfcf"
             d="M3760 32387 c-54 -23 -350 -192 -689 -395 -161 -96 -356 -234 -356
 -251 0 -9 158 -134 250 -198 33 -23 89 -55 125 -70 l65 -28 242 0 242 0 39
 -75 c87 -163 142 -322 262 -755 91 -328 169 -517 280 -680 67 -99 270 -283
@@ -133,7 +163,7 @@ export default function MainMap(): JSX.Element {
             id="충청북도"
             className="common"
             onClick={onModal}
-            fill="#282828"
+            fill="#fbfbfb"
             d="M14325 27896 c-132 -30 -209 -72 -317 -174 -123 -114 -201 -122 -428
 -47 -128 42 -158 48 -255 52 -129 6 -213 -9 -330 -58 -140 -58 -215 -117 -440
 -344 -431 -437 -786 -677 -1115 -755 -186 -44 -274 -82 -445 -196 -256 -170
@@ -161,7 +191,7 @@ c-339 271 -522 355 -1142 529 -470 132 -650 191 -833 276 -239 110 -450 275
             id="경상북도"
             className="common"
             onClick={onModal}
-            fill="#4e4e4e"
+            fill="#e7e7e7"
             d="M22617 27036 c-80 -30 -118 -90 -168 -263 -44 -157 -67 -214 -97
 -246 -72 -76 -120 -75 -370 8 -183 60 -198 67 -292 135 -196 141 -330 166
 -559 105 -106 -28 -181 -59 -536 -220 -459 -209 -593 -257 -765 -276 -174 -19
@@ -207,7 +237,7 @@ c-29 -14 -59 -25 -66 -25 -7 0 -52 -16 -100 -36 -83 -34 -142 -75 -142 -99 0
             id="충청남도"
             className="common"
             onClick={onModal}
-            fill="#686868"
+            fill="#fffafa"
             d="M4196 27020 c-43 -5 -80 -11 -82 -13 -2 -2 28 -77 67 -168 38 -90 83
 -205 100 -255 37 -116 82 -348 118 -619 32 -236 31 -242 -34 -305 l-34 -33
 -39 26 c-64 45 -100 89 -127 156 -32 79 -62 125 -111 175 -107 107 -272 107
@@ -259,7 +289,7 @@ c-29 -14 -59 -25 -66 -25 -7 0 -52 -16 -100 -36 -83 -34 -142 -75 -142 -99 0
             id="전라북도"
             className="common"
             onClick={onModal}
-            fill="#4b4b4b"
+            fill="#ffeded"
             d="M7869 19286 c-72 -19 -123 -55 -284 -198 -414 -367 -622 -524 -857
 -646 -221 -114 -467 -186 -665 -194 l-62 -2 -11 -51 c-6 -27 -17 -86 -24 -130
 -18 -100 -21 -107 -184 -465 -178 -391 -264 -583 -318 -710 -141 -332 -224
@@ -302,7 +332,7 @@ c441 -221 552 -325 553 -514 0 -86 -28 -182 -91 -318 -27 -59 -50 -109 -50
           <path
             id="경상남도"
             className="common"
-            fill="#343434"
+            fill="#e6e6e6"
             onClick={onModal}
             d="M13695 17796 c-45 -19 -103 -85 -163 -184 -60 -97 -96 -144 -194
 -249 -140 -152 -202 -247 -242 -373 -56 -172 -129 -241 -377 -354 -332 -152
@@ -354,7 +384,7 @@ c441 -221 552 -325 553 -514 0 -86 -28 -182 -91 -318 -27 -59 -50 -109 -50
             id="전라남도"
             className="common"
             onClick={onModal}
-            fill="#1c1c1c"
+            fill="#d6d6d6"
             d="M6875 14363 c-112 -40 -212 -120 -343 -276 -80 -95 -81 -97 -121
 -206 -17 -46 -57 -133 -89 -194 -98 -187 -187 -303 -524 -677 -209 -234 -277
 -283 -445 -326 -157 -40 -376 -29 -497 25 -63 28 -128 91 -161 158 l-29 58 2
@@ -441,7 +471,7 @@ l-31 -55 1 -155 c0 -187 22 -306 150 -827 46 -188 89 -375 95 -415 29 -185
             id="제주도"
             className="common"
             onClick={onModal}
-            fill="#424242"
+            fill="#ffffff"
             d="M4265 3475 c-141 -23 -214 -43 -300 -85 -103 -50 -156 -96 -201 -176
 -66 -118 -133 -163 -239 -164 -33 0 -85 7 -115 15 -80 21 -168 19 -207 -5 -55
 -33 -66 -68 -74 -230 -8 -164 -32 -261 -74 -300 -22 -21 -34 -23 -112 -22
@@ -461,15 +491,27 @@ l-31 -55 1 -155 c0 -187 22 -306 150 -827 46 -188 89 -375 95 -415 29 -185
       </svg>
 
       <S.ModalWrap isOpen={isOpen} onClick={onModal}>
-        <S.Modal isOpen={isOpen}>
-          <button className="store">
-            <img src="/flag_or.png" />
+        <S.Modal isOpen={isOpen} move={move}>
+          <S.MoveBtn
+            isOpen={isOpen}
+            move={move}
+            className="arrow left"
+            onClick={() => {
+              onMovePage("left");
+            }}
+          >
             <span>{area} 맛집</span>
-          </button>
-          <button className="register">
-            <img src="/flag_or.png" />
+          </S.MoveBtn>
+          <S.MoveBtn
+            isOpen={isOpen}
+            move={move}
+            className="arrow right"
+            onClick={() => {
+              onMovePage("right");
+            }}
+          >
             <span>코스목록</span>
-          </button>
+          </S.MoveBtn>
         </S.Modal>
       </S.ModalWrap>
     </S.Container>

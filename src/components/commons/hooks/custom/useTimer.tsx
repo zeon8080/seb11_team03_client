@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export const useTimer = (): any => {
-  const [time, setTime] = useState(10);
+export const useTimer = () => {
+  const [time, setTime] = useState(30);
   const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
-    let timer: any;
+    let timer;
 
     if (isStarted) {
       timer = setInterval(() => {
@@ -18,9 +18,7 @@ export const useTimer = (): any => {
       setIsStarted(false);
     }
 
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [isStarted, time]);
 
   return { time, setTime, setIsStarted };

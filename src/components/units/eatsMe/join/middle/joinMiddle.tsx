@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./joinMiddleStyles";
-import { schema } from "./joinMidleValidation";
 import { useClickJoin } from "../../../../commons/hooks/custom/useClickJoin";
 import JoinEmail from "../../../../commons/joinEmail/joinEmail";
-import { useWithAuth } from "../../../../commons/hooks/custom/useWithAuth";
+import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
+import { schema1 } from "./joinMidleValidation";
+import { schema2 } from "../../../../commons/joinEmail/joinEmailValidation2";
+import { schema3 } from "../../../../commons/joinEmail/joinEmailValidation3";
 
 export interface IJoinFormData {
   email: string;
@@ -15,41 +17,88 @@ export interface IJoinFormData {
 }
 
 export default function JoinMiddle(): JSX.Element {
+  // const { onClickNickname } = useClickIsValidNickname();
   const { onClickJoin } = useClickJoin();
-  const { formState, register, handleSubmit } = useForm<IJoinFormData>({
-    resolver: yupResolver(schema),
+  const {
+    formState: formState1,
+    register: register1,
+    handleSubmit: handleSubmit1,
+    getValues: getValues1,
+  } = useForm<IJoinFormData>({
+    resolver: yupResolver(schema1),
     mode: "onChange",
   });
-  useWithAuth();
+
+  const {
+    formState: formState2,
+    register: register2,
+    handleSubmit: handleSubmit2,
+    getValues: getValues2,
+  } = useForm({
+    resolver: yupResolver(schema2),
+    mode: "onChange",
+  });
+  const {
+    formState: formState3,
+    register: register3,
+    handleSubmit: handleSubmit3,
+    getValues: getValues3,
+  } = useForm({
+    resolver: yupResolver(schema3),
+    mode: "onChange",
+  });
+
+  const onClickSubmit = (): void => {
+    const data1 = getValues1();
+    const data2 = getValues2();
+    const data3 = getValues3();
+
+    const isValid1 = schema1.isValidSync(data1);
+    const isValid2 = schema2.isValidSync(data2);
+    const isValid3 = schema2.isValidSync(data3);
+
+    if (isValid1 && isValid2 && isValid3) {
+      const data = { ...data1, ...data2, ...data3 };
+
+      void onClickJoin(data);
+    }
+  };
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleSubmit(onClickJoin)}>
-      <S.Container>
-        <S.Wrapper>
-          <S.Title>
-            <h1>회원가입</h1>
-            <span>join us</span>
-          </S.Title>
+    <S.Container>
+      <S.Wrapper>
+        <S.Title>
+          <h1>회원가입</h1>
+          <span>join us</span>
+        </S.Title>
 
-          <S.DivideLine></S.DivideLine>
-          <JoinEmail formState={formState} register={register} />
-
+        <S.DivideLine></S.DivideLine>
+        <JoinEmail
+          formState2={formState2}
+          register2={register2}
+          handleSubmit2={handleSubmit2}
+          getValues2={getValues2}
+          formState3={formState3}
+          register3={register3}
+          handleSubmit3={handleSubmit3}
+          getValues3={getValues3}
+        />
+        <S.PwdForm onSubmit={wrapAsync(handleSubmit1(onClickSubmit))}>
           <S.PasswordBox>
             <span>비밀번호</span>
             <input
               type="password"
               placeholder="비밀번호"
-              {...register("password")}
+              {...register1("password")}
             />
-            <p>{formState.errors.password?.message}</p>
+            <p>{formState1.errors.password?.message}</p>
             <span>비밀번호 확인</span>
             <input
               type="password"
               placeholder="비밀번호 확인"
-              {...register("passwordCheck")}
+              {...register1("passwordCheck")}
             />
-            <p>{formState.errors.passwordCheck?.message}</p>
+            <p>{formState1.errors.passwordCheck?.message}</p>
           </S.PasswordBox>
           <S.NicknameBox>
             <span>닉네임</span>
@@ -57,21 +106,15 @@ export default function JoinMiddle(): JSX.Element {
               <input
                 type="text"
                 placeholder="닉네임"
-                {...register("nickname")}
+                {...register1("nickname")}
               />
-              <button type="button">중복 확인</button>
             </div>
-            <p>{formState.errors.nickname?.message}</p>
+            <p>{formState1.errors.nickname?.message}</p>
           </S.NicknameBox>
           <S.BtnBox>
             <S.JoinBtn
-              isActive={
-                formState.dirtyFields.email === true &&
-                formState.dirtyFields.password === true &&
-                formState.dirtyFields.passwordCheck === true &&
-                formState.dirtyFields.nickname
-              }
-              disabled={!formState.isDirty && formState.errors !== undefined}
+              isActive={formState1.isValid && formState2.isValid}
+              disabled={!formState1.isValid && !formState2.isValid}
             >
               회원가입
             </S.JoinBtn>
@@ -80,8 +123,8 @@ export default function JoinMiddle(): JSX.Element {
               <button type="button">로그인</button>
             </div>
           </S.BtnBox>
-        </S.Wrapper>
-      </S.Container>
-    </form>
+        </S.PwdForm>
+      </S.Wrapper>
+    </S.Container>
   );
 }

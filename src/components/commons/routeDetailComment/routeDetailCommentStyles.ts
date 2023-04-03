@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 332px;
+  width: 55%;
   padding: 10px 10px 0;
   margin-bottom: 36px;
   background: #f5f5f5;
 `;
 
-export const WriteWrapper = styled.div`
+export const WriteWrapper = styled.form`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,10 +36,13 @@ export const DivideLine = styled.div`
   border-bottom: 1px solid #e5e5e5;
 `;
 
+export const CommentContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
 export const CommentsWrapper = styled.div`
   position: relative;
-  padding: 6px;
-  margin-bottom: 10px;
+  padding: 6px 10px;
   background-color: white;
 `;
 
@@ -60,7 +63,7 @@ export const ImgBox = styled.div`
   }
 `;
 
-export const userInfoBox = styled.div`
+export const UserInfoBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,6 +83,36 @@ export const userInfoBox = styled.div`
 
 export const Comments = styled.div`
   margin-top: 10px;
+  font-weight: 500;
+  font-size: 12px;
+`;
+
+export const CommentsModifyBox = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CommentsModifyTextarea = styled.textarea`
+  width: 100%;
+  height: auto;
+  resize: none;
+  border: none;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  overflow: hidden;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CommentsModifySubmit = styled.button`
+  align-self: flex-end;
+  width: 46px;
+  height: 28px;
+  margin-top: 6px;
+  background-color: #fbb240;
+  color: white;
   font-weight: 500;
   font-size: 12px;
 `;

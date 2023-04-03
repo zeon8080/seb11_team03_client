@@ -1,25 +1,33 @@
 import styled from "@emotion/styled";
+const breakpoints = [576, 800, 1200];
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+// ${mq[0]} {
+//   font-size: 50px;
+// }
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  width: 810px;
+  justify-content: space-between;
+  width: calc(100% - 330px);
+  min-width: 254px;
   height: 60px;
   padding: 0 20px;
-  background-color: white;
+  background-color: #f5f5f5;
+  ${mq[2]} {
+    width: calc(100% - 110px);
+  }
 
   & > input {
-    width: 100%;
+    width: calc(100% - 42px);
     height: 100%;
     font-weight: 500;
     font-size: 18px;
-    background-color: white;
+    background-color: #f5f5f5;
   }
 
   & > img {
-    margin-left: 15px;
     width: 30px;
     height: 30px;
   }

@@ -1,13 +1,25 @@
-import { useState } from "react";
-export const usePathState = (): any => {
+import { ICreateBoardInput } from "./../../../../commons/types/generated/types";
+import { Dispatch, SetStateAction, useState } from "react";
+
+export const usePathState = (): [
+  ICreateBoardInput,
+  Dispatch<SetStateAction<any>>
+] => {
   const [path, setPath] = useState({
     title: "",
-    imgUrl: { uri: "" },
+    boardImg: "",
+    startArea: "",
+    endArea: "",
+    startPoint: "",
+    endPoint: "",
+    like: 0,
     info: [
       {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -17,6 +29,8 @@ export const usePathState = (): any => {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -26,6 +40,8 @@ export const usePathState = (): any => {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -35,6 +51,8 @@ export const usePathState = (): any => {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -44,6 +62,8 @@ export const usePathState = (): any => {
         restaurantName: "상호명",
         recommend: "",
         imgUrl: "",
+        section: "",
+        area: "",
         location: {
           lat: 0,
           lng: 0,
@@ -51,6 +71,5 @@ export const usePathState = (): any => {
       },
     ],
   });
-
   return [path, setPath];
 };

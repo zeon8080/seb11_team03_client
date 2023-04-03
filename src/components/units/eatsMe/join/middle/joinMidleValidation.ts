@@ -1,13 +1,6 @@
 import * as yup from "yup";
 
-export const schema = yup.object({
-  email: yup
-    .string()
-    .email("이메일 형식이 아닙니다.")
-    .required("이메일은 필수입니다."),
-
-  token: yup.string().required("인증번호 입력은 필수입니다."),
-
+export const schema1 = yup.object({
   nickname: yup
     .string()
     .max(8, "8글자 이내로 적어주세요")
