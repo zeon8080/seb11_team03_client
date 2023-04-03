@@ -6,7 +6,7 @@ const CHECK_EMAIL = gql`
   }
 `;
 
-export const useMutationCheckEmail = () => {
+export const useMutationCheckEmail = (): any => {
   const checkEmail = useMutation(CHECK_EMAIL);
 
   return checkEmail;

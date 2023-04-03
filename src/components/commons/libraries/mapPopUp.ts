@@ -8,8 +8,8 @@ declare const window: typeof globalThis & {
 };
 
 interface IMapPopUpProps extends IMapMarkerProps {
-  position: any;
-  isSearch: boolean;
+  position?: any;
+  isSearch?: boolean;
   isWrite?: boolean;
   data?: any;
   setMap?: Dispatch<any>;
@@ -19,6 +19,7 @@ interface IMapPopUpProps extends IMapMarkerProps {
   marker?: any[];
   keyword?: string;
   infoWindow?: any[];
+  slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];
@@ -42,14 +43,14 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
           <div>
             <div style='font-weight: 600; font-size: 12px; margin-bottom: 3px'>
               ${
-                props.isSearch
+                props.isSearch === true
                   ? String(props.data?.name)
                   : String(props.data?.restaurantName)
               }
             </div>
             <div style=' margin-top: 5px; margin-bottom: 20px; font-weight: 500; font-size: 10px; word-break: break-all'>
               ${
-                props.isSearch
+                props.isSearch === true
                   ? String(
                       props.data?.newAddressList?.newAddress[0].fullAddressRoad
                     )
@@ -60,7 +61,7 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
         </div>
         <button class='Btn' style=' position: absolute; width: 45px; height: 20px; bottom: 6px; right: 6px; background: #fbb240; border-radius: 5px; border: none; font-weight: 500; font-size: 10px; color: #ffffff; cursor: pointer;'>
           ${
-            props.isSearch
+            props.isSearch === true
               ? "추가"
               : Object.prototype.hasOwnProperty.call(props, "isWrite")
               ? "취소"
@@ -85,7 +86,7 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
 
   btn[btn.length - 1].addEventListener("click", () => {
     TInfoWindow.setVisible(false);
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       onClickAdd(props);
     } else {
       if (Object.prototype.hasOwnProperty.call(props, "isWrite")) {

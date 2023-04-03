@@ -1,7 +1,7 @@
 import { IJoinFormData } from "../../../units/eatsMe/join/middle/joinMiddle";
 import { useMutationMatchAuthNumber } from "../mutation/useMutationMatchAuthNumber";
 
-export const useClickMatchAuth = () => {
+export const useClickMatchAuth = (): any => {
   const [matchAuth] = useMutationMatchAuthNumber();
 
   const onClickMatchAuth = async (data: IJoinFormData): Promise<void> => {

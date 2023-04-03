@@ -1,8 +1,13 @@
 import { Modal } from "antd";
 import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
-import { ICreateBoardInput } from "../../../../../commons/types/generated/types";
+import {
+  ICreateBoardInput,
+  IQuery,
+} from "../../../../../commons/types/generated/types";
+import { useChangeUploadFile } from "../../../../commons/hooks/custom/useChangeUploadFile";
 import { useClickCreateBoard } from "../../../../commons/hooks/custom/useClickCreateBoard";
-import { usePathState } from "../../../../commons/hooks/custom/usePathState";
+import { useClickUpdateBoard } from "../../../../commons/hooks/custom/useClickUpdateBoard";
+import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
 import { mapMarker } from "../../../../commons/libraries/mapMarker";
@@ -12,7 +17,6 @@ import * as S from "./routeWriteTopStyles";
 export interface ISlideSetting {
   keyword: string[];
   nowPage: number;
-  isFindRoad: boolean;
   isActive: boolean;
   disabled_next: boolean;
   disabled_prev: boolean;
@@ -21,32 +25,54 @@ export interface ISlideSetting {
 export interface IRouteWriteTopProps {
   setMap: Dispatch<any>;
   map: any;
+  data: Pick<IQuery, "fetchBoard"> | undefined;
+  isEdit: boolean;
+  path: any;
+  setPath: Dispatch<any>;
+  isSet: boolean;
 }
 
 export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
-  const { onClickCreate } = useClickCreateBoard();
+  const { onClickCreateBoard } = useClickCreateBoard();
+  const { onClickUpdateBoard } = useClickUpdateBoard();
   const imgRef = useRef<HTMLInputElement>(null);
-  const [, setFile] = useState<File>();
+  const [image, setImage] = useState<Record<string, string>>({});
   const [isToggle, changeIsToggle] = useSetIsToggle();
   const [marker, setMarker] = useState<any[]>([]);
   const [pickMarker, setPickMarker] = useState<any[]>([]);
   const [infoWindow, setInfoWindow] = useState<any[]>([]);
   const [findLine, setFindLine] = useState<any[]>([]);
-  const [path, setPath] = usePathState();
+  const { onChangeUploadFile } = useChangeUploadFile();
   const [slideSetting, setSlideSetting] = useState<ISlideSetting>({
     keyword: ["", "", "", "", "", ""],
     nowPage: 0,
-    isFindRoad: false,
     isActive: true,
     disabled_next: true,
     disabled_prev: true,
+  });
+
+  useEffectTMapLoad({
+    isSearch: false,
+    isSet: props.isSet,
+    data: props.path,
+    isWrite: true,
+    setMap: props.setMap,
+    marker: pickMarker,
+    setMarker: setPickMarker,
+    findLine,
+    setFindLine,
+    setInfoWindow,
+    setSlideSetting,
+    slideSetting,
+    map: props.map,
+    setPath: props.setPath,
   });
 
   useEffect(() => {
     if (marker.length !== 0) {
       marker.map((el) => el.setMap(null));
       mapMarker({
-        data: path,
+        data: props.path,
         isSearch: false,
         isWrite: true,
         map: props.map,
@@ -54,25 +80,41 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
         marker: pickMarker,
         setMarker: setPickMarker,
         setInfoWindow,
+        slideSetting,
         setSlideSetting,
-        setPath,
+        setPath: props.setPath,
       });
-      if (path.info[1].restaurantName !== "상호명") {
-        mapFindRoad({
-          data: path,
-          isWrite: true,
-          map: props.map,
-          findLine,
-          setFindLine,
-        });
-      } else {
-        findLine.map((el) => el.setMap(null));
-        setFindLine([]);
-      }
+    } else if (marker.length === 0 && pickMarker.length !== 0) {
+      mapMarker({
+        data: props.path,
+        isSearch: false,
+        isWrite: true,
+        map: props.map,
+        setMap: props.setMap,
+        marker: pickMarker,
+        setMarker: setPickMarker,
+        setInfoWindow,
+        slideSetting,
+        setSlideSetting,
+        setPath: props.setPath,
+      });
     }
+    if (props.path?.info?.[1].restaurantName !== "상호명") {
+      mapFindRoad({
+        data: props.path,
+        isWrite: true,
+        map: props.map,
+        findLine,
+        setFindLine,
+      });
+    } else {
+      findLine.map((el) => el.setMap(null));
+      setFindLine([]);
+    }
+
     if (
       slideSetting.nowPage !== 0 &&
-      path.info[slideSetting.nowPage - 1].restaurantName !== "상호명"
+      props.path?.info?.[slideSetting.nowPage - 1].restaurantName !== "상호명"
     ) {
       if (slideSetting.nowPage + 1 < 6 && slideSetting.nowPage !== 0) {
         setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
@@ -80,7 +122,13 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
       if (slideSetting.nowPage >= 2) {
         setSlideSetting((prev) => ({ ...prev, isActive: false }));
       }
-    } else if (slideSetting.nowPage === 0 && path.title !== "") {
+    } else if (slideSetting.nowPage === 0 && props.path.title !== "") {
+      if (props.isEdit && props.path?.info?.[1].restaurantName !== "상호명") {
+        setSlideSetting((prev) => ({
+          ...prev,
+          isActive: false,
+        }));
+      }
       setSlideSetting((prev) => ({
         ...prev,
         disabled_next: false,
@@ -93,7 +141,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
         isActive: true,
       }));
     }
-  }, [path.info]);
+  }, [props.path.info]);
 
   useEffect(() => {
     if (infoWindow.length > 1) {
@@ -105,13 +153,13 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
   const onChangeInput =
     (pageNum: number) => (event: ChangeEvent<HTMLInputElement>) => {
       if (pageNum === 0) {
-        setPath((prev: ICreateBoardInput) => ({
+        props.setPath((prev: ICreateBoardInput) => ({
           ...prev,
           title: event.target.value,
         }));
         setSlideSetting((prev) => ({ ...prev, disabled_next: false }));
       } else if (event.target.id === "recommend") {
-        setPath((prev: ICreateBoardInput) => ({
+        props.setPath((prev: ICreateBoardInput) => ({
           ...prev,
           info: prev.info.map((el, idx) => {
             if (pageNum - 1 === idx)
@@ -144,7 +192,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
       marker.map((el) => el.setMap(null));
     }
 
-    if (path.info[slideSetting.nowPage].restaurantName === "상호명") {
+    if (props.path?.info?.[slideSetting.nowPage].restaurantName === "상호명") {
       setSlideSetting((prev) => ({
         ...prev,
         disabled_next: true,
@@ -177,24 +225,21 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>): void => {
     const file = event.target.files?.[0];
-    if (file === undefined) return;
 
+    if (file === undefined) return;
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
-    fileReader.onload = (event) => {
-      if (typeof event.target?.result === "string") {
-        setPath((prev: ICreateBoardInput) => ({
+    fileReader.onload = (result) => {
+      if (typeof result.target?.result === "string") {
+        setImage((prev) => ({
           ...prev,
-          info: prev.info.map((el, idx) => {
-            if (slideSetting.nowPage - 1 === idx)
-              return {
-                ...el,
-                imgUrl: event.target?.result,
-              };
-            return { ...el };
-          }),
+          [slideSetting.nowPage]: result.target?.result,
         }));
-        setFile(file);
+        void onChangeUploadFile({
+          file,
+          setPath: props.setPath,
+          nowPage: slideSetting.nowPage - 1,
+        });
       }
     };
   };
@@ -222,7 +267,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                 placeholder="코스 이름을 정해주세요."
                 onChange={onChangeInput(idx)}
                 maxLength={35}
-                value={path.title}
+                value={props.path?.title ?? ""}
               />
             </S.RouteBox>
           ) : (
@@ -249,14 +294,16 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                       setMap: props.setMap,
                       keyword: slideSetting.keyword[idx - 1],
                       idx: idx - 1,
-                      path,
-                      setPath,
+                      path: props.path ?? "",
+                      setPath: props.setPath,
                       marker,
                       setMarker,
                       infoWindow,
                       setInfoWindow,
                       isSearch: true,
                       setSlideSetting,
+                      // 에러떠서 속성추가
+                      slideSetting: undefined,
                     })}
                   ></button>
                 </S.SearchWrap>
@@ -264,24 +311,21 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                   <S.Store
                     type="text"
                     readOnly
-                    value={path.info[idx - 1].restaurantName}
+                    value={props.path.info[idx - 1].restaurantName}
                   />
                   <S.Menu
                     id="recommend"
                     type="text"
                     placeholder="추천메뉴"
                     onChange={onChangeInput(idx)}
-                    value={path.info[idx - 1].recommend ?? ""}
+                    value={props.path.info[idx - 1].recommend ?? ""}
                   />
                 </S.StoreWrap>
               </S.SearchContainer>
 
-              <S.ImgWrap
-                onClick={onClickImg}
-                imgUrl={path.info[idx - 1].imgUrl ?? ""}
-              >
-                {path.info[idx - 1].imgUrl !== "" ? (
-                  <img src={path.info[idx - 1].imgUrl ?? ""} />
+              <S.ImgWrap onClick={onClickImg} imgUrl={image[idx] ?? ""}>
+                {image[idx] !== undefined ? (
+                  <img src={image[idx] ?? ""} />
                 ) : (
                   <></>
                 )}
@@ -291,7 +335,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                 disabled={slideSetting.isActive}
                 onClick={changeIsToggle}
               >
-                코스완료
+                {props.isEdit ? "코스수정" : "코스완료"}
               </S.RegisterBtn>
             </S.RouteBox>
           )
@@ -306,15 +350,19 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
           footer={null}
           closable={false}
         >
-          <S.Text>코스 등록을 하시겠습니까?</S.Text>
+          <S.Text>코스 {props.isEdit ? "수정" : "등록"}을 하시겠습니까?</S.Text>
           <S.ModalBtnWrap>
             <button onClick={changeIsToggle}>취소</button>
             <button
               onClick={() => {
-                void onClickCreate(path);
+                if (props.isEdit) {
+                  void onClickUpdateBoard(props.path);
+                } else {
+                  void onClickCreateBoard(props.path);
+                }
               }}
             >
-              등록
+              {props.isEdit ? "수정" : "등록"}
             </button>
           </S.ModalBtnWrap>
         </Modal>

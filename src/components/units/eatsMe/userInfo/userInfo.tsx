@@ -2,6 +2,7 @@ import { Tabs } from "antd";
 import * as S from "./userInfoStyles";
 import PickedList from "./pickedList/pickedList";
 import ReserveListMiddle from "./reserveList/middle/reserveListMiddle";
+import UserWriteList from "./userWriteList/userWriteList";
 
 export default function UserInfo(): JSX.Element {
   return (
@@ -21,7 +22,9 @@ export default function UserInfo(): JSX.Element {
           <Tabs.TabPane tab={<S.Tab>찜 목록</S.Tab>} key="1">
             <PickedList />
           </Tabs.TabPane>
-          <Tabs.TabPane tab={<S.Tab>내가 쓴 글</S.Tab>} key="2"></Tabs.TabPane>
+          <Tabs.TabPane tab={<S.Tab>내가 쓴 글</S.Tab>} key="2">
+            <UserWriteList />
+          </Tabs.TabPane>
           <Tabs.TabPane tab={<S.Tab>예약 확인</S.Tab>} key="3">
             <ReserveListMiddle />
           </Tabs.TabPane>

@@ -9,7 +9,7 @@ const MATCH_AUTH = gql`
   }
 `;
 
-export const useMutationMatchAuthNumber = () => {
+export const useMutationMatchAuthNumber = (): any => {
   const matchAuth = useMutation(MATCH_AUTH);
 
   return matchAuth;
