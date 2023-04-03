@@ -1,9 +1,9 @@
 import { useMutationCheckEmail } from "../mutation/useMutationCheckEmail";
 
-export const useClickCheckEmail = () => {
+export const useClickCheckEmail = (): any => {
   const [checkEmail] = useMutationCheckEmail();
 
-  const onClickCheckEmail = async (data): Promise<void> => {
+  const onClickCheckEmail = async (data: any): Promise<void> => {
     console.log(data, "214242");
 
     try {

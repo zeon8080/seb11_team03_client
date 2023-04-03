@@ -4,7 +4,7 @@ import { useState } from "react";
 import ReserveSelect from "../../../../commons/reserveSelect/reserveSelect";
 import { useForm } from "react-hook-form";
 import { useClickReserve } from "../../../../commons/hooks/custom/useClickReserve";
-import { useWithAuth } from "../../../../commons/hooks/custom/useWithAuth";
+import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
 export interface IReserveFormData {
   table: number;
   time: string;
@@ -33,8 +33,8 @@ export default function ReserveMiddle(): JSX.Element {
     }
   };
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleSubmit(onClickReserve)}>
+
+    <form onSubmit={wrapAsync(handleSubmit(onClickReserve))}>
       <S.Container>
         <S.Wrapper>
           <div className="storeWrap">

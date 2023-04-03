@@ -3,14 +3,14 @@ import { useClickMatchAuth } from "../hooks/custom/useClickMatchAuth";
 import { useTimer } from "../hooks/custom/useTimer";
 import * as S from "./joinEmailStyles";
 
-export default function JoinEmail(props): JSX.Element {
+export default function JoinEmail(props: any): JSX.Element {
   const { onClickMatchAuth } = useClickMatchAuth();
   const { onClickCheckEmail } = useClickCheckEmail();
   const { time, setTime, setIsStarted } = useTimer();
   const min = Math.floor(time / 60);
   const sec = String(time % 60).padStart(2, "0");
 
-  const onClickAuth = async (data): Promise<void> => {
+  const onClickAuth = async (data: any): Promise<void> => {
     setTime(30);
     setIsStarted(true);
     await onClickCheckEmail(data);
@@ -50,7 +50,7 @@ export default function JoinEmail(props): JSX.Element {
             <form onSubmit={props.handleSubmit2(onClickMatchAuth)}>
               <S.TokenBtn
                 isActive={time > 0 && time !== 30}
-                disabled={time === 0 || !props.formState2.isValid}
+                disabled={time === 0 || props.formState2.isValid === false}
               >
                 확인
               </S.TokenBtn>
