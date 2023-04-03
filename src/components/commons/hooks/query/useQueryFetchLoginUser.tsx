@@ -8,3 +8,9 @@ export const FETCH_LOGIN_USER = gql`
     }
   }
 `;
+// alarms {
+//   alarmMessage
+//   user {
+//     userImg
+//   }
+// }

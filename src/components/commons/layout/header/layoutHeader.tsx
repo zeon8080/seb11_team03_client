@@ -7,6 +7,8 @@ import { wrapAsync } from "../../libraries/asyncFunc";
 import { useQuery } from "@apollo/client";
 import { FETCH_LOGIN_USER } from "../../hooks/query/useQueryFetchLoginUser";
 import { IQuery } from "../../../../commons/types/generated/types";
+import Alarm from "../../alarm/alarm";
+import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 
 export interface IHeader {
   hiddenCss: boolean;
@@ -16,10 +18,9 @@ export default function LayoutHeader(props: IHeader): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
   const [accessToken] = useRecoilState(accessTokenState);
   const { data } = useQuery<Pick<IQuery, "fetchLoginUser">>(FETCH_LOGIN_USER);
-
   const { onClickLogout } = useClickLogout();
+  const [isToggle, changeIsToggle] = useSetIsToggle();
 
-  console.log(props.hiddenCss);
   return (
     <S.Container hiddenCss={props.hiddenCss}>
       {accessToken !== "" ? (
@@ -31,6 +32,7 @@ export default function LayoutHeader(props: IHeader): JSX.Element {
           <S.NavBox>
             <a href="/eatsMe/routeList">코스 </a>
             <a href="/eatsMe/popularList">맛집 </a>
+            <a href="/eatsMe/userInfo">마이페이지</a>
           </S.NavBox>
           <S.BtnWrapper>
             <S.LoginBox onClick={wrapAsync(onClickLogout)}>
@@ -38,9 +40,13 @@ export default function LayoutHeader(props: IHeader): JSX.Element {
               <S.LoginBtn>로그아웃</S.LoginBtn>
             </S.LoginBox>
 
-            <S.UserInfoBtn onClick={onClickMovePage("/eatsMe/userInfo")}>
+            <S.UserInfoBtn onClick={changeIsToggle}>
               {data?.fetchLoginUser.nickname} 님
             </S.UserInfoBtn>
+            {/* 알람의 수정되면 풀기 */}
+            {/* {data?.fetchLoginUser.alarms.length !== 0 && (
+              <Alarm isToggle={isToggle} data={data?.fetchLoginUser} />
+            )} */}
           </S.BtnWrapper>
         </S.Wrapper>
       ) : (
