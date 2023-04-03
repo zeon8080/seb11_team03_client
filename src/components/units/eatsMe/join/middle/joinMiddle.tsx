@@ -83,7 +83,7 @@ export default function JoinMiddle(): JSX.Element {
           handleSubmit3={handleSubmit3}
           getValues3={getValues3}
         />
-        <form onSubmit={wrapAsync(handleSubmit1(onClickSubmit))}>
+        <S.PwdForm onSubmit={wrapAsync(handleSubmit1(onClickSubmit))}>
           <S.PasswordBox>
             <span>비밀번호</span>
             <input
@@ -123,7 +123,7 @@ export default function JoinMiddle(): JSX.Element {
               <button type="button">로그인</button>
             </div>
           </S.BtnBox>
-        </form>
+        </S.PwdForm>
       </S.Wrapper>
     </S.Container>
   );

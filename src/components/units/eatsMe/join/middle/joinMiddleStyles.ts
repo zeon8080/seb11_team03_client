@@ -54,11 +54,14 @@ export const DivideLine = styled.div`
   border-bottom: 1px solid #a4a4a4;
   margin: 14px 0 30px 0;
 `;
-
+export const PwdForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 export const PasswordBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto 10px;
+  margin: 0 auto;
   > span {
     font-size: 20px;
   }
@@ -88,9 +91,9 @@ export const NicknameBox = styled.div`
   }
   > div {
     > input {
-      width: 298px;
+      width: 400px;
       height: 40px;
-      margin: 10px 20px 0 0;
+      margin-top: 10px;
       padding: 10px;
       background-color: #f5f5f5;
     }
