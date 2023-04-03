@@ -17,7 +17,7 @@ export interface IMapMarkerProps {
   marker?: any[];
   keyword?: string;
   infoWindow?: any[];
-  slideSetting: ISlideSetting;
+  slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];

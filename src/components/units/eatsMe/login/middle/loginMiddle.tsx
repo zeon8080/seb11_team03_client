@@ -6,6 +6,7 @@ import {
   useClickLogin,
 } from "../../../../commons/hooks/custom/useClickLogin";
 import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
+import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
 import * as S from "./loginMiddleStyles";
 import { schema } from "./loginMiddleValidation";
 
@@ -18,18 +19,18 @@ export default function LoginMiddle(): JSX.Element {
     mode: "onChange",
   });
 
-  const onClickKakao = () => {
+  const onClickKakao = (): any => {
     void router.push("https://eatsme.site");
   };
 
-  const onClickGoogle = () => {
+  const onClickGoogle = (): any => {
     void router.push("");
   };
 
   return (
     <S.Container>
       <S.Wrapper>
-        <form onSubmit={handleSubmit(onClickLogin)}>
+        <form onSubmit={wrapAsync(handleSubmit(onClickLogin))}>
           <S.Title>
             <h1>로그인</h1>
             <span>Log-in</span>

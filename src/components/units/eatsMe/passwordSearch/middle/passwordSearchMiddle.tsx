@@ -32,7 +32,7 @@ export default function PasswordSearchMiddle(): JSX.Element {
     console.log("Clicked cancel button");
     setOpen(false);
   };
-  const onClickSearch = async (data): Promise<void> => {
+  const onClickSearch = async (data: any): Promise<void> => {
     showModal();
     await onClickCheckEmail(data);
   };

@@ -20,7 +20,7 @@ interface IUseEffectTMapLoadProps {
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];
   setFindLine?: Dispatch<SetStateAction<any[]>>;
-  slideSetting: ISlideSetting;
+  slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
 }

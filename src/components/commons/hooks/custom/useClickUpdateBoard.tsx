@@ -17,15 +17,24 @@ export const useClickUpdateBoard = (): IUseClickUpdateBoard => {
           info: [
             ...data.info
               ?.filter((el: any) => el.restaurantName !== "상호명")
-              .map(({ __typename, ...rest }) => {
-                const cleanRest = { ...rest };
-                if (cleanRest.location.__typename !== undefined) {
+              .map(
+                ({
                   // eslint-disable-next-line @typescript-eslint/naming-convention
-                  const { __typename, ...cleanLoc } = cleanRest.location;
-                  cleanRest.location = cleanLoc;
+                  __typename,
+                  ...rest
+                }: {
+                  __typename: string | undefined;
+                  [key: string]: any;
+                }) => {
+                  const cleanRest = { ...rest };
+                  if (cleanRest.location.__typename !== undefined) {
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    const { __typename, ...cleanLoc } = cleanRest.location;
+                    cleanRest.location = cleanLoc;
+                  }
+                  return cleanRest;
                 }
-                return cleanRest;
-              }),
+              ),
           ],
         };
         await updateBoard({ variables: { updateBoardInput } });
