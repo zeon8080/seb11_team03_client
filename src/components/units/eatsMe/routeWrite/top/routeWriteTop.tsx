@@ -302,6 +302,8 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                       setInfoWindow,
                       isSearch: true,
                       setSlideSetting,
+                      // 에러떠서 속성추가
+                      slideSetting: undefined,
                     })}
                   ></button>
                 </S.SearchWrap>

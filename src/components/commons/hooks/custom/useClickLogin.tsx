@@ -8,7 +8,7 @@ export interface ILoginFormData {
   password: string;
 }
 
-export const useClickLogin = () => {
+export const useClickLogin = (): any => {
   const [loginUser] = UseMutationLogin();
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const { routerMovePage } = useRouterMovePage();

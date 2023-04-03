@@ -8,7 +8,7 @@ declare const window: typeof globalThis & {
 };
 
 interface IMapPopUpProps extends IMapMarkerProps {
-  position: any;
+  position?: any;
   isSearch?: boolean;
   isWrite?: boolean;
   data?: any;
