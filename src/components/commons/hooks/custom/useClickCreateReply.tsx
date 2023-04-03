@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { ICreateReplyInput } from "../../../../commons/types/generated/types";
 import { useMutationCreateReply } from "../mutation/useMutationCreateReply";
-import { FETCH_BOARD_BY_EVERY } from "../query/useQueryFetchBoardsByEvery";
 
 interface IUseClickCreateReply {
   onClickCreateReply: (
