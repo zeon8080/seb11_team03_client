@@ -240,6 +240,7 @@ export type IMutationUploadFileArgs = {
 };
 
 export type IPersonalMapData = {
+  map(arg0: (_: any, idx: any) => JSX.Element): import("react").ReactNode;
   __typename?: "PersonalMapData";
   area: Scalars["String"];
   board: IBoard;
@@ -283,6 +284,7 @@ export type IQueryIsValidNicknameArgs = {
 };
 
 export type IReply = {
+  map: any;
   __typename?: "Reply";
   alarms: Array<IAlarm>;
   comments: IComment;

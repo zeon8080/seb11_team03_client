@@ -14,16 +14,17 @@ export const useClickCreateComment = (): IUseClickCreateComment => {
   const onClickCreateComment = async (
     createCommentInput: ICreateCommentInput
   ): Promise<void> => {
+    console.log(createCommentInput);
     try {
       await createComment({
         variables: {
           createCommentInput,
         },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_BY_EVERY,
-          },
-        ],
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_BOARD_BY_EVERY,
+        //   },
+        // ],
       });
     } catch (error) {
       if (error instanceof Error) console.log(error.message);

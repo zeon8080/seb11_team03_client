@@ -30,6 +30,7 @@ export const mapMarker = (props: IMapMarkerProps): void => {
   if (props.marker?.length !== 0) {
     props.marker?.map((el) => el.setMap(null));
   }
+  console.log(props.data, "dasdasddasdas");
 
   const addIcon = (i: number): string => {
     if (props.isSearch === true) {
@@ -47,10 +48,14 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     const position = new window.Tmapv2.LatLng(
       props.isSearch === true
         ? props.data[i].noorLat
-        : props.data.info[i].location.lat,
+        : props.isWrite === true
+        ? props.data.info[i].location.lat
+        : props.data.personalMapData[i].location.lat,
       props.isSearch === true
         ? props.data[i].noorLon
-        : props.data.info[i].location.lng
+        : props.isWrite === true
+        ? props.data.info[i].location.lng
+        : props.data.personalMapData[i].location.lng
     );
     const TMarker = new window.Tmapv2.Marker({
       position,
@@ -61,11 +66,20 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     });
     if (props.isSearch === true) {
       TMarker.addListener("click", () => {
-        mapPopUp({ ...props, position, data: props.data[i] });
+        mapPopUp({ ...props, position, data: props.data?.[i] });
       });
-    } else {
+    } else if (props.isSearch === false && props.isWrite === true) {
       TMarker.addListener("click", () => {
-        mapPopUp({ ...props, position, data: props.data.info[i], idx: i });
+        mapPopUp({ ...props, position, data: props.data?.info?.[i], idx: i });
+      });
+    } else if (props.isWrite === false) {
+      TMarker.addListener("click", () => {
+        mapPopUp({
+          ...props,
+          position,
+          data: props.data?.personalMapData?.[i],
+          idx: i,
+        });
       });
     }
     markerArr.push(TMarker);
@@ -76,12 +90,26 @@ export const mapMarker = (props: IMapMarkerProps): void => {
   const markerArr: any[] = [];
   for (
     let i = 0;
-    i < (props.isSearch === true ? props.data.length : props.data.info.length);
+    i <
+    (props.isSearch === true
+      ? props.data.length
+      : props.isWrite === true
+      ? props.data?.info?.length
+      : props.data.personalMapData.length);
     i++
   ) {
     if (
       props.isSearch === false &&
+      props.isWrite === true &&
       props.data.info[i].restaurantName === "상호명"
+    ) {
+      break;
+    }
+
+    if (
+      props.isSearch === false &&
+      props.isWrite === false &&
+      props.data.personalMapData[i].restaurantName === "상호명"
     ) {
       break;
     }
@@ -111,12 +139,20 @@ export const mapMarker = (props: IMapMarkerProps): void => {
 
   if (
     props.isSearch === false &&
+    props.isWrite === true &&
     props.data.info[0].restaurantName === "상호명"
+  ) {
+    return;
+  } else if (
+    props.isSearch === false &&
+    props.isWrite === false &&
+    props.data.personalMapData[0].restaurantName === "상호명"
   ) {
     return;
   }
   if (
     Object.prototype.hasOwnProperty.call(props, "isWrite") &&
+    props.isWrite === true &&
     props.data.info[1].restaurantName === "상호명"
   ) {
     const latlng = props.data.info[0].location;

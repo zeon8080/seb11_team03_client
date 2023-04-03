@@ -11,7 +11,9 @@ export const getNewAccessToken = async (): Promise<string | undefined> => {
   try {
     const graphQLClient = new GraphQLClient(
       "https://jjjbackendclass.shop/graphql",
-      { credentials: "include" }
+      {
+        credentials: "include",
+      }
     );
 
     const result = await graphQLClient.request<

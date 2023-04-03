@@ -29,6 +29,7 @@ interface IMapPopUpProps extends IMapMarkerProps {
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {
+  console.log(props, "팝업");
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,
@@ -63,7 +64,7 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
           ${
             props.isSearch === true
               ? "추가"
-              : Object.prototype.hasOwnProperty.call(props, "isWrite")
+              : props.isWrite === true
               ? "취소"
               : "예약"
           }
@@ -88,10 +89,11 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
     TInfoWindow.setVisible(false);
     if (props.isSearch === true) {
       onClickAdd(props);
-    } else {
-      if (Object.prototype.hasOwnProperty.call(props, "isWrite")) {
-        onClickDelete(props);
-      }
+    } else if (props.isWrite === true && props.isSearch === false) {
+      onClickDelete(props);
+    } else if (props.isWrite === false) {
+      localStorage.setItem("reserve", props.data.id);
+      window.location.href = "/eatsMe/reserve";
     }
   });
 };

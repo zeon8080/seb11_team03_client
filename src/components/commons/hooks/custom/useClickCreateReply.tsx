@@ -15,14 +15,15 @@ export const useClickCreateReply = (): IUseClickCreateReply => {
   const onClickCreateReply =
     (setIsReply: Dispatch<SetStateAction<string>>) =>
     async (createReplyInput: ICreateReplyInput): Promise<void> => {
+      console.log(setIsReply, createReplyInput, "dajkopadjiadjiodajioda");
       try {
         await createReply({
           variables: { createReplyInput },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_BY_EVERY,
-            },
-          ],
+          // refetchQueries: [
+          //   {
+          //     query: FETCH_BOARD_BY_EVERY,
+          //   },
+          // ],
         });
         setIsReply("");
       } catch (error) {
