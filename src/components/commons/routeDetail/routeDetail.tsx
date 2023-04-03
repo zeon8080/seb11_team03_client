@@ -5,7 +5,7 @@ import * as S from "./routeDetailStyles";
 interface IRouteDetailProps {
   idx: number;
   isActive: string;
-  onClickRoute: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickRoute?: (event: MouseEvent<HTMLDivElement>) => void;
   onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
 }
 

@@ -5,13 +5,15 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 export const Container = styled.div`
   position: relative;
   background-color: #f5f5f5;
+  width: 100%;
+  color: black;
 `;
 
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 600px;
+  width: 100%;
   padding: 8px;
   ${mq[2]} {
     width: auto;
