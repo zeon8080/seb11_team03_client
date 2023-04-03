@@ -11,7 +11,7 @@ import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
 import { wrapFormAsync } from "../libraries/asyncFunc";
 import * as S from "./routeDetailCommentReplyStyles";
 
-export default function RouteDetailCommentReply(props): JSX.Element {
+export default function RouteDetailCommentReply(props: any): JSX.Element {
   const [isReplyModify, changeIsReplyModify, setIsReplyModify] =
     useSetIsToggle();
   const replyCreateRef = useRef<HTMLTextAreaElement>(null);

@@ -29,7 +29,7 @@ export default function JoinEmail(props: any): JSX.Element {
           <p>{props.formState3.errors.email?.message}</p>
           <S.EmailTokenBtn
             isActive={time > 0 && props.formState3.dirtyFields.email}
-            disabled={!props.formState3.dirtyFields.email}
+            disabled={props.formState3.dirtyFields.email === false}
           >
             인증번호 보내기
           </S.EmailTokenBtn>
