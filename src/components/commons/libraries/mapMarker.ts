@@ -1,13 +1,13 @@
+import { ISlideSetting } from "./../../units/eatsMe/routeWrite/top/routeWriteTop";
 import { SetStateAction, Dispatch } from "react";
 import { ICreateBoardInput } from "../../../commons/types/generated/types";
-import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
 import { mapPopUp } from "./mapPopUp";
 declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
 export interface IMapMarkerProps {
-  isSearch: boolean;
+  isSearch?: boolean;
   isWrite?: boolean;
   data?: any;
   setMap?: Dispatch<any>;
@@ -17,6 +17,7 @@ export interface IMapMarkerProps {
   marker?: any[];
   keyword?: string;
   infoWindow?: any[];
+  slideSetting: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];
@@ -31,19 +32,11 @@ export const mapMarker = (props: IMapMarkerProps): void => {
   }
 
   const addIcon = (i: number): string => {
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       return "/marker_gr.webp";
     } else if (i === 0) {
       return "/marker_red.webp";
-    } else if (
-      Object.prototype.hasOwnProperty.call(props, "isWrite") &&
-      i === 1
-    ) {
-      return "/marker_purple.webp";
-    } else if (
-      !Object.prototype.hasOwnProperty.call(props, "isWrite") &&
-      i === props.data.info.length - 1
-    ) {
+    } else if (i === 1) {
       return "/marker_purple.webp";
     } else {
       return "/marker_or.webp";
@@ -52,8 +45,12 @@ export const mapMarker = (props: IMapMarkerProps): void => {
 
   const addMarker = (i: number): void => {
     const position = new window.Tmapv2.LatLng(
-      props.isSearch ? props.data[i].noorLat : props.data.info[i].location.lat,
-      props.isSearch ? props.data[i].noorLon : props.data.info[i].location.lng
+      props.isSearch === true
+        ? props.data[i].noorLat
+        : props.data.info[i].location.lat,
+      props.isSearch === true
+        ? props.data[i].noorLon
+        : props.data.info[i].location.lng
     );
     const TMarker = new window.Tmapv2.Marker({
       position,
@@ -62,8 +59,7 @@ export const mapMarker = (props: IMapMarkerProps): void => {
       map: props.map,
       title: "가게 정보보기",
     });
-
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       TMarker.addListener("click", () => {
         mapPopUp({ ...props, position, data: props.data[i] });
       });
@@ -80,23 +76,25 @@ export const mapMarker = (props: IMapMarkerProps): void => {
   const markerArr: any[] = [];
   for (
     let i = 0;
-    i < (props.isSearch ? props.data.length : props.data.info.length);
+    i < (props.isSearch === true ? props.data.length : props.data.info.length);
     i++
   ) {
-    if (!props.isSearch && props.data.info[i].restaurantName === "상호명") {
+    if (
+      props.isSearch === false &&
+      props.data.info[i].restaurantName === "상호명"
+    ) {
       break;
     }
 
     if (
-      props.isSearch &&
+      props.isSearch === true &&
       (props.idx ?? 0) > 0 &&
       props.data[i].name ===
         props.path?.info[(props.idx ?? 0) - 1].restaurantName
     ) {
       continue;
     }
-
-    if (props.isSearch) {
+    if (props.isSearch === true) {
       if (
         props.data[i].middleBizName === "음식점" ||
         props.data[i].middleBizName === "카페" ||
@@ -111,7 +109,10 @@ export const mapMarker = (props: IMapMarkerProps): void => {
     }
   }
 
-  if (!props.isSearch && props.data.info[0].restaurantName === "상호명") {
+  if (
+    props.isSearch === false &&
+    props.data.info[0].restaurantName === "상호명"
+  ) {
     return;
   }
   if (
