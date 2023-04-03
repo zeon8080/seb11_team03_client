@@ -35,7 +35,7 @@ export default function MainMap(): JSX.Element {
   return (
     <S.Container>
       <ReactPlayer
-        // url={"/mainVideo.mp4"}
+        url={"/mainVideo.mp4"}
         width="100%"
         height="100%"
         playing={true}
