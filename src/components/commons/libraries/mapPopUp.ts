@@ -8,7 +8,7 @@ declare const window: typeof globalThis & {
 };
 
 interface IMapPopUpProps extends IMapMarkerProps {
-  position: any;
+  position?: any;
   isSearch?: boolean;
   isWrite?: boolean;
   data?: any;
@@ -19,7 +19,7 @@ interface IMapPopUpProps extends IMapMarkerProps {
   marker?: any[];
   keyword?: string;
   infoWindow?: any[];
-  slideSetting: ISlideSetting;
+  slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setMarker?: Dispatch<SetStateAction<any[]>>;
   findLine?: any[];

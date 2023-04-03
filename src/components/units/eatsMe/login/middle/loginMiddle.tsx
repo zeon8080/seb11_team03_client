@@ -18,11 +18,11 @@ export default function LoginMiddle(): JSX.Element {
     mode: "onChange",
   });
 
-  const onClickKakao = () => {
+  const onClickKakao = (): any => {
     void router.push("https://eatsme.site");
   };
 
-  const onClickGoogle = () => {
+  const onClickGoogle = (): any => {
     void router.push("");
   };
 

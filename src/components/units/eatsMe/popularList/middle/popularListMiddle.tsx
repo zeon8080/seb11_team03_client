@@ -7,12 +7,12 @@ declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export default function PopularListMiddle(props): JSX.Element {
-  const [map, setMap] = useState();
+export default function PopularListMiddle(props: any): JSX.Element {
+  const [map, setMap] = useState<any>({});
   const [marker, setMarker] = useState<any>(null);
   useEffectTmapLoadPopular({ setMap });
 
-  const onClickStore = (event) => {
+  const onClickStore = (event: any): any => {
     console.log(event.target.id, "enfenenvenn");
 
     if (marker !== null) {
@@ -29,9 +29,11 @@ export default function PopularListMiddle(props): JSX.Element {
       iconSize: new window.Tmapv2.Size(40, 40),
       map,
     });
-    map.fitBounds(PTbounds);
-    map.setZoom(18);
-    setMarker(TMarker);
+    if (map !== undefined) {
+      map.fitBounds(PTbounds);
+      map.setZoom(18);
+      setMarker(TMarker);
+    }
   };
 
   return (
@@ -42,7 +44,7 @@ export default function PopularListMiddle(props): JSX.Element {
       </Head>
       <S.Container>
         <S.ListWrapper>
-          {props.location?.data.map((el: any, idx) => (
+          {props.location?.data.map((el: any, idx: any) => (
             <S.StoreBox
               key={idx}
               onClick={onClickStore}
@@ -60,37 +62,41 @@ export default function PopularListMiddle(props): JSX.Element {
                   </S.RatingBox>
                   <S.TimeWrapper>
                     <span>
-                      {el.openingDays?.filter((el) => el.includes("휴무일"))[0]}
+                      {
+                        el.openingDays?.filter((el: any) =>
+                          el.includes("휴무일")
+                        )[0]
+                      }
                     </span>
                     <S.TimeInfoBox>
                       <div>
                         Open
                         {
-                          el.openingDays
-                            .filter((day) => !day.includes("휴무일"))
-                            .map((day) => day.split(": ")[1].split(" ~ "))[
-                            Math.floor(
-                              Math.random() *
-                                el.openingDays.filter(
-                                  (day) => !day.includes("휴무일")
-                                ).length
-                            )
-                          ][0]
+                          // el.openingDays
+                          //   .filter((day) => !day.includes("휴무일"))
+                          //   .map((day) => day.split(": ")[1].split(" ~ "))[
+                          //   Math.floor(
+                          //     Math.random() *
+                          //       el.openingDays.filter(
+                          //         (day) => !day.includes("휴무일")
+                          //       ).length
+                          //   )
+                          // ][0]
                         }
                       </div>
                       <div>
                         Close
                         {
-                          el.openingDays
-                            .filter((day) => !day.includes("휴무일"))
-                            .map((day) => day.split(": ")[1].split(" ~ "))[
-                            Math.floor(
-                              Math.random() *
-                                el.openingDays.filter(
-                                  (day) => !day.includes("휴무일")
-                                ).length
-                            )
-                          ][1]
+                          // el.openingDays
+                          //   .filter((day) => !day.includes("휴무일"))
+                          //   .map((day) => day.split(": ")[1].split(" ~ "))[
+                          //   Math.floor(
+                          //     Math.random() *
+                          //       el.openingDays.filter(
+                          //         (day) => !day.includes("휴무일")
+                          //       ).length
+                          //   )
+                          // ][1]
                         }
                       </div>
                     </S.TimeInfoBox>

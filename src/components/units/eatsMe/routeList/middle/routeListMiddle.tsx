@@ -27,6 +27,7 @@ export default function RouteListMiddle(): JSX.Element {
   const [isStartToggle, changeIsStartToggle] = useSetIsToggle();
   const [isEndToggle, changeIsEndToggle] = useSetIsToggle();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, refetch } = useClickRouteList({
     fetchBoardsByEveryInput: {
       startArea,

@@ -57,7 +57,7 @@ export default function JoinMiddle(): JSX.Element {
     const isValid2 = schema2.isValidSync(data2);
     const isValid3 = schema2.isValidSync(data3);
 
-    if (isValid1 && isValid2 && isValid3) {
+    if (isValid1 === true && isValid2 && isValid3) {
       const data = { ...data1, ...data2, ...data3 };
 
       void onClickJoin(data);

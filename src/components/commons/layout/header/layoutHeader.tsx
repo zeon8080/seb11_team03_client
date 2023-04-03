@@ -19,7 +19,7 @@ export default function LayoutHeader(props: IHeader): JSX.Element {
   const [accessToken] = useRecoilState(accessTokenState);
   const { data } = useQuery<Pick<IQuery, "fetchLoginUser">>(FETCH_LOGIN_USER);
   const { onClickLogout } = useClickLogout();
-  const [isToggle, changeIsToggle] = useSetIsToggle();
+  const [, changeIsToggle] = useSetIsToggle();
 
   return (
     <S.Container hiddenCss={props.hiddenCss}>
