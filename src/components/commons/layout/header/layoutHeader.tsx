@@ -7,7 +7,7 @@ import { wrapAsync } from "../../libraries/asyncFunc";
 import { useQuery } from "@apollo/client";
 import { FETCH_LOGIN_USER } from "../../hooks/query/useQueryFetchLoginUser";
 import { IQuery } from "../../../../commons/types/generated/types";
-import Alarm from "../../alarm/alarm";
+// import Alarm from "../../alarm/alarm";
 import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 
 export interface IHeader {
