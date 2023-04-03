@@ -6,7 +6,7 @@ const LOGIN = gql`
   }
 `;
 
-export const UseMutationLogin = () => {
+export const UseMutationLogin = (): any => {
   const loginUser = useMutation(LOGIN);
 
   return loginUser;
