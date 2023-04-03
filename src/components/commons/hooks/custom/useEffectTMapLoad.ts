@@ -39,8 +39,9 @@ export const useEffectTMapLoad = (props: IUseEffectTMapLoadProps): void => {
         });
         props.setMap?.(TMap);
       }
+
       if (
-        router.asPath !== "/eatsMe/routeWrite" &&
+        router.asPath !== "/eatsMe/routeWrite/" &&
         props.isSet === true &&
         Object.keys(props.map).length !== 0
       ) {
@@ -48,7 +49,7 @@ export const useEffectTMapLoad = (props: IUseEffectTMapLoadProps): void => {
         mapFindRoad({ ...props });
       }
       if (
-        router.asPath === "/eatsMe/routeList" &&
+        router.asPath === "/eatsMe/routeList/" &&
         Object.keys(props.map).length !== 0 &&
         props.data !== undefined
       ) {

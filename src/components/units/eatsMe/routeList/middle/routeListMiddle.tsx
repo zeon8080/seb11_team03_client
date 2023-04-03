@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { MouseEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { locationState } from "../../../../../commons/stores";
+import { fetchBoardsByEveryInputState } from "../../../../../commons/stores";
 import { useClickRouteList } from "../../../../commons/hooks/custom/useClickRouteList";
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
@@ -27,6 +27,9 @@ export default function RouteListMiddle(): JSX.Element {
   const [endArea, setEndArea] = useState("");
   const [isStartToggle, changeIsStartToggle] = useSetIsToggle();
   const [isEndToggle, changeIsEndToggle] = useSetIsToggle();
+  const [, setFetchBoardsByEveryInput] = useRecoilState(
+    fetchBoardsByEveryInputState
+  );
 
   const { data, refetch } = useClickRouteList({
     fetchBoardsByEveryInput: {
@@ -35,11 +38,14 @@ export default function RouteListMiddle(): JSX.Element {
   });
 
   useEffect(() => {
-    const obj = { startPoint, endPoint, startArea, endArea };
-    const fetchBoardsByEveryInput = Object.fromEntries(
-      Object.entries(obj).filter(([_, value]) => value !== "")
-    );
-    void refetch({ fetchBoardsByEveryInput });
+    if (Object.keys(map).length !== 0) {
+      const obj = { startPoint, endPoint, startArea, endArea };
+      const fetchBoardsByEveryInput = Object.fromEntries(
+        Object.entries(obj).filter(([_, value]) => value !== "")
+      );
+      setFetchBoardsByEveryInput(fetchBoardsByEveryInput);
+      void refetch({ fetchBoardsByEveryInput });
+    }
   }, [startPoint, endPoint, startArea, endArea]);
 
   useEffectTMapLoad({

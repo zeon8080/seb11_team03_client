@@ -1,6 +1,6 @@
 import { atom, RecoilState, selector } from "recoil";
 import { getNewAccessToken } from "../libraries/getNewAccessToken";
-import { IUser } from "../types/generated/types";
+import { IFetchBoardsByEveryInput, IUser } from "../types/generated/types";
 
 export const isEditState = atom({
   key: "isEditState",
@@ -25,3 +25,10 @@ export const fetchLoginUserState: RecoilState<IUser> = atom({
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   default: {} as IUser,
 });
+
+export const fetchBoardsByEveryInputState: RecoilState<IFetchBoardsByEveryInput> =
+  atom({
+    key: "fetchBoardsByEveryInputState",
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    default: {} as IFetchBoardsByEveryInput,
+  });

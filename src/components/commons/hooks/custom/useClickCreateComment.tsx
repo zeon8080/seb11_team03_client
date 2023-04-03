@@ -1,3 +1,5 @@
+import { useRecoilState } from "recoil";
+import { fetchBoardsByEveryInputState } from "../../../../commons/stores";
 import { ICreateCommentInput } from "../../../../commons/types/generated/types";
 import { useMutationCreateComment } from "../mutation/useMutationCreateComment";
 import { FETCH_BOARD_BY_EVERY } from "../query/useQueryFetchBoardsByEvery";
@@ -10,6 +12,9 @@ interface IUseClickCreateComment {
 
 export const useClickCreateComment = (): IUseClickCreateComment => {
   const [createComment] = useMutationCreateComment();
+  const [fetchBoardsByEveryInput] = useRecoilState(
+    fetchBoardsByEveryInputState
+  );
 
   const onClickCreateComment = async (
     createCommentInput: ICreateCommentInput
@@ -20,11 +25,12 @@ export const useClickCreateComment = (): IUseClickCreateComment => {
         variables: {
           createCommentInput,
         },
-        // refetchQueries: [
-        //   {
-        //     query: FETCH_BOARD_BY_EVERY,
-        //   },
-        // ],
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_BY_EVERY,
+            variables: { fetchBoardsByEveryInput },
+          },
+        ],
       });
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
