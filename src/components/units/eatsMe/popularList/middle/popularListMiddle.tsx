@@ -7,12 +7,14 @@ declare const window: typeof globalThis & {
   Tmapv2: any;
 };
 
-export default function PopularListMiddle(): JSX.Element {
+export default function PopularListMiddle(props): JSX.Element {
   const [map, setMap] = useState();
   const [marker, setMarker] = useState<any>(null);
   useEffectTmapLoadPopular({ setMap });
 
   const onClickStore = (event) => {
+    console.log(event.target.id, "enfenenvenn");
+
     if (marker !== null) {
       marker.setMap(null);
     }
@@ -28,264 +30,87 @@ export default function PopularListMiddle(): JSX.Element {
       map,
     });
     map.fitBounds(PTbounds);
-    map.setZoom(15);
+    map.setZoom(18);
     setMarker(TMarker);
   };
+
   return (
     <>
       <Head>
-        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
+        {/* <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script> */}
+        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=IaSnfI55gi9P9QUeMvkq58fRd5VsGBs85RX1zGaV"></script>
       </Head>
       <S.Container>
         <S.ListWrapper>
-          <S.StoreBox onClick={onClickStore} id="37.563365,126.982852">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.483470,126.899607">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.540027,127.053358">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.507858,127.105266">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.563365,126.982852">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.483470,126.899607">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.540027,127.053358">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
-          <S.StoreBox onClick={onClickStore} id="37.507858,127.105266">
-            <S.StoreCont>
-              <S.FoodImg src="/defaultfood.webp" />
-              <div>
-                <S.RatingBox>
-                  <S.StoreName>
-                    <S.Img src="/store.webp" />
-                    <span>가나다라마바사아자차카</span>
-                  </S.StoreName>
-                  <S.Rating>4.6</S.Rating>
-                </S.RatingBox>
-                <S.TimeWrapper>
-                  <span>월요일 휴무</span>
-                  <S.TimeInfoBox>
-                    <div>Open 11:00</div>
-                    <div>Close 22:00</div>
-                  </S.TimeInfoBox>
-                </S.TimeWrapper>
-              </div>
-            </S.StoreCont>
-            <S.StoreInfoBox>
-              <div>
-                <S.Img src="/marker_or.webp" />
-                <span>서울특별시 구로구 디지털로 300 </span>
-              </div>
-              <div>
-                <S.Img src="/phone.webp" />
-                <span>02-123-4567</span>
-              </div>
-            </S.StoreInfoBox>
-          </S.StoreBox>
+          {props.location?.data.map((el: any, idx) => (
+            <S.StoreBox
+              key={idx}
+              onClick={onClickStore}
+              id={`${String(el.location.lat)},${String(el.location.lng)}`}
+            >
+              <S.StoreCont>
+                <S.FoodImg src="/defaultfood.webp" />
+                <div>
+                  <S.RatingBox>
+                    <S.StoreName>
+                      <S.Img src="/store.webp" />
+                      <span>{el.restaurantName}</span>
+                    </S.StoreName>
+                    <S.Rating>{el.rating}</S.Rating>
+                  </S.RatingBox>
+                  <S.TimeWrapper>
+                    <span>
+                      {el.openingDays?.filter((el) => el.includes("휴무일"))[0]}
+                    </span>
+                    <S.TimeInfoBox>
+                      <div>
+                        Open
+                        {
+                          el.openingDays
+                            .filter((day) => !day.includes("휴무일"))
+                            .map((day) => day.split(": ")[1].split(" ~ "))[
+                            Math.floor(
+                              Math.random() *
+                                el.openingDays.filter(
+                                  (day) => !day.includes("휴무일")
+                                ).length
+                            )
+                          ][0]
+                        }
+                      </div>
+                      <div>
+                        Close
+                        {
+                          el.openingDays
+                            .filter((day) => !day.includes("휴무일"))
+                            .map((day) => day.split(": ")[1].split(" ~ "))[
+                            Math.floor(
+                              Math.random() *
+                                el.openingDays.filter(
+                                  (day) => !day.includes("휴무일")
+                                ).length
+                            )
+                          ][1]
+                        }
+                      </div>
+                    </S.TimeInfoBox>
+                  </S.TimeWrapper>
+                </div>
+              </S.StoreCont>
+              <S.StoreInfoBox>
+                <div>
+                  <S.Img src="/marker_or.webp" />
+                  <span>{el.address}</span>
+                </div>
+                <div>
+                  <S.Img src="/phone.webp" />
+                  <span>
+                    {el.phoneNumber !== null ? el.phoneNumber : "번호 없음"}
+                  </span>
+                </div>
+              </S.StoreInfoBox>
+            </S.StoreBox>
+          ))}
         </S.ListWrapper>
         <S.MapBox>
           <div
