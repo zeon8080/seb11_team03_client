@@ -33,6 +33,7 @@ export default function ReserveMiddle(): JSX.Element {
     }
   };
   return (
+
     <form onSubmit={wrapAsync(handleSubmit(onClickReserve))}>
       <S.Container>
         <S.Wrapper>
