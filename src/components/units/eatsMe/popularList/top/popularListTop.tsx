@@ -1,30 +1,48 @@
 import { useState } from "react";
-import LocationSelector from "../../../../locationSelector/locationSelector";
-import SearchBar from "../../../../searchBar/searchBar";
+import axios from "axios";
+import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import SubLocationSelector from "../../../../subLocationSelector/subLocationSelector";
 import * as S from "./popularListTopStyles";
 
-export default function PopularListTop(): JSX.Element {
-  const [location, setLocation] = useState("서울특별시");
-  const [subLocation, setSubLocation] = useState("강남구");
+export default function PopularListTop(props: any): JSX.Element {
+  const [isStart, changeIsStart] = useSetIsToggle();
+  const [startPoint, setStartPoint] = useState("강남구");
+
+  const onClickLocation = async (): Promise<void> => {
+    const result = await axios.get(
+      `https://jjjbackendclass.shop/info/road/restaurant?area=서울시&section=${startPoint}`
+      // "https://jjjbackendclass.shop/info/road/restaurant?area=서울시&section=강남구"
+    );
+    console.log("버튼콘솔", result);
+    props.setLocation(result);
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
-        <S.SelectBox>
-          <div>{location}</div>
-          <S.Arrow />
-        </S.SelectBox>
-        <div>
-          <LocationSelector setLocation={setLocation} />
-        </div>
-        <S.SubSelectBox>
-          <div>{subLocation}</div>
-          <S.Arrow />
-        </S.SubSelectBox>
-        <div>
-          <SubLocationSelector setSubLocation={setSubLocation} />
-        </div>
-        <SearchBar />
+        <S.CityWrapper>
+          <S.City>
+            <div>서울시</div>
+          </S.City>
+        </S.CityWrapper>
+
+        <S.DistrictWrapper>
+          <S.District
+            onClick={() => {
+              changeIsStart();
+            }}
+          >
+            <div>{startPoint === "" ? "지역" : startPoint}</div>
+            <S.Arrow isStart={isStart} />
+          </S.District>
+          <S.SelectorWrapper isToggle={isStart}>
+            <SubLocationSelector
+              changeIsToggle={changeIsStart}
+              setSubLocation={setStartPoint}
+            />
+          </S.SelectorWrapper>
+        </S.DistrictWrapper>
+        <S.LocationBtn onClick={onClickLocation}>맛집 검색</S.LocationBtn>
       </S.Wrapper>
     </S.Container>
   );
