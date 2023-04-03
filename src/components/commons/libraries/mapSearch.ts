@@ -19,6 +19,7 @@ interface IMapSearchProps {
   infoWindow: any[];
   setInfoWindow: Dispatch<SetStateAction<any[]>>;
   isSearch: boolean;
+  slideSetting: any;
   setSlideSetting: Dispatch<SetStateAction<ISlideSetting>>;
 }
 
