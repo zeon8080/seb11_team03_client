@@ -16,7 +16,10 @@ export default function Chatbot(props: IChatbot): JSX.Element {
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (chatEndRef.current !== null) {
+
+
+
+    if (chatEndRef.current != null) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [answer]);

@@ -2,7 +2,7 @@ import { IJoinFormData } from "../../../units/eatsMe/join/middle/joinMiddle";
 import { useMutationCreateUser } from "../mutation/useMutationCreateUser";
 import { useRouterMovePage } from "./useRouterMovePage";
 
-export const useClickJoin = () => {
+export const useClickJoin = (): any => {
   const [createUser] = useMutationCreateUser();
   const { routerMovePage } = useRouterMovePage();
 
