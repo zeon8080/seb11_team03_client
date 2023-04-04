@@ -12,7 +12,7 @@ interface IRouteDetailProps {
   data: IBoardReturn;
   idx: number;
   isActive: string;
-  onClickRoute?: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickRoute?: (idx: string) => (e: MouseEvent<HTMLDivElement>) => void;
   onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
 }
 
@@ -24,7 +24,9 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
 
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
     event.stopPropagation();
-    onClickToggleLike(props.data?.id);
+    if (props.data.id !== undefined && props.data.id !== null) {
+      void onClickToggleLike(props.data?.id);
+    }
   };
   return (
     <S.Container>
@@ -46,7 +48,7 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
             <img
               src={
                 props.data.user?.userImg !== null
-                  ? `https://storage.googleapis.com/${props.data.user?.userImg}`
+                  ? `https://storage.googleapis.com/${props.data.user.userImg}`
                   : "/userImg_small.webp"
               }
             />
