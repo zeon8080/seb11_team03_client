@@ -6,6 +6,18 @@ export const FETCH_LOGIN_USER = gql`
       id
       nickname
       userImg
+      restaurant {
+        _id
+        restaurantName
+        address
+      }
+      reservations {
+        id
+        table
+        time
+        reservation_time
+        restaurant_id
+      }
     }
   }
 `;
