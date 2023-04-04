@@ -19,6 +19,7 @@ interface IMapFindRoadProps {
   setFindLine?: Dispatch<SetStateAction<any[]>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
+  setReserve?: Dispatch<SetStateAction<string>>;
 }
 
 export const mapFindRoad = (props: IMapFindRoadProps): void => {

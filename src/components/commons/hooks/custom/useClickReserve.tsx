@@ -8,12 +8,14 @@ export const useClickReserve = (): any => {
 
   const onClickReserve = async (data: IReserveFormData): Promise<void> => {
     try {
+      const localData = JSON.parse(localStorage.getItem("reserve"));
+
       const result = await createReservation({
         variables: {
           createReservationInput: {
             table: 1,
             time: data.time,
-            restaurantId: "123",
+            restaurantId: localData.restaurantId ?? "",
             reservation_time: data.reservation_time,
           },
         },

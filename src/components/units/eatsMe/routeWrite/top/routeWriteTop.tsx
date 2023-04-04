@@ -10,8 +10,8 @@ import { useClickUpdateBoard } from "../../../../commons/hooks/custom/useClickUp
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
-import { mapMarker } from "../../../../commons/libraries/mapMarker";
-import { mapSearh } from "../../../../commons/libraries/mapSearch";
+import { mapMarker } from "../../../../commons/libraries/useMapMarker";
+import { mapSearch } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
 export interface ISlideSetting {
@@ -289,7 +289,7 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
                     value={slideSetting.keyword[idx - 1]}
                   />
                   <button
-                    onClick={mapSearh({
+                    onClick={mapSearch({
                       map: props.map,
                       setMap: props.setMap,
                       keyword: slideSetting.keyword[idx - 1],

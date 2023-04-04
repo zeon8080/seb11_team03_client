@@ -24,7 +24,7 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
 
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
     event.stopPropagation();
-    onClickToggleLike(props.data?.id);
+    void onClickToggleLike(props.data?.id);
   };
   return (
     <S.Container>

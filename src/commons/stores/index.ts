@@ -32,3 +32,8 @@ export const fetchBoardsByEveryInputState: RecoilState<IFetchBoardsByEveryInput>
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     default: { startArea: "서울시" } as IFetchBoardsByEveryInput,
   });
+
+export const boardIdState = atom({
+  key: "boardIdState",
+  default: "",
+});

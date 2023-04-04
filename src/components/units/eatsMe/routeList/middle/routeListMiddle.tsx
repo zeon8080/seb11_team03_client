@@ -30,6 +30,7 @@ export default function RouteListMiddle(): JSX.Element {
   const [, setFetchBoardsByEveryInput] = useRecoilState(
     fetchBoardsByEveryInputState
   );
+  const [reserve, setReserve] = useState("");
 
   const { data, refetch } = useClickRouteList({
     fetchBoardsByEveryInput: {
@@ -59,6 +60,7 @@ export default function RouteListMiddle(): JSX.Element {
     setInfoWindow,
     isWrite: false,
     isSearch: false,
+    setReserve,
   });
 
   useEffect(() => {
@@ -85,6 +87,7 @@ export default function RouteListMiddle(): JSX.Element {
         setInfoWindow,
         isWrite: false,
         isSearch: false,
+        setReserve,
       });
       mapFindRoad({
         data: data?.fetchBoardsByEvery[Number(idx)],
@@ -92,9 +95,16 @@ export default function RouteListMiddle(): JSX.Element {
         findLine,
         setFindLine,
         isWrite: false,
+        setReserve,
       });
       onClickIsActive(event);
     };
+  useEffect(() => {
+    if (reserve !== "") {
+      localStorage.setItem("reserve", JSON.stringify(reserve));
+      window.location.href = "/eatsMe/reserve";
+    }
+  }, [reserve]);
   return (
     <>
       <Head>
