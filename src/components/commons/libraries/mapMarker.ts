@@ -30,7 +30,6 @@ export const mapMarker = (props: IMapMarkerProps): void => {
   if (props.marker?.length !== 0) {
     props.marker?.map((el) => el.setMap(null));
   }
-  console.log(props.data, "dasdasddasdas");
 
   const addIcon = (i: number): string => {
     if (props.isSearch === true) {

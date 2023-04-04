@@ -1,11 +1,8 @@
-import SearchBar from "../../../../searchBar/searchBar";
 import * as S from "./routeListTopStyles";
 
 export default function RouteListTop(): JSX.Element {
   return (
     <S.Container>
-      <SearchBar />
-
       <S.routeWriteBtn href="/eatsMe/routeWrite">코스 작성</S.routeWriteBtn>
     </S.Container>
   );

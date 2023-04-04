@@ -19,7 +19,14 @@ export const ImgWrapper = styled.div`
   }
 `;
 
-export const ReplyWrapper = styled.form`
+export const ReplyWriteWrapper = styled.form`
+  position: relative;
+  width: 100%;
+  padding: 6px;
+  background-color: white;
+`;
+
+export const ReplyWrapper = styled.div`
   position: relative;
   width: 100%;
   padding: 6px;

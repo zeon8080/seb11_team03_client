@@ -1,5 +1,7 @@
 import { MouseEvent } from "react";
+
 import { IBoardReturn } from "../../../commons/types/generated/types";
+import { useClickToggleLike } from "../hooks/custom/useClickToggleLike";
 import { useCreateAtTime } from "../hooks/custom/useCreateAtTime";
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
@@ -14,10 +16,21 @@ interface IRouteDetailProps {
 
 export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const { lastCreateTime } = useCreateAtTime();
+  const { onClickToggleLike } = useClickToggleLike();
+
+  const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
+    event.stopPropagation();
+    onClickToggleLike(props.data?.id);
+  };
+
   return (
     <S.Container>
-      <S.TopWrapper id={String(props.idx)} onClick={props.onClickIsActive}>
-        <S.HeartImg src="/heart_empty.webp" />
+
+      <S.TopWrapper
+        id={String(props.idx)}
+        onClick={props.onClickRoute?.(String(props.idx))}
+      >
+        <S.HeartImg src={"/heart_empty.webp"} onClick={onClickLike} />
         <S.UserInfoWBox>
           <S.UserImg>
             <img

@@ -4,7 +4,7 @@ interface IUseCreateAtTime {
 
 export const useCreateAtTime = (): IUseCreateAtTime => {
   const lastCreateTime = (createdAt: string): string => {
-    const milliSeconds = new Date(createdAt).getTime() - new Date().getTime();
+    const milliSeconds = new Date().getTime() - new Date(createdAt).getTime();
     const seconds = milliSeconds / 1000;
     if (seconds < 60) return `방금 전`;
     const minutes = seconds / 60;

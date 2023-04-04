@@ -5,6 +5,7 @@ export const FETCH_LOGIN_USER = gql`
     fetchLoginUser {
       id
       nickname
+      userImg
     }
   }
 `;

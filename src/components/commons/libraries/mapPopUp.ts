@@ -51,11 +51,14 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
             </div>
             <div style=' margin-top: 5px; margin-bottom: 20px; font-weight: 500; font-size: 10px; word-break: break-all'>
               ${
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 props.isSearch === true
                   ? String(
                       props.data?.newAddressList?.newAddress[0].fullAddressRoad
                     )
-                  : "데이터"
+                  : props.isWrite === true
+                  ? ""
+                  : props.data?.address ?? ""
               }
             </div>
           </div>
