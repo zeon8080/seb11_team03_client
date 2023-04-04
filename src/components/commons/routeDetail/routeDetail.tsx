@@ -49,7 +49,7 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
           <S.UserImg>
             <img
               src={
-                props.data?.user?.userImg !== null
+ props.data?.user?.userImg !== null
                   ? `https://storage.googleapis.com/${String(
                       props.data?.user?.userImg
                     )}`
