@@ -39,8 +39,7 @@ export default function PopularListMiddle(props: any): JSX.Element {
   return (
     <>
       <Head>
-        {/* <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script> */}
-        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=IaSnfI55gi9P9QUeMvkq58fRd5VsGBs85RX1zGaV"></script>
+        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
       </Head>
       <S.Container>
         <S.ListWrapper>
@@ -69,36 +68,18 @@ export default function PopularListMiddle(props: any): JSX.Element {
                       }
                     </span>
                     <S.TimeInfoBox>
-                      <div>
+                      {/* <div>
                         Open
                         {
-                          // el.openingDays
-                          //   .filter((day) => !day.includes("휴무일"))
-                          //   .map((day) => day.split(": ")[1].split(" ~ "))[
-                          //   Math.floor(
-                          //     Math.random() *
-                          //       el.openingDays.filter(
-                          //         (day) => !day.includes("휴무일")
-                          //       ).length
-                          //   )
-                          // ][0]
+                         
                         }
                       </div>
                       <div>
                         Close
                         {
-                          // el.openingDays
-                          //   .filter((day) => !day.includes("휴무일"))
-                          //   .map((day) => day.split(": ")[1].split(" ~ "))[
-                          //   Math.floor(
-                          //     Math.random() *
-                          //       el.openingDays.filter(
-                          //         (day) => !day.includes("휴무일")
-                          //       ).length
-                          //   )
-                          // ][1]
+                          
                         }
-                      </div>
+                      </div> */}
                     </S.TimeInfoBox>
                   </S.TimeWrapper>
                 </div>
