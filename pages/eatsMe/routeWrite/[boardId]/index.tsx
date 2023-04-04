@@ -13,7 +13,6 @@ export default function RouteUpdatePage(): JSX.Element {
     FETCH_BOARD,
     { variables: { boardId: id } }
   );
-  console.log(data, "처음처음처음");
   return (
     <>
       <RouteWrite isEdit={true} data={data} />

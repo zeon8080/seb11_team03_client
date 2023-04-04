@@ -56,7 +56,7 @@ export default function JoinMiddle(): JSX.Element {
     const isValid1 = schema1.isValidSync(data1);
     const isValid2 = schema2.isValidSync(data2);
     const isValid3 = schema2.isValidSync(data3);
-    console.log(isValid1, isValid2, isValid3);
+    console.log(isValid3);
 
     if (isValid1 && isValid2) {
       const data = { ...data1, ...data2 };

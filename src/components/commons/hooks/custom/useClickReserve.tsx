@@ -7,8 +7,6 @@ export const useClickReserve = (): any => {
   const { routerMovePage } = useRouterMovePage();
 
   const onClickReserve = async (data: IReserveFormData): Promise<void> => {
-    console.log("데이터", data);
-
     try {
       const result = await createReservation({
         variables: {

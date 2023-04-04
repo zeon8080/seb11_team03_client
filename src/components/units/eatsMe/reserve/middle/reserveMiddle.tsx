@@ -23,7 +23,6 @@ export default function ReserveMiddle(): JSX.Element {
   const { handleSubmit, setValue } = useForm<IReserveFormData>();
 
   const onSelect = (value: Dayjs): void => {
-    console.log(value.toDate() > today);
     if (value.toDate() > today) {
       setSelectedDate(value);
       setIsModalOpen(true);

@@ -36,7 +36,6 @@ export default function Chatbot(props: IChatbot): JSX.Element {
           question: inputValue,
         },
       });
-      console.log(result);
 
       const botAnswer = result.data;
       const finalAnswer: IMessage[] = [

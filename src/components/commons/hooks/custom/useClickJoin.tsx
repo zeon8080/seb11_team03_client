@@ -7,8 +7,6 @@ export const useClickJoin = (): any => {
   const { routerMovePage } = useRouterMovePage();
 
   const onClickJoin = async (data: IJoinFormData): Promise<void> => {
-    console.log(data);
-
     try {
       const result = await createUser({
         variables: {

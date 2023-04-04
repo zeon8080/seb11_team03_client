@@ -22,7 +22,6 @@ export default function RouteWrite(props: IRouteWriteProps): JSX.Element {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { personalMapData, id, __typename, ...data } =
         props.data?.fetchBoard;
-      console.log(personalMapData, "확인");
       if (personalMapData !== undefined && personalMapData !== null) {
         setPath((prev: IUpdateBoardInput) => ({
           ...prev,

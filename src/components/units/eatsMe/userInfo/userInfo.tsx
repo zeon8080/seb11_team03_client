@@ -28,7 +28,7 @@ export default function UserInfo(): JSX.Element {
         setFile(file);
 
         const resultFile = await uploadFile({ variables: { file } });
-        console.log(resultFile.data?.uploadFile);
+
         await updateUser({
           variables: {
             updateUserInput: {
@@ -36,7 +36,6 @@ export default function UserInfo(): JSX.Element {
             },
           },
         });
-        console.log("사진이 업로드되었습니다!");
       }
     };
   };

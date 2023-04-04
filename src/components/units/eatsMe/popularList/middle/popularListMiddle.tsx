@@ -13,8 +13,6 @@ export default function PopularListMiddle(props: any): JSX.Element {
   useEffectTmapLoadPopular({ setMap });
 
   const onClickStore = (event: any): any => {
-    console.log(event.target.id, "enfenenvenn");
-
     if (marker !== null) {
       marker.setMap(null);
     }
