@@ -21,6 +21,7 @@ export const useClickJoin = (): any => {
       });
       console.log(result);
       routerMovePage("/eatsMe/login");
+      alert("가입을 환영합니다!");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

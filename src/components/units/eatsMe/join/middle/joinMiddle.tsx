@@ -17,7 +17,6 @@ export interface IJoinFormData {
 }
 
 export default function JoinMiddle(): JSX.Element {
-  // const { onClickNickname } = useClickIsValidNickname();
   const { onClickJoin } = useClickJoin();
   const {
     formState: formState1,
@@ -59,8 +58,8 @@ export default function JoinMiddle(): JSX.Element {
     const isValid3 = schema2.isValidSync(data3);
     console.log(isValid1, isValid2, isValid3);
 
-    if (isValid1 && isValid2 && isValid3) {
-      const data = { ...data1, ...data2, ...data3 };
+    if (isValid1 && isValid2) {
+      const data = { ...data1, ...data2 };
 
       void onClickJoin(data);
     }
@@ -117,7 +116,7 @@ export default function JoinMiddle(): JSX.Element {
           <S.BtnBox>
             <S.JoinBtn
               isActive={formState1.isValid && formState2.isValid}
-              // disabled={!formState1.isValid && !formState2.isValid}
+              disabled={!formState1.isValid && !formState2.isValid}
             >
               회원가입
             </S.JoinBtn>
