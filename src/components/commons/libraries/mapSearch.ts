@@ -23,7 +23,7 @@ interface IMapSearchProps {
   setSlideSetting: Dispatch<SetStateAction<ISlideSetting>>;
 }
 
-export const mapSearh = (props: IMapSearchProps) => () => {
+export const mapSearch = (props: IMapSearchProps) => () => {
   const onClickSearch = (): void => {
     const optionObj = {
       reqCoordType: "WGS84GEO",
