@@ -16,10 +16,7 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const { lastCreateTime } = useCreateAtTime();
   return (
     <S.Container>
-      <S.TopWrapper
-        id={String(props.idx)}
-        onClick={props.onClickRoute(String(props.idx))}
-      >
+      <S.TopWrapper id={String(props.idx)} onClick={props.onClickIsActive}>
         <S.HeartImg src="/heart_empty.webp" />
         <S.UserInfoWBox>
           <S.UserImg>

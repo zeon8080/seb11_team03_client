@@ -8,7 +8,6 @@ import { useMutationUploadFile } from "../../../commons/hooks/mutation/useMutati
 import { useMutationUpdateUser } from "../../../commons/hooks/mutation/useMutationUpdateUser";
 import UserWriteList from "./userWriteList/userWriteList";
 
-
 export default function UserInfo(): JSX.Element {
   const [imgUrl, setImgUrl] = useState("");
   const [file, setFile] = useState<File>();
