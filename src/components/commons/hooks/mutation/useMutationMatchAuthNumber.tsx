@@ -1,11 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 
 const MATCH_AUTH = gql`
-  mutation matchAuthNumber($matchtAuthNumberInput: MatchAuthNumberInput!) {
-    matchAuthNumber(matchtAuthNumberInput: $matchtAuthNumberInput) {
-      email
-      authNumber
-    }
+  mutation matchAuthNumber($matchAuthNumberInput: MatchAuthNumberInput!) {
+    matchAuthNumber(matchAuthNumberInput: $matchAuthNumberInput)
   }
 `;
 

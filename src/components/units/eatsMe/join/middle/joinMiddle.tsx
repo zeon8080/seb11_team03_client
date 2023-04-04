@@ -34,6 +34,7 @@ export default function JoinMiddle(): JSX.Element {
     register: register2,
     handleSubmit: handleSubmit2,
     getValues: getValues2,
+    setValue: setValue2,
   } = useForm({
     resolver: yupResolver(schema2),
     mode: "onChange",
@@ -56,6 +57,7 @@ export default function JoinMiddle(): JSX.Element {
     const isValid1 = schema1.isValidSync(data1);
     const isValid2 = schema2.isValidSync(data2);
     const isValid3 = schema2.isValidSync(data3);
+    console.log(isValid1, isValid2, isValid3);
 
     if (isValid1 && isValid2 && isValid3) {
       const data = { ...data1, ...data2, ...data3 };
@@ -82,6 +84,7 @@ export default function JoinMiddle(): JSX.Element {
           register3={register3}
           handleSubmit3={handleSubmit3}
           getValues3={getValues3}
+          setValue2={setValue2}
         />
         <S.PwdForm onSubmit={wrapAsync(handleSubmit1(onClickSubmit))}>
           <S.PasswordBox>
@@ -114,7 +117,7 @@ export default function JoinMiddle(): JSX.Element {
           <S.BtnBox>
             <S.JoinBtn
               isActive={formState1.isValid && formState2.isValid}
-              disabled={!formState1.isValid && !formState2.isValid}
+              // disabled={!formState1.isValid && !formState2.isValid}
             >
               회원가입
             </S.JoinBtn>

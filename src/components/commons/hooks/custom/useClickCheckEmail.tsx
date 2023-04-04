@@ -13,7 +13,7 @@ export const useClickCheckEmail = (): any => {
         },
       });
     } catch (error) {
-      if (error instanceof Error) console.log(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
   return { onClickCheckEmail };

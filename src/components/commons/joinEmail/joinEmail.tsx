@@ -4,9 +4,9 @@ import { useTimer } from "../hooks/custom/useTimer";
 import * as S from "./joinEmailStyles";
 
 export default function JoinEmail(props: any): JSX.Element {
-  const { onClickMatchAuth } = useClickMatchAuth();
   const { onClickCheckEmail } = useClickCheckEmail();
   const { time, setTime, setIsStarted } = useTimer();
+  const { onClickMatchAuth } = useClickMatchAuth(setTime);
   const min = Math.floor(time / 60);
   const sec = String(time % 60).padStart(2, "0");
 
@@ -14,6 +14,7 @@ export default function JoinEmail(props: any): JSX.Element {
     setTime(30);
     setIsStarted(true);
     await onClickCheckEmail(data);
+    props.setValue2("email", data.email);
   };
 
   return (
