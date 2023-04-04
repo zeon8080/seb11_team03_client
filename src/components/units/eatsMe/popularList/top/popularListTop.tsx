@@ -37,6 +37,7 @@ export default function PopularListTop(props: any): JSX.Element {
           </S.District>
           <S.SelectorWrapper isToggle={isStart}>
             <SubLocationSelector
+              location={"서울시"}
               changeIsToggle={changeIsStart}
               setSubLocation={setStartPoint}
             />
