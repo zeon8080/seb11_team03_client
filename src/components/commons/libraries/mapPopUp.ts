@@ -26,7 +26,7 @@ interface IMapPopUpProps extends IMapMarkerProps {
   setFindLine?: Dispatch<SetStateAction<any[]>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
   setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
-  setReserve?: Dispatch<SetStateAction<string>>;
+  setReserve?: any;
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {

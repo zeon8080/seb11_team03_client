@@ -20,11 +20,11 @@ export default function LoginMiddle(): JSX.Element {
   });
 
   const onClickKakao = (): any => {
-    void router.push("https://eatsme.site");
+    void router.push("https://jjjbackendclass.shop/graphql/login/kakao");
   };
 
   const onClickGoogle = (): any => {
-    void router.push("");
+    void router.push("https://jjjbackendclass.shop/graphql/login/google");
   };
 
   return (

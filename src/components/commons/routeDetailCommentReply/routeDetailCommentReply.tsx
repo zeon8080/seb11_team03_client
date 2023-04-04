@@ -10,18 +10,16 @@ import { useRecoilState } from "recoil";
 import { fetchLoginUserState } from "../../../commons/stores";
 import {
   ICreateReplyInput,
-  IReply,
   IUpdateReplyInput,
 } from "../../../commons/types/generated/types";
 import { useClickCreateReply } from "../hooks/custom/useClickCreateReply";
 import { useClickDeleteReply } from "../hooks/custom/useClickDeleteReply";
 import { useClickUpdateReply } from "../hooks/custom/useClickUpdateReply";
-import { useSetIsActive } from "../hooks/custom/useSetIsActive";
 import { wrapFormAsync } from "../libraries/asyncFunc";
 import * as S from "./routeDetailCommentReplyStyles";
 
 interface IRouteDetailCommentReplyProps {
-  data: IReply[];
+  data: any;
   id: string;
   isReply: string;
   setIsReply: Dispatch<SetStateAction<string>>;
@@ -99,7 +97,9 @@ export default function RouteDetailCommentReply(
               <img
                 src={
                   fetchLoginUser.userImg !== null
-                    ? `https://storage.googleapis.com/${props.data.user?.userImg}`
+                    ? `https://storage.googleapis.com/${String(
+                        props.data.user?.userImg
+                      )}`
                     : "/userImg_small.webp"
                 }
               />
@@ -114,7 +114,7 @@ export default function RouteDetailCommentReply(
         </S.Container>
       )}
 
-      {props.data.map((el) => (
+      {props.data.map((el: any) => (
         <S.Container key={el.id}>
           <S.ImgWrapper>
             <img src="/commentArrow.webp" />
@@ -140,7 +140,9 @@ export default function RouteDetailCommentReply(
               <img
                 src={
                   el.user?.userImg !== null
-                    ? `https://storage.googleapis.com/${el.user?.userImg}`
+                    ? `https://storage.googleapis.com/${String(
+                        el.user?.userImg
+                      )}`
                     : "/userImg_small.webp"
                 }
               />

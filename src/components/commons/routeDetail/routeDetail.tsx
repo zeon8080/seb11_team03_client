@@ -4,6 +4,7 @@ import { MouseEvent } from "react";
 import { IBoardReturn, IQuery } from "../../../commons/types/generated/types";
 import { useClickToggleLike } from "../hooks/custom/useClickToggleLike";
 import { useCreateAtTime } from "../hooks/custom/useCreateAtTime";
+import { useWithAuth } from "../hooks/custom/useWithAuth";
 import { FETCH_MY_LIKE_BOARD } from "../hooks/query/useQueryFetchMyLikeBoard";
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
@@ -12,7 +13,7 @@ interface IRouteDetailProps {
   data: IBoardReturn;
   idx: number;
   isActive: string;
-  onClickRoute?: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickRoute?: (idx: string) => (event: MouseEvent<HTMLDivElement>) => void;
   onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
 }
 
@@ -23,8 +24,11 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
     useQuery<Pick<IQuery, "fetchMyLikeBoard">>(FETCH_MY_LIKE_BOARD);
 
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
+    useWithAuth();
     event.stopPropagation();
-    void onClickToggleLike(props.data?.id);
+    if (props.data.id !== undefined && props.data.id !== null) {
+      void onClickToggleLike(props.data?.id);
+    }
   };
   return (
     <S.Container>
@@ -45,8 +49,10 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
           <S.UserImg>
             <img
               src={
-                props.data.user?.userImg !== null
-                  ? `https://storage.googleapis.com/${props.data.user?.userImg}`
+                props.data?.user?.userImg !== null
+                  ? `https://storage.googleapis.com/${String(
+                      props.data?.user?.userImg
+                    )}`
                   : "/userImg_small.webp"
               }
             />

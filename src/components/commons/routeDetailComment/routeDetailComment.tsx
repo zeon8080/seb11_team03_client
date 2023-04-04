@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { boardIdState, fetchLoginUserState } from "../../../commons/stores";
+import { fetchLoginUserState } from "../../../commons/stores";
 import {
   IBoardReturn,
   ICreateCommentInput,
@@ -11,6 +11,7 @@ import { useClickCreateComment } from "../hooks/custom/useClickCreateComment";
 import { useClickDeleteComment } from "../hooks/custom/useClickDeleteComment";
 import { useClickUpdateComment } from "../hooks/custom/useClickUpdateComment";
 import { useSetIsActive } from "../hooks/custom/useSetIsActive";
+import { useWithAuth } from "../hooks/custom/useWithAuth";
 import { wrapFormAsync } from "../libraries/asyncFunc";
 import RouteDetailCommentReply from "../routeDetailCommentReply/routeDetailCommentReply";
 import * as S from "./routeDetailCommentStyles";
@@ -69,6 +70,7 @@ export default function RouteDetailComment(
   };
 
   const onClickCommentSubmit = (data: { comment: string }): void => {
+    useWithAuth();
     if (data.comment === undefined || data.comment === "") {
       return;
     }
@@ -114,7 +116,9 @@ export default function RouteDetailComment(
               <img
                 src={
                   el.user?.userImg !== null
-                    ? `https://storage.googleapis.com/${el.user?.userImg}`
+                    ? `https://storage.googleapis.com/${String(
+                        el.user?.userImg
+                      )}`
                     : "/userImg_small.webp"
                 }
               />
