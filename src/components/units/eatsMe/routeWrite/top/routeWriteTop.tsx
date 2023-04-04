@@ -227,7 +227,6 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
   };
 
   const onClickImg = (event: MouseEvent<HTMLInputElement>): void => {
-    console.log("dasjdisaisjdisajdsaijdasijdiajdisa", imgRef.current);
     event.stopPropagation();
     imgRef.current?.click();
   };

@@ -8,9 +8,9 @@ export const useClickReserve = (): any => {
 
   const onClickReserve = async (data: IReserveFormData): Promise<void> => {
     try {
-      const localData = JSON.parse(localStorage.getItem("reserve"));
+      const localData = JSON.parse(String(localStorage.getItem("reserve")));
 
-      const result = await createReservation({
+      await createReservation({
         variables: {
           createReservationInput: {
             table: 1,
@@ -20,8 +20,6 @@ export const useClickReserve = (): any => {
           },
         },
       });
-      console.log(result);
-
       routerMovePage("/eatsMe/popularList");
     } catch (error) {
       if (error instanceof Error) alert(error.message);

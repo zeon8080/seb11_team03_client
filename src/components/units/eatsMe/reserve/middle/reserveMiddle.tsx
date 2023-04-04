@@ -26,13 +26,13 @@ export default function ReserveMiddle(): JSX.Element {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const { onClickReserve } = useClickReserve();
   const { handleSubmit, setValue } = useForm<IReserveFormData>();
-  const [inputData, setInputData] = useState({});
+  const [inputData, setInputData] = useState<any>({});
   const [map, setMap] = useState<any>({});
 
   useEffectTmapLoadReserve({ setMap });
 
   useEffect(() => {
-    setInputData(JSON.parse(localStorage.getItem("reserve")));
+    setInputData(JSON.parse(String(localStorage.getItem("reserve"))));
   }, []);
 
   useEffect(() => {

@@ -1,6 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { useRecoilState } from "recoil";
-import { fetchBoardsByEveryInputState } from "../../../../commons/stores";
 import {
   IMutation,
   IMutationToggleLikeArgs,

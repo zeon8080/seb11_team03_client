@@ -95,7 +95,6 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
     } else if (props.isWrite === true && props.isSearch === false) {
       onClickDelete(props);
     } else if (props.isWrite === false) {
-      console.log(props);
       props.setReserve?.({
         restaurantId: props.data?.restaurantId,
         restaurantName: props.data.restaurantName,

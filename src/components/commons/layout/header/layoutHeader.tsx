@@ -32,8 +32,6 @@ export default function LayoutHeader(props: IHeader): JSX.Element {
     }
   }, [data]);
 
-  console.log(data);
-
   return (
     <S.Container hiddenCss={props.hiddenCss}>
       {accessToken !== "" ? (

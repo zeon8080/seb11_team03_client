@@ -272,7 +272,6 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
 
   useEffect(() => {
     if (props.isList === false && props.location !== "") {
-      console.log(props.location, "제발");
       props.setSubLocation(subLocation[props.location][0]);
     }
   }, [props.location]);

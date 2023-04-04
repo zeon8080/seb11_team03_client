@@ -17,7 +17,6 @@ export const useClickDeleteReply = (): IUseClickDeleteReply => {
   const onClickDeleteReply = async (
     event: MouseEvent<HTMLImageElement>
   ): Promise<void> => {
-    console.log(event);
     try {
       await deleteReply({
         variables: { replyId: event.currentTarget.id },
