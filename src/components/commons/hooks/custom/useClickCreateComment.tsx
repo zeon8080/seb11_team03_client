@@ -19,7 +19,6 @@ export const useClickCreateComment = (): IUseClickCreateComment => {
   const onClickCreateComment = async (
     createCommentInput: ICreateCommentInput
   ): Promise<void> => {
-    console.log(createCommentInput);
     try {
       await createComment({
         variables: {

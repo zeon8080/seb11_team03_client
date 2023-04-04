@@ -30,5 +30,5 @@ export const fetchBoardsByEveryInputState: RecoilState<IFetchBoardsByEveryInput>
   atom({
     key: "fetchBoardsByEveryInputState",
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    default: {} as IFetchBoardsByEveryInput,
+    default: { startArea: "서울시" } as IFetchBoardsByEveryInput,
   });

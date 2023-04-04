@@ -1,12 +1,15 @@
 import { useMutation } from "@apollo/client";
+import { useRecoilState } from "recoil";
+import { fetchBoardsByEveryInputState } from "../../../../commons/stores";
 import {
   IMutation,
   IMutationToggleLikeArgs,
 } from "../../../../commons/types/generated/types";
 import { TOGGLE_LIKE } from "../mutation/useMutationToggleLike";
+import { FETCH_MY_LIKE_BOARD } from "../query/useQueryFetchMyLikeBoard";
 
 interface IUseClickToggleLike {
-  onClickToggleLike: (boardId: string) => void;
+  onClickToggleLike: (boardId: string) => Promise<void>;
 }
 
 export const useClickToggleLike = (): IUseClickToggleLike => {
@@ -14,9 +17,16 @@ export const useClickToggleLike = (): IUseClickToggleLike => {
     Pick<IMutation, "toggleLike">,
     IMutationToggleLikeArgs
   >(TOGGLE_LIKE);
-  const onClickToggleLike = (boardId: string): void => {
+  const onClickToggleLike = async (boardId: string): Promise<void> => {
     try {
-      void toggleLike({ variables: { boardId } });
+      await toggleLike({
+        variables: { boardId },
+        refetchQueries: [
+          {
+            query: FETCH_MY_LIKE_BOARD,
+          },
+        ],
+      });
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
