@@ -1,5 +1,5 @@
-import { ISlideSetting } from "./../../units/eatsMe/routeWrite/top/routeWriteTop";
-import { ICreateBoardInput } from "./../../../commons/types/generated/types";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
+import { ICreateBoardInput } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
 import { Dispatch, SetStateAction } from "react";
 import { mapMarker } from "./mapMarker";

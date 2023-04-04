@@ -10,8 +10,8 @@ import { useClickUpdateBoard } from "../../../../commons/hooks/custom/useClickUp
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
-import { mapMarker } from "../../../../commons/libraries/mapMarker";
-import { mapSearh } from "../../../../commons/libraries/mapSearch";
+import { mapMarker } from "../../../../commons/libraries/useMapMarker";
+import { mapSearh } from "../../../../commons/libraries/mapSearh";
 import * as S from "./routeWriteTopStyles";
 
 export interface ISlideSetting {

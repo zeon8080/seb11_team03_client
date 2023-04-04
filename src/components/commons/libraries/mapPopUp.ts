@@ -1,5 +1,5 @@
 import { IMapMarkerProps } from "./mapMarker";
-import { useClickInfoWindow } from "./../hooks/custom/useClickInfoWindow";
+import { useClickInfoWindow } from "../hooks/custom/useClickInfoWindow";
 import { Dispatch, SetStateAction } from "react";
 import { ICreateBoardInput } from "../../../commons/types/generated/types";
 import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
@@ -26,10 +26,10 @@ interface IMapPopUpProps extends IMapMarkerProps {
   setFindLine?: Dispatch<SetStateAction<any[]>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
   setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
+  setReserve?: Dispatch<SetStateAction<string>>;
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {
-  console.log(props, "팝업");
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,
@@ -95,8 +95,13 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
     } else if (props.isWrite === true && props.isSearch === false) {
       onClickDelete(props);
     } else if (props.isWrite === false) {
-      localStorage.setItem("reserve", props.data.id);
-      window.location.href = "/eatsMe/reserve";
+      console.log(props);
+      props.setReserve?.({
+        restaurantId: props.data?.restaurantId,
+        restaurantName: props.data.restaurantName,
+        locationLat: props.data.location.lat,
+        locationLng: props.data.location.lng,
+      });
     }
   });
 };
