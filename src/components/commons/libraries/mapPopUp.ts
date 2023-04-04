@@ -29,7 +29,6 @@ interface IMapPopUpProps extends IMapMarkerProps {
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {
-  console.log(props, "팝업");
   const { onClickAdd, onClickDelete } = useClickInfoWindow();
   const TInfoWindow = new window.Tmapv2.InfoWindow({
     position: props.position,

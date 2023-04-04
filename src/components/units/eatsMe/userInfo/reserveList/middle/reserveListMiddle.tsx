@@ -5,7 +5,6 @@ import * as S from "./reserveListMiddleStyles";
 
 export default function ReserveListMiddle(): JSX.Element {
   const { data } = useQuery<Pick<IQuery, "fetchLoginUser">>(FETCH_LOGIN_USER);
-  console.log(data?.fetchLoginUser.reservations, data?.fetchLoginUser);
 
   return (
     <>

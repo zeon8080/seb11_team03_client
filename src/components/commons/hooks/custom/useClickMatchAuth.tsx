@@ -5,9 +5,6 @@ export const useClickMatchAuth = (setTime: any): any => {
   const [matchAuth] = useMutationMatchAuthNumber();
 
   const onClickMatchAuth = async (data: IJoinFormData): Promise<void> => {
-    console.log(data);
-
-    console.log("인증", data);
     try {
       await matchAuth({
         variables: {

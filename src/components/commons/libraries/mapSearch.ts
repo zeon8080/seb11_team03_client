@@ -43,7 +43,6 @@ export const mapSearh = (props: IMapSearchProps) => () => {
   };
 
   const onComplete = (data: any): void => {
-    console.log(data, "체크체크");
     mapMarker({
       ...props,
       data: data._responseData.searchPoiInfo.pois.poi,

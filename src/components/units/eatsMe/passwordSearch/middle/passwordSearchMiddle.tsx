@@ -29,7 +29,6 @@ export default function PasswordSearchMiddle(): JSX.Element {
   };
 
   const handleCancel = (): void => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
   const onClickSearch = async (data: any): Promise<void> => {

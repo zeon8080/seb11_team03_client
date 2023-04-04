@@ -13,7 +13,6 @@ export default function PopularListTop(props: any): JSX.Element {
       `https://jjjbackendclass.shop/info/road/restaurant?area=서울시&section=${startPoint}`
       // "https://jjjbackendclass.shop/info/road/restaurant?area=서울시&section=강남구"
     );
-    console.log("버튼콘솔", result);
     props.setLocation(result);
   };
 

@@ -271,7 +271,6 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
     props.setSubLocation(location);
     props.changeIsToggle();
   };
-  console.log(props.location, "언디파인드");
 
   return (
     <S.SelectList>
