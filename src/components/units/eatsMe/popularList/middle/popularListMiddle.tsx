@@ -47,7 +47,7 @@ export default function PopularListMiddle(props: any): JSX.Element {
               id={`${String(el.location.lat)},${String(el.location.lng)}`}
             >
               <S.StoreCont>
-                <S.FoodImg src="/defaultfood.webp" />
+                <S.FoodImg src="/defaultFood.webp" />
                 <div>
                   <S.RatingBox>
                     <S.StoreName>

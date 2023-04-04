@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { fetchLoginUserState } from "../../../commons/stores";
+import { accessTokenState, fetchLoginUserState } from "../../../commons/stores";
 import {
   IBoardReturn,
   ICreateCommentInput,
@@ -11,7 +11,6 @@ import { useClickCreateComment } from "../hooks/custom/useClickCreateComment";
 import { useClickDeleteComment } from "../hooks/custom/useClickDeleteComment";
 import { useClickUpdateComment } from "../hooks/custom/useClickUpdateComment";
 import { useSetIsActive } from "../hooks/custom/useSetIsActive";
-import { useWithAuth } from "../hooks/custom/useWithAuth";
 import { wrapFormAsync } from "../libraries/asyncFunc";
 import RouteDetailCommentReply from "../routeDetailCommentReply/routeDetailCommentReply";
 import * as S from "./routeDetailCommentStyles";
@@ -39,6 +38,7 @@ export default function RouteDetailComment(
   const { onClickDeleteComment } = useClickDeleteComment();
   const [fetchLoginUser] = useRecoilState(fetchLoginUserState);
   const CommentModifyRef = useRef<HTMLTextAreaElement>(null);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   const onChangeCommentModify = (
     event: ChangeEvent<HTMLTextAreaElement>
@@ -70,7 +70,10 @@ export default function RouteDetailComment(
   };
 
   const onClickCommentSubmit = (data: { comment: string }): void => {
-    useWithAuth();
+    if (accessToken === "") {
+      return;
+    }
+
     if (data.comment === undefined || data.comment === "") {
       return;
     }

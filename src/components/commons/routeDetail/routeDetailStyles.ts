@@ -20,6 +20,15 @@ export const TopWrapper = styled.div`
   }
 `;
 
+export const ModifyImg = styled.img`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 8px;
+  right: 34px;
+  cursor: pointer;
+`;
+
 export const HeartImg = styled.img`
   position: absolute;
   width: 24px;
