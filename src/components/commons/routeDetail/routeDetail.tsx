@@ -1,19 +1,21 @@
 import { useQuery } from "@apollo/client";
 import { MouseEvent } from "react";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/stores";
 
 import { IBoardReturn, IQuery } from "../../../commons/types/generated/types";
 import { useClickToggleLike } from "../hooks/custom/useClickToggleLike";
 import { useCreateAtTime } from "../hooks/custom/useCreateAtTime";
-import { useWithAuth } from "../hooks/custom/useWithAuth";
 import { FETCH_MY_LIKE_BOARD } from "../hooks/query/useQueryFetchMyLikeBoard";
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
 
 interface IRouteDetailProps {
+  myBoard?: boolean;
   data: IBoardReturn;
   idx: number;
   isActive: string;
-  onClickRoute?: (idx: string) => (event: MouseEvent<HTMLDivElement>) => void;
+  onClickRoute?: any;
   onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
 }
 
@@ -22,13 +24,19 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const { onClickToggleLike } = useClickToggleLike();
   const { data: likeData } =
     useQuery<Pick<IQuery, "fetchMyLikeBoard">>(FETCH_MY_LIKE_BOARD);
-
+  const [accessToken] = useRecoilState(accessTokenState);
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
-    useWithAuth();
+    if (accessToken === "") {
+      return;
+    }
     event.stopPropagation();
     if (props.data.id !== undefined && props.data.id !== null) {
       void onClickToggleLike(props.data?.id);
     }
+  };
+
+  const onClickEdit = (event: MouseEvent<HTMLImageElement>): void => {
+    window.location.href = `/eatsMe/routeWrite/${event.currentTarget.id}`;
   };
   return (
     <S.Container>
@@ -36,6 +44,13 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
         id={String(props.idx)}
         onClick={props.onClickRoute?.(String(props.idx))}
       >
+        {props.myBoard === true && (
+          <S.ModifyImg
+            src={"/modify.webp"}
+            id={String(props.data.id)}
+            onClick={onClickEdit}
+          />
+        )}
         <S.HeartImg
           src={
             likeData?.fetchMyLikeBoard.some((el) => el.id === props.data.id) ??

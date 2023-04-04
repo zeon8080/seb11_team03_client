@@ -40,6 +40,13 @@ export default function RouteListMiddle(): JSX.Element {
   });
 
   useEffect(() => {
+    if (reserve !== "") {
+      localStorage.setItem("reserve", JSON.stringify(reserve));
+      window.location.href = "/eatsMe/reserve";
+    }
+  }, [reserve]);
+
+  useEffect(() => {
     if (Object.keys(map).length !== 0) {
       const obj = { startPoint, endPoint, startArea, endArea };
       const fetchBoardsByEveryInput = Object.fromEntries(
@@ -87,6 +94,7 @@ export default function RouteListMiddle(): JSX.Element {
         isSearch: false,
         setReserve,
       });
+
       mapFindRoad({
         data: data?.fetchBoardsByEvery[Number(idx)],
         map,
@@ -95,14 +103,10 @@ export default function RouteListMiddle(): JSX.Element {
         isWrite: false,
         setReserve,
       });
+
       onClickIsActive(event);
     };
-  useEffect(() => {
-    if (reserve !== "") {
-      localStorage.setItem("reserve", JSON.stringify(reserve));
-      window.location.href = "/eatsMe/reserve";
-    }
-  }, [reserve]);
+
   return (
     <>
       <Head>

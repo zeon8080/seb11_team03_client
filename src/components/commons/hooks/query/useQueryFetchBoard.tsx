@@ -10,7 +10,6 @@ export const FETCH_BOARD = gql`
       startPoint
       endPoint
       createdAt
-      like
       personalMapData {
         area
         section
