@@ -25,6 +25,7 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
 
   return (
     <S.Container>
+
       <S.TopWrapper
         id={String(props.idx)}
         onClick={props.onClickRoute?.(String(props.idx))}
