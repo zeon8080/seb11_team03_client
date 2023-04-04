@@ -380,7 +380,7 @@ export type IUser = {
   id: Scalars['String'];
   nickname: Scalars['String'];
   reservations: Array<IReservation>;
-  restaurant: Array<IUserReservationRestaurant>;
+  restaurant?: Maybe<Array<IUserReservationRestaurant>>;
   toggleLikes: Array<IToggleLike>;
   userImg?: Maybe<Scalars['String']>;
 };
@@ -388,9 +388,9 @@ export type IUser = {
 export type IUserReservationRestaurant = {
   __typename?: 'UserReservationRestaurant';
   _id: Scalars['String'];
-  address: Scalars['String'];
+  address?: Maybe<Scalars['String']>;
   location: IUserReservationRestaurantLocation;
-  rating: Scalars['String'];
+  rating?: Maybe<Scalars['String']>;
   restaurantName: Scalars['String'];
 };
 

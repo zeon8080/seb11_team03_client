@@ -1,5 +1,12 @@
 import { Modal } from "antd";
-import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   ICreateBoardInput,
   IQuery,
@@ -219,7 +226,8 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
     }));
   };
 
-  const onClickImg = (): void => {
+  const onClickImg = (event: MouseEvent<HTMLInputElement>): void => {
+    event.stopPropagation();
     imgRef.current?.click();
   };
 

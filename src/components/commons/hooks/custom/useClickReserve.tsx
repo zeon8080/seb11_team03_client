@@ -7,21 +7,19 @@ export const useClickReserve = (): any => {
   const { routerMovePage } = useRouterMovePage();
 
   const onClickReserve = async (data: IReserveFormData): Promise<void> => {
-    console.log("데이터", data);
-
     try {
-      const result = await createReservation({
+      const localData = JSON.parse(String(localStorage.getItem("reserve")));
+
+      await createReservation({
         variables: {
           createReservationInput: {
             table: 1,
             time: data.time,
-            restaurantId: "123",
+            restaurantId: localData.restaurantId ?? "",
             reservation_time: data.reservation_time,
           },
         },
       });
-      console.log(result);
-
       routerMovePage("/eatsMe/popularList");
     } catch (error) {
       if (error instanceof Error) alert(error.message);

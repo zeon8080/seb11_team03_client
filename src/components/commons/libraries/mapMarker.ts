@@ -1,4 +1,4 @@
-import { ISlideSetting } from "./../../units/eatsMe/routeWrite/top/routeWriteTop";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
 import { SetStateAction, Dispatch } from "react";
 import { ICreateBoardInput } from "../../../commons/types/generated/types";
 import { mapPopUp } from "./mapPopUp";
@@ -24,6 +24,7 @@ export interface IMapMarkerProps {
   setFindLine?: Dispatch<SetStateAction<any[]>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
   setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
+  setReserve?: Dispatch<SetStateAction<string>>;
 }
 
 export const mapMarker = (props: IMapMarkerProps): void => {

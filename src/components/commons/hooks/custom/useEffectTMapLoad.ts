@@ -23,6 +23,7 @@ interface IUseEffectTMapLoadProps {
   slideSetting?: ISlideSetting;
   setSlideSetting?: Dispatch<SetStateAction<ISlideSetting>>;
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
+  setReserve?: Dispatch<SetStateAction<string>>;
 }
 
 export const useEffectTMapLoad = (props: IUseEffectTMapLoadProps): void => {

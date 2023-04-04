@@ -1,5 +1,5 @@
-import { ISlideSetting } from "./../../units/eatsMe/routeWrite/top/routeWriteTop";
-import { ICreateBoardInput } from "./../../../commons/types/generated/types";
+import { ISlideSetting } from "../../units/eatsMe/routeWrite/top/routeWriteTop";
+import { ICreateBoardInput } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
 import { Dispatch, SetStateAction } from "react";
 import { mapMarker } from "./mapMarker";
@@ -43,7 +43,6 @@ export const mapSearch = (props: IMapSearchProps) => () => {
   };
 
   const onComplete = (data: any): void => {
-    console.log(data, "체크체크");
     mapMarker({
       ...props,
       data: data._responseData.searchPoiInfo.pois.poi,

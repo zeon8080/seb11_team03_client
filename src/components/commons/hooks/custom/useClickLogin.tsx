@@ -24,9 +24,6 @@ export const useClickLogin = (): any => {
             },
           },
         });
-
-        console.log(result);
-
         if (result.data?.login === undefined) {
           alert("로그인에 실패했습니다.");
           return;

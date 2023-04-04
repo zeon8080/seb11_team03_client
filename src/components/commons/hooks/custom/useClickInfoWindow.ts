@@ -1,4 +1,4 @@
-import { ISlideSetting } from "./../../../units/eatsMe/routeWrite/top/routeWriteTop";
+import { ISlideSetting } from "../../../units/eatsMe/routeWrite/top/routeWriteTop";
 import { Dispatch, SetStateAction } from "react";
 import { ICreateBoardInput } from "../../../../commons/types/generated/types";
 
@@ -107,5 +107,6 @@ export const useClickInfoWindow = (): IUseClickInfoWindow => {
       return { ...prev, info };
     });
   };
+
   return { onClickAdd, onClickDelete };
 };

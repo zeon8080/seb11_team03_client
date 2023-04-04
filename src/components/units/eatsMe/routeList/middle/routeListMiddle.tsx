@@ -30,6 +30,8 @@ export default function RouteListMiddle(): JSX.Element {
   const [, setFetchBoardsByEveryInput] = useRecoilState(
     fetchBoardsByEveryInputState
   );
+  const [reserve, setReserve] = useState("");
+  const [isLoad, setIsLoad] = useState(false);
 
   const { data, refetch } = useClickRouteList({
     fetchBoardsByEveryInput: {
@@ -59,6 +61,7 @@ export default function RouteListMiddle(): JSX.Element {
     setInfoWindow,
     isWrite: false,
     isSearch: false,
+    setReserve,
   });
 
   useEffect(() => {
@@ -71,9 +74,6 @@ export default function RouteListMiddle(): JSX.Element {
   const onClickRoute =
     (idx: string) =>
     (event: MouseEvent<HTMLDivElement>): void => {
-      // 데이터 생겼을때 데이터 아이디랑 이벤트 타겟 id(여기에 데이터 아이디 바인딩)을 비교해서 같지 않을때만 onClickIsActive제외 전부 실행 되게 onClickIsActive제외은 언제나 실행
-      // 어차피 state라서 이전 데이터랑 같은면 변경 안됨
-
       if (infoWindow[0] !== undefined) {
         infoWindow[0].setVisible(false);
       }
@@ -85,6 +85,7 @@ export default function RouteListMiddle(): JSX.Element {
         setInfoWindow,
         isWrite: false,
         isSearch: false,
+        setReserve,
       });
       mapFindRoad({
         data: data?.fetchBoardsByEvery[Number(idx)],
@@ -92,9 +93,16 @@ export default function RouteListMiddle(): JSX.Element {
         findLine,
         setFindLine,
         isWrite: false,
+        setReserve,
       });
       onClickIsActive(event);
     };
+  useEffect(() => {
+    if (reserve !== "") {
+      localStorage.setItem("reserve", JSON.stringify(reserve));
+      window.location.href = "/eatsMe/reserve";
+    }
+  }, [reserve]);
   return (
     <>
       <Head>
@@ -131,6 +139,9 @@ export default function RouteListMiddle(): JSX.Element {
               </S.District>
               <S.SelectorWrapper isToggle={isStart}>
                 <SubLocationSelector
+                  isLoad={isLoad}
+                  isList={true}
+                  setIsLoad={setIsLoad}
                   location={startArea}
                   changeIsToggle={changeIsStart}
                   setSubLocation={setStartPoint}
