@@ -33,7 +33,6 @@ export default function PopularListMiddle(props: any): JSX.Element {
       setMarker(TMarker);
     }
   };
-
   return (
     <>
       <Head>
@@ -43,7 +42,7 @@ export default function PopularListMiddle(props: any): JSX.Element {
         <S.ListWrapper>
           {props.location?.data.map((el: any, idx: any) => (
             <S.StoreBox
-              key={idx}
+              key={Number(idx) + 1}
               onClick={onClickStore}
               id={`${String(el.location.lat)},${String(el.location.lng)}`}
             >

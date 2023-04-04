@@ -31,6 +31,7 @@ export default function RouteListMiddle(): JSX.Element {
     fetchBoardsByEveryInputState
   );
   const [reserve, setReserve] = useState("");
+  const [isLoad, setIsLoad] = useState(false);
 
   const { data, refetch } = useClickRouteList({
     fetchBoardsByEveryInput: {
@@ -141,6 +142,9 @@ export default function RouteListMiddle(): JSX.Element {
               </S.District>
               <S.SelectorWrapper isToggle={isStart}>
                 <SubLocationSelector
+                  isLoad={isLoad}
+                  isList={true}
+                  setIsLoad={setIsLoad}
                   location={startArea}
                   changeIsToggle={changeIsStart}
                   setSubLocation={setStartPoint}
