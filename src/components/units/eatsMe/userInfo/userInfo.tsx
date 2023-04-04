@@ -3,14 +3,14 @@ import * as S from "./userInfoStyles";
 import PickedList from "./pickedList/pickedList";
 import ReserveListMiddle from "./reserveList/middle/reserveListMiddle";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useMutationUploadFile } from "../../../commons/hooks/mutation/useMutationUploadFile";
 import { useMutationUpdateUser } from "../../../commons/hooks/mutation/useMutationUpdateUser";
 import UserWriteList from "./userWriteList/userWriteList";
 
 export default function UserInfo(): JSX.Element {
   const [imgUrl, setImgUrl] = useState("");
-  const [file, setFile] = useState<File>();
+  const [, setFile] = useState<File>();
   const ImgRef = useRef<HTMLInputElement>(null);
 
   const [updateUser] = useMutationUpdateUser();
