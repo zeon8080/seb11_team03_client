@@ -1,8 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 
 const CREATE_RESERVATION = gql`
-  mutation ($createReservationinput: CreateReservationInput!) {
-    createReservation(createReservationinput: $createReservationinput) {
+  mutation ($createReservationInput: CreateReservationInput!) {
+    createReservation(createReservationInput: $createReservationInput) {
       id
     }
   }

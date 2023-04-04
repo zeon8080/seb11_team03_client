@@ -10,7 +10,6 @@ import { wrapAsync } from "../../../../commons/libraries/asyncFunc";
 export interface IReserveFormData {
   table: number;
   time: string;
-  division: string;
   restaurantId: string;
   reservation_time: number;
 }
@@ -35,7 +34,6 @@ export default function ReserveMiddle(): JSX.Element {
     }
   };
   return (
-
     <form onSubmit={wrapAsync(handleSubmit(onClickReserve))}>
       <S.Container>
         <S.Wrapper>

@@ -12,11 +12,10 @@ export const useClickReserve = (): any => {
     try {
       const result = await createReservation({
         variables: {
-          createReservationinput: {
+          createReservationInput: {
             table: 1,
             time: data.time,
-            division: "",
-            restaurantId: "",
+            restaurantId: "123",
             reservation_time: data.reservation_time,
           },
         },
