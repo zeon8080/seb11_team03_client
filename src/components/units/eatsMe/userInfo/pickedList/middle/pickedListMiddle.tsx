@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { MouseEvent } from "react";
 import { IQuery } from "../../../../../../commons/types/generated/types";
 import { useSetIsActive } from "../../../../../commons/hooks/custom/useSetIsActive";
 import { FETCH_MY_LIKE_BOARD } from "../../../../../commons/hooks/query/useQueryFetchMyLikeBoard";
@@ -11,6 +12,12 @@ export default function PickedListMiddle(): JSX.Element {
   const { data } =
     useQuery<Pick<IQuery, "fetchMyLikeBoard">>(FETCH_MY_LIKE_BOARD);
 
+  const onClickRoute =
+    (idx: string) =>
+    (e: MouseEvent<HTMLDivElement>): void => {
+      onClickIsActive(e);
+    };
+
   return (
     <S.Container>
       <S.Title>목록</S.Title>
@@ -21,7 +28,7 @@ export default function PickedListMiddle(): JSX.Element {
             key={idx}
             idx={idx}
             isActive={isActive}
-            onClickRoute={onClickIsActive}
+            onClickRoute={onClickRoute}
             onClickIsActive={onClickIsActive}
           />
         ))}
