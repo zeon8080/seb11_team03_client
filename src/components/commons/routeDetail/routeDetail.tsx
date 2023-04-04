@@ -1,8 +1,10 @@
+import { useQuery } from "@apollo/client";
 import { MouseEvent } from "react";
 
-import { IBoardReturn } from "../../../commons/types/generated/types";
+import { IBoardReturn, IQuery } from "../../../commons/types/generated/types";
 import { useClickToggleLike } from "../hooks/custom/useClickToggleLike";
 import { useCreateAtTime } from "../hooks/custom/useCreateAtTime";
+import { FETCH_MY_LIKE_BOARD } from "../hooks/query/useQueryFetchMyLikeBoard";
 import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
 
@@ -17,20 +19,28 @@ interface IRouteDetailProps {
 export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const { lastCreateTime } = useCreateAtTime();
   const { onClickToggleLike } = useClickToggleLike();
+  const { data: likeData } =
+    useQuery<Pick<IQuery, "fetchMyLikeBoard">>(FETCH_MY_LIKE_BOARD);
 
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
     event.stopPropagation();
     onClickToggleLike(props.data?.id);
   };
-
   return (
     <S.Container>
-
       <S.TopWrapper
         id={String(props.idx)}
         onClick={props.onClickRoute?.(String(props.idx))}
       >
-        <S.HeartImg src={"/heart_empty.webp"} onClick={onClickLike} />
+        <S.HeartImg
+          src={
+            likeData?.fetchMyLikeBoard.some((el) => el.id === props.data.id) ??
+            false
+              ? "/heart_fill.webp"
+              : "/heart_empty.webp"
+          }
+          onClick={onClickLike}
+        />
         <S.UserInfoWBox>
           <S.UserImg>
             <img
