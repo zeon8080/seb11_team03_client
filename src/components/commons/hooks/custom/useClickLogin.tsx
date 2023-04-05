@@ -32,7 +32,7 @@ export const useClickLogin = (): any => {
         routerMovePage("/");
       }
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      alert("로그인 정보를 확인해 주세요.");
     }
   };
   return { onClickLogin };

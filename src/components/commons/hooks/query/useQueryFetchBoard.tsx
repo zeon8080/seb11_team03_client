@@ -14,7 +14,7 @@ export const FETCH_BOARD = gql`
         area
         section
         restaurantName
-        imgUrl
+        image
         recommend
         location {
           lat

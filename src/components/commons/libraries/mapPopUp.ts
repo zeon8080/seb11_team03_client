@@ -27,6 +27,7 @@ interface IMapPopUpProps extends IMapMarkerProps {
   setInfoWindow?: Dispatch<SetStateAction<any[]>>;
   setPath?: Dispatch<SetStateAction<ICreateBoardInput>>;
   setReserve?: any;
+  isMobile: boolean;
 }
 
 export const mapPopUp = (props: IMapPopUpProps): void => {
@@ -81,26 +82,51 @@ export const mapPopUp = (props: IMapPopUpProps): void => {
   });
   props.setInfoWindow?.((prev) => [...prev, TInfoWindow]);
 
-  const img = document.querySelectorAll("#deleteImg");
-  img[img.length - 1].addEventListener("click", () => {
-    TInfoWindow.setVisible(false);
-  });
+  if (!props.isMobile) {
+    const img = document.querySelectorAll("#deleteImg");
+    img[img.length - 1].addEventListener("click", () => {
+      TInfoWindow.setVisible(false);
+    });
 
-  const btn = document.querySelectorAll(".Btn");
+    const btn = document.querySelectorAll(".Btn");
 
-  btn[btn.length - 1].addEventListener("click", () => {
-    TInfoWindow.setVisible(false);
-    if (props.isSearch === true) {
-      onClickAdd(props);
-    } else if (props.isWrite === true && props.isSearch === false) {
-      onClickDelete(props);
-    } else if (props.isWrite === false) {
-      props.setReserve?.({
-        restaurantId: props.data?.restaurantId,
-        restaurantName: props.data.restaurantName,
-        locationLat: props.data.location.lat,
-        locationLng: props.data.location.lng,
-      });
-    }
-  });
+    btn[btn.length - 1].addEventListener("click", () => {
+      TInfoWindow.setVisible(false);
+      if (props.isSearch === true) {
+        onClickAdd(props);
+      } else if (props.isWrite === true && props.isSearch === false) {
+        onClickDelete(props);
+      } else if (props.isWrite === false) {
+        props.setReserve?.({
+          restaurantId: props.data?.restaurantId,
+          restaurantName: props.data.restaurantName,
+          locationLat: props.data.location.lat,
+          locationLng: props.data.location.lng,
+        });
+      }
+    });
+  } else {
+    const img = document.querySelectorAll("#deleteImg");
+    img[img.length - 1].addEventListener("touchstart", () => {
+      TInfoWindow.setVisible(false);
+    });
+
+    const btn = document.querySelectorAll(".Btn");
+
+    btn[btn.length - 1].addEventListener("touchstart", () => {
+      TInfoWindow.setVisible(false);
+      if (props.isSearch === true) {
+        onClickAdd(props);
+      } else if (props.isWrite === true && props.isSearch === false) {
+        onClickDelete(props);
+      } else if (props.isWrite === false) {
+        props.setReserve?.({
+          restaurantId: props.data?.restaurantId,
+          restaurantName: props.data.restaurantName,
+          locationLat: props.data.location.lat,
+          locationLng: props.data.location.lng,
+        });
+      }
+    });
+  }
 };
