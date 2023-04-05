@@ -64,26 +64,80 @@ export const mapMarker = (props: IMapMarkerProps): void => {
       map: props.map,
       title: "가게 정보보기",
     });
-    if (props.isSearch === true) {
-      TMarker.addListener("click", () => {
-        mapPopUp({ ...props, position, data: props.data?.[i] });
-      });
-    } else if (props.isSearch === false && props.isWrite === true) {
-      TMarker.addListener("click", () => {
-        mapPopUp({ ...props, position, data: props.data?.info?.[i], idx: i });
-      });
-    } else if (props.isWrite === false) {
-      TMarker.addListener("click", () => {
-        mapPopUp({
-          ...props,
-          position,
-          data: props.data?.personalMapData?.[i],
-          idx: i,
+
+    const mobileCheck = (): boolean => {
+      const user = navigator.userAgent;
+
+      if (
+        user.includes("iPhone") ||
+        user.includes("Android") ||
+        user.includes("iPad") ||
+        user.includes("iPod")
+      ) {
+        return true;
+      }
+
+      return false;
+    };
+    const isMobile = mobileCheck();
+
+    if (!isMobile) {
+      if (props.isSearch === true) {
+        TMarker.addListener("click", () => {
+          mapPopUp({ ...props, position, data: props.data?.[i], isMobile });
         });
-      });
+      } else if (props.isSearch === false && props.isWrite === true) {
+        TMarker.addListener("click", () => {
+          mapPopUp({
+            ...props,
+            position,
+            data: props.data?.info?.[i],
+            idx: i,
+            isMobile,
+          });
+        });
+      } else if (props.isWrite === false) {
+        TMarker.addListener("click", () => {
+          mapPopUp({
+            ...props,
+            position,
+            data: props.data?.personalMapData?.[i],
+            idx: i,
+            isMobile,
+          });
+        });
+      }
+      markerArr.push(TMarker);
+      PTbounds.extend(position);
+    } else {
+      if (props.isSearch === true) {
+        TMarker.addListener("touchstart", () => {
+          mapPopUp({ ...props, position, data: props.data?.[i], isMobile });
+        });
+      } else if (props.isSearch === false && props.isWrite === true) {
+        TMarker.addListener("touchstart", () => {
+          mapPopUp({
+            ...props,
+            position,
+            data: props.data?.info?.[i],
+            idx: i,
+            isMobile,
+          });
+        });
+      } else if (props.isWrite === false) {
+        TMarker.addListener("touchstart", () => {
+          mapPopUp({
+            ...props,
+            position,
+            data: props.data?.personalMapData?.[i],
+            idx: i,
+            isMobile,
+          });
+        });
+      }
+      markerArr.push(TMarker);
+      PTbounds.extend(position);
     }
-    markerArr.push(TMarker);
-    PTbounds.extend(position);
   };
 
   const PTbounds = new window.Tmapv2.LatLngBounds();

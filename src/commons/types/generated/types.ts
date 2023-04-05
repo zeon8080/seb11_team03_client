@@ -326,7 +326,7 @@ export type IRestaurantBoardInfo = {
   __typename?: 'RestaurantBoardInfo';
   address?: Maybe<Scalars['String']>;
   area: Scalars['String'];
-  imgUrl?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
   location?: Maybe<ILocationObject>;
   rating?: Maybe<Scalars['String']>;
   recommend?: Maybe<Scalars['String']>;

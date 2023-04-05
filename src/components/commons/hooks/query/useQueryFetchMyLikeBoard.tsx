@@ -14,7 +14,7 @@ export const FETCH_MY_LIKE_BOARD = gql`
         restaurantId
         restaurantName
         address
-        imgUrl
+        image
         recommend
         rating
         location {
