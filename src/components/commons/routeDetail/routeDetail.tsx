@@ -35,22 +35,22 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
     }
   };
 
-  const onClickEdit = (event: MouseEvent<HTMLImageElement>): void => {
-    window.location.href = `/eatsMe/routeWrite/${event.currentTarget.id}`;
-  };
+  // const onClickEdit = (event: MouseEvent<HTMLImageElement>): void => {
+  //   window.location.href = `/eatsMe/routeWrite/${event.currentTarget.id}`;
+  // };
   return (
     <S.Container>
       <S.TopWrapper
         id={String(props.idx)}
         onClick={props.onClickRoute?.(String(props.idx))}
       >
-        {props.myBoard === true && (
+        {/* {props.myBoard === true && (
           <S.ModifyImg
             src={"/modify.webp"}
             id={String(props.data.id)}
             onClick={onClickEdit}
           />
-        )}
+        )} */}
         <S.HeartImg
           src={
             likeData?.fetchMyLikeBoard.some((el) => el.id === props.data.id) ??

@@ -38,6 +38,7 @@ export default function RouteListMiddle(): JSX.Element {
       startArea,
     },
   });
+  console.log(data, "epdldaldledl");
 
   useEffect(() => {
     if (reserve !== "") {
