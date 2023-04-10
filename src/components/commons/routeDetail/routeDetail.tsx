@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { MouseEvent } from "react";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/stores";
 
 import { IBoardReturn, IQuery } from "../../../commons/types/generated/types";
 import { useClickToggleLike } from "../hooks/custom/useClickToggleLike";
@@ -9,10 +11,11 @@ import RouteDetailComment from "../routeDetailComment/routeDetailComment";
 import * as S from "./routeDetailStyles";
 
 interface IRouteDetailProps {
+  myBoard?: boolean;
   data: IBoardReturn;
   idx: number;
   isActive: string;
-  onClickRoute?: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickRoute?: any;
   onClickIsActive: (event: MouseEvent<Element, globalThis.MouseEvent>) => void;
 }
 
@@ -21,17 +24,33 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
   const { onClickToggleLike } = useClickToggleLike();
   const { data: likeData } =
     useQuery<Pick<IQuery, "fetchMyLikeBoard">>(FETCH_MY_LIKE_BOARD);
-
+  const [accessToken] = useRecoilState(accessTokenState);
   const onClickLike = (event: MouseEvent<HTMLImageElement>): void => {
+    if (accessToken === "") {
+      return;
+    }
     event.stopPropagation();
-    void onClickToggleLike(props.data?.id);
+    if (props.data.id !== undefined && props.data.id !== null) {
+      void onClickToggleLike(props.data?.id);
+    }
   };
+
+  // const onClickEdit = (event: MouseEvent<HTMLImageElement>): void => {
+  //   window.location.href = `/eatsMe/routeWrite/${event.currentTarget.id}`;
+  // };
   return (
     <S.Container>
       <S.TopWrapper
         id={String(props.idx)}
         onClick={props.onClickRoute?.(String(props.idx))}
       >
+        {/* {props.myBoard === true && (
+          <S.ModifyImg
+            src={"/modify.webp"}
+            id={String(props.data.id)}
+            onClick={onClickEdit}
+          />
+        )} */}
         <S.HeartImg
           src={
             likeData?.fetchMyLikeBoard.some((el) => el.id === props.data.id) ??
@@ -45,8 +64,10 @@ export default function RouteDetail(props: IRouteDetailProps): JSX.Element {
           <S.UserImg>
             <img
               src={
-                props.data.user?.userImg !== null
-                  ? `https://storage.googleapis.com/${props.data.user?.userImg}`
+                props.data?.user?.userImg !== null
+                  ? `https://storage.googleapis.com/${String(
+                      props.data?.user?.userImg
+                    )}`
                   : "/userImg_small.webp"
               }
             />

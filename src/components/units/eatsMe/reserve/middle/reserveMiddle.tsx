@@ -26,13 +26,13 @@ export default function ReserveMiddle(): JSX.Element {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const { onClickReserve } = useClickReserve();
   const { handleSubmit, setValue } = useForm<IReserveFormData>();
-  const [inputData, setInputData] = useState({});
+  const [inputData, setInputData] = useState<any>({});
   const [map, setMap] = useState<any>({});
 
   useEffectTmapLoadReserve({ setMap });
 
   useEffect(() => {
-    setInputData(JSON.parse(localStorage.getItem("reserve")));
+    setInputData(JSON.parse(String(localStorage.getItem("reserve"))));
   }, []);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function ReserveMiddle(): JSX.Element {
     <>
       <Head>
         {/* <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script> */}
-        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=IaSnfI55gi9P9QUeMvkq58fRd5VsGBs85RX1zGaV"></script>
+        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=fwJ1lVM3a0680zMo4QJLR1sByJarNOZ66mlgdoPf"></script>
       </Head>
       <form onSubmit={wrapAsync(handleSubmit(onClickReserve))}>
         <S.Container>

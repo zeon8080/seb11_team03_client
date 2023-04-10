@@ -1,5 +1,12 @@
 import { Modal } from "antd";
-import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   ICreateBoardInput,
   IQuery,
@@ -10,7 +17,7 @@ import { useClickUpdateBoard } from "../../../../commons/hooks/custom/useClickUp
 import { useEffectTMapLoad } from "../../../../commons/hooks/custom/useEffectTMapLoad";
 import { useSetIsToggle } from "../../../../commons/hooks/custom/useSetIsToggle";
 import { mapFindRoad } from "../../../../commons/libraries/mapFindRoad";
-import { mapMarker } from "../../../../commons/libraries/useMapMarker";
+import { mapMarker } from "../../../../commons/libraries/mapMarker";
 import { mapSearch } from "../../../../commons/libraries/mapSearch";
 import * as S from "./routeWriteTopStyles";
 
@@ -219,7 +226,8 @@ export default function RouteWriteTop(props: IRouteWriteTopProps): JSX.Element {
     }));
   };
 
-  const onClickImg = (): void => {
+  const onClickImg = (event: MouseEvent<HTMLInputElement>): void => {
+    event.stopPropagation();
     imgRef.current?.click();
   };
 

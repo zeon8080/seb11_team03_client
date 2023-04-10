@@ -2,6 +2,6 @@ import { useWithAuth } from "../../../src/components/commons/hooks/custom/useWit
 import UserInfo from "../../../src/components/units/eatsMe/userInfo/userInfo";
 
 export default function UserInfoPage(): JSX.Element {
-  // useWithAuth();
+  useWithAuth();
   return <UserInfo />;
 }

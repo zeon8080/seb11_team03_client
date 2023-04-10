@@ -1,7 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import * as S from "./subLocationSelectorStyles";
 
 interface IProps {
+  isLoad?: boolean;
+  isList?: boolean;
+  setIsLoad?: Dispatch<SetStateAction<boolean>>;
+  subLocation?: string;
   setSubLocation: Dispatch<SetStateAction<string>>;
   changeIsToggle: () => void;
   location: string;
@@ -39,6 +43,7 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "중랑구",
     ],
     부산시: [
+      "해운대구",
       "중구",
       "서구",
       "동구",
@@ -47,26 +52,25 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "동래구",
       "남구",
       "북구",
-      "해운대구",
       "사하구",
       "금정구",
       "강서구",
       "연제구",
       "수영구",
       "사상구",
-      "사상구",
     ],
     대구시: [
+      "수성구",
       "중구",
       "동구",
       "서구",
       "남구",
       "북구",
-      "수성구",
       "달서구",
       "달성군",
     ],
     인천시: [
+      "부평구",
       "강화군",
       "옹진군",
       "중구",
@@ -74,17 +78,16 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "미추홀구",
       "연수구",
       "남동구",
-      "부평구",
       "계양구",
       "서구",
     ],
-    광주시: ["동구", "서구", "남구", "북구", "광산구"],
-    대전시: ["동구", "중구", "서구", "유성구", "대덕구"],
+    광주시: ["서구", "동구", "남구", "북구", "광산구"],
+    대전시: ["대덕구", "동구", "중구", "서구", "유성구"],
     울산시: ["중구", "남구", "동구", "북구", "울주군"],
     경기도: [
+      "안양시",
       "수원시",
       "성남시",
-      "안양시",
       "부천시",
       "광명시",
       "평택시",
@@ -181,8 +184,8 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "부안군",
     ],
     전라남도: [
-      "목포시",
       "여수시",
+      "목포시",
       "순천시",
       "나주시",
       "광양시",
@@ -204,8 +207,8 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "진도군",
     ],
     경상북도: [
-      "포항시",
       "경주시",
+      "포항시",
       "안동시",
       "김천시",
       "구미시",
@@ -249,9 +252,9 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
       "합천군",
     ],
     제주도: [
-      "제주시",
-      "서귀포시",
       "애월",
+      "서귀포시",
+      "제주시",
       "한림",
       "환경",
       "대정",
@@ -267,6 +270,24 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
     ],
   };
 
+  useEffect(() => {
+    if (props.isList === false && props.location !== "") {
+      props.setSubLocation(subLocation[props.location][0]);
+    }
+  }, [props.location]);
+
+  useEffect(() => {
+    if (
+      props.isLoad === true &&
+      props.isList === true &&
+      props.location !== undefined
+    ) {
+      props.setSubLocation(subLocation[props.location][0]);
+    } else if (props.isList === true && props.location !== undefined) {
+      props.setIsLoad?.(true);
+    }
+  }, [props.location]);
+
   const onClickLocation = (location: string) => () => {
     props.setSubLocation(location);
     props.changeIsToggle();
@@ -274,13 +295,15 @@ export default function SubLocationSelector(props: IProps): JSX.Element {
 
   return (
     <S.SelectList>
-      {subLocation[props.location === "" ? "서울시" : props.location].map(
-        (el: string) => (
-          <S.Location key={el} onClick={onClickLocation(el)}>
-            {el}
-          </S.Location>
-        )
-      )}
+      {subLocation[
+        props.location === "" || props.location === "서울시"
+          ? "서울시"
+          : props.location
+      ].map((el: string) => (
+        <S.Location key={el} onClick={onClickLocation(el)}>
+          {el}
+        </S.Location>
+      ))}
     </S.SelectList>
   );
 }

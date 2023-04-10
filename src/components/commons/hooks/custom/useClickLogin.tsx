@@ -24,9 +24,6 @@ export const useClickLogin = (): any => {
             },
           },
         });
-
-        console.log(result);
-
         if (result.data?.login === undefined) {
           alert("로그인에 실패했습니다.");
           return;
@@ -35,7 +32,7 @@ export const useClickLogin = (): any => {
         routerMovePage("/");
       }
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      alert("로그인 정보를 확인해 주세요.");
     }
   };
   return { onClickLogin };

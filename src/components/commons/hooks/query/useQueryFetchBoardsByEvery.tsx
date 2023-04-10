@@ -14,7 +14,7 @@ export const FETCH_BOARD_BY_EVERY = gql`
         restaurantId
         restaurantName
         address
-        imgUrl
+        image
         recommend
         rating
         location {

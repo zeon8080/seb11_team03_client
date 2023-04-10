@@ -53,13 +53,13 @@ export const useClickInfoWindow = (): IUseClickInfoWindow => {
       props.setPath?.((prev) => ({
         ...prev,
         startArea: area[props.data.upperAddrName],
-        startPoint: props.data.middleAddrName,
+        startPoint: props.data.middleAddrName.split(" ")[0],
       }));
     } else if (props.idx === 1) {
       props.setPath?.((prev) => ({
         ...prev,
         endArea: area[props.data.upperAddrName],
-        endPoint: props.data.middleAddrName,
+        endPoint: props.data.middleAddrName.split(" ")[0],
       }));
     }
     props.setPath?.((prev) => ({

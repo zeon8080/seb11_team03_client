@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { boardIdState, fetchLoginUserState } from "../../../commons/stores";
+import { accessTokenState, fetchLoginUserState } from "../../../commons/stores";
 import {
   IBoardReturn,
   ICreateCommentInput,
@@ -38,6 +38,7 @@ export default function RouteDetailComment(
   const { onClickDeleteComment } = useClickDeleteComment();
   const [fetchLoginUser] = useRecoilState(fetchLoginUserState);
   const CommentModifyRef = useRef<HTMLTextAreaElement>(null);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   const onChangeCommentModify = (
     event: ChangeEvent<HTMLTextAreaElement>
@@ -69,6 +70,10 @@ export default function RouteDetailComment(
   };
 
   const onClickCommentSubmit = (data: { comment: string }): void => {
+    if (accessToken === "") {
+      return;
+    }
+
     if (data.comment === undefined || data.comment === "") {
       return;
     }
@@ -114,7 +119,9 @@ export default function RouteDetailComment(
               <img
                 src={
                   el.user?.userImg !== null
-                    ? `https://storage.googleapis.com/${el.user?.userImg}`
+                    ? `https://storage.googleapis.com/${String(
+                        el.user?.userImg
+                      )}`
                     : "/userImg_small.webp"
                 }
               />

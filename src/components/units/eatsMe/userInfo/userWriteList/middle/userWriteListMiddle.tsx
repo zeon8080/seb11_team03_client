@@ -14,12 +14,14 @@ export default function UserWriteListMiddle(): JSX.Element {
     (e: MouseEvent<HTMLDivElement>): void => {
       onClickIsActive(e);
     };
+
   return (
     <S.Container>
       <S.Title>내가 쓴 글</S.Title>
       <S.ListWrapper>
         {data?.fetchMyBoard.map((el, idx) => (
           <RouteDetail
+            myBoard={true}
             data={el}
             key={idx}
             idx={idx}

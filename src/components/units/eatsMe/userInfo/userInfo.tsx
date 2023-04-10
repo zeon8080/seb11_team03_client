@@ -3,16 +3,18 @@ import * as S from "./userInfoStyles";
 import PickedList from "./pickedList/pickedList";
 import ReserveListMiddle from "./reserveList/middle/reserveListMiddle";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useMutationUploadFile } from "../../../commons/hooks/mutation/useMutationUploadFile";
 import { useMutationUpdateUser } from "../../../commons/hooks/mutation/useMutationUpdateUser";
 import UserWriteList from "./userWriteList/userWriteList";
+import { useRecoilState } from "recoil";
+import { fetchLoginUserState } from "../../../../commons/stores";
 
 export default function UserInfo(): JSX.Element {
-  const [imgUrl, setImgUrl] = useState("");
-  const [file, setFile] = useState<File>();
+  const [imgUrl, setImgUrl] = useState("/userImg.webp");
+  const [, setFile] = useState<File>();
   const ImgRef = useRef<HTMLInputElement>(null);
-
+  const [fetchLoginUser] = useRecoilState(fetchLoginUserState);
   const [updateUser] = useMutationUpdateUser();
   const [uploadFile] = useMutationUploadFile();
 
@@ -50,7 +52,15 @@ export default function UserInfo(): JSX.Element {
           <Tabs.TabPane
             tab={
               <S.ImgWrap onClick={onClickImg}>
-                <S.UserImg src={imgUrl === "" ? "/userImg.webp" : imgUrl} />
+                <S.UserImg
+                  src={
+                    fetchLoginUser.userImg === ""
+                      ? imgUrl
+                      : `https://storage.googleapis.com/${String(
+                          fetchLoginUser.userImg
+                        )}`
+                  }
+                />
                 <input
                   type="file"
                   ref={ImgRef}

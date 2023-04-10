@@ -33,22 +33,23 @@ export default function PopularListMiddle(props: any): JSX.Element {
       setMarker(TMarker);
     }
   };
-
   return (
     <>
       <Head>
-        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=kzTmdjGzc91aQiicRAWjBCpCySY90Cs3AZJ7iVbd"></script>
+        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=fwJ1lVM3a0680zMo4QJLR1sByJarNOZ66mlgdoPf"></script>
       </Head>
       <S.Container>
         <S.ListWrapper>
           {props.location?.data.map((el: any, idx: any) => (
             <S.StoreBox
-              key={idx}
+              key={Number(idx) + 1}
               onClick={onClickStore}
               id={`${String(el.location.lat)},${String(el.location.lng)}`}
             >
               <S.StoreCont>
-                <S.FoodImg src="/defaultfood.webp" />
+                <S.FoodImg
+                  src={el.image !== null ? el.image : "/defaultFood.webp"}
+                />
                 <div>
                   <S.RatingBox>
                     <S.StoreName>

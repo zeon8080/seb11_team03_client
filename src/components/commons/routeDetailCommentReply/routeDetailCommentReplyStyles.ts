@@ -84,6 +84,7 @@ export const ReplySubmit = styled.button`
   color: white;
   font-weight: 500;
   font-size: 12px;
+  cursor: pointer;
 `;
 
 export const ReplyTextarea = styled.textarea`
@@ -128,4 +129,5 @@ export const ReplyModifySubmit = styled.button`
   color: white;
   font-weight: 500;
   font-size: 12px;
+  cursor: pointer;
 `;
