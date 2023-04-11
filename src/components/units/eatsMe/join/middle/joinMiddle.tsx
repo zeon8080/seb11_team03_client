@@ -10,7 +10,7 @@ import { schema3 } from "../../../../commons/joinEmail/joinEmailValidation3";
 
 export interface IJoinFormData {
   email: string;
-  token: string;
+  authNumber: string;
   nickname: string;
   password: string;
   passwordCheck: string;

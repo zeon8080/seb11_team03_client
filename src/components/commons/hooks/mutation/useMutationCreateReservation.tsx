@@ -1,4 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
+import {
+  IMutation,
+  IMutationCreateReservationArgs,
+} from "../../../../commons/types/generated/types";
 
 const CREATE_RESERVATION = gql`
   mutation ($createReservationInput: CreateReservationInput!) {
@@ -8,8 +12,11 @@ const CREATE_RESERVATION = gql`
   }
 `;
 
-export const useMutationCreateReservation = (): any => {
-  const createReservation = useMutation(CREATE_RESERVATION);
+export const useMutationCreateReservation = (): typeof createReservation => {
+  const createReservation = useMutation<
+    Pick<IMutation, "createReservation">,
+    IMutationCreateReservationArgs
+  >(CREATE_RESERVATION);
 
   return createReservation;
 };

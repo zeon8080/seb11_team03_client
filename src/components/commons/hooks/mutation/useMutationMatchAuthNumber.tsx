@@ -1,4 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
+import {
+  IMutation,
+  IMutationMatchAuthNumberArgs,
+} from "../../../../commons/types/generated/types";
 
 const MATCH_AUTH = gql`
   mutation matchAuthNumber($matchAuthNumberInput: MatchAuthNumberInput!) {
@@ -6,8 +10,11 @@ const MATCH_AUTH = gql`
   }
 `;
 
-export const useMutationMatchAuthNumber = (): any => {
-  const matchAuth = useMutation(MATCH_AUTH);
+export const useMutationMatchAuthNumber = (): typeof matchAuth => {
+  const matchAuth = useMutation<
+    Pick<IMutation, "matchAuthNumber">,
+    IMutationMatchAuthNumberArgs
+  >(MATCH_AUTH);
 
   return matchAuth;
 };

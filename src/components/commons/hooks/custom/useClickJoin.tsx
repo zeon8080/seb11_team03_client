@@ -1,12 +1,16 @@
-import { IJoinFormData } from "../../../units/eatsMe/join/middle/joinMiddle";
+import { ICreateUserInput } from "../../../../commons/types/generated/types";
 import { useMutationCreateUser } from "../mutation/useMutationCreateUser";
 import { useRouterMovePage } from "./useRouterMovePage";
 
-export const useClickJoin = (): any => {
+interface IUseClickJoin {
+  onClickJoin: (data: ICreateUserInput) => Promise<void>;
+}
+
+export const useClickJoin = (): IUseClickJoin => {
   const [createUser] = useMutationCreateUser();
   const { routerMovePage } = useRouterMovePage();
 
-  const onClickJoin = async (data: IJoinFormData): Promise<void> => {
+  const onClickJoin = async (data: ICreateUserInput): Promise<void> => {
     try {
       const result = await createUser({
         variables: {

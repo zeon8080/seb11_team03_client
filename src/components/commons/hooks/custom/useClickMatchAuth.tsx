@@ -1,16 +1,22 @@
-import { IJoinFormData } from "../../../units/eatsMe/join/middle/joinMiddle";
+import { IMatchAuthNumberInput } from "../../../../commons/types/generated/types";
 import { useMutationMatchAuthNumber } from "../mutation/useMutationMatchAuthNumber";
 
-export const useClickMatchAuth = (setTime: any): any => {
+interface IUseClickMatchAuth {
+  onClickMatchAuth: (data: IMatchAuthNumberInput) => Promise<void>;
+}
+
+export const useClickMatchAuth = (setTime): IUseClickMatchAuth => {
   const [matchAuth] = useMutationMatchAuthNumber();
 
-  const onClickMatchAuth = async (data: IJoinFormData): Promise<void> => {
+  const onClickMatchAuth = async (
+    data: IMatchAuthNumberInput
+  ): Promise<void> => {
     try {
       await matchAuth({
         variables: {
           matchAuthNumberInput: {
             email: data.email,
-            authNumber: data.token,
+            authNumber: data.authNumber,
           },
         },
       });

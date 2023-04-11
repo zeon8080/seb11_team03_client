@@ -2,7 +2,11 @@ import { IReserveFormData } from "../../../units/eatsMe/reserve/middle/reserveMi
 import { useMutationCreateReservation } from "../mutation/useMutationCreateReservation";
 import { useRouterMovePage } from "./useRouterMovePage";
 
-export const useClickReserve = (): any => {
+interface IUseClickReserve {
+  onClickReserve: (data: IReserveFormData) => Promise<void>;
+}
+
+export const useClickReserve = (): IUseClickReserve => {
   const [createReservation] = useMutationCreateReservation();
   const { routerMovePage } = useRouterMovePage();
 
