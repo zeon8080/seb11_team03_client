@@ -61,24 +61,14 @@ export default function PopularListMiddle(props: any): JSX.Element {
                   <S.TimeWrapper>
                     <span>
                       {
-                        el.openingDays?.filter((el: any) =>
+                        el.openingDays?.filter((el: string) =>
                           el.includes("휴무일")
                         )[0]
                       }
                     </span>
                     <S.TimeInfoBox>
-                      {/* <div>
-                        Open
-                        {
-                         
-                        }
-                      </div>
-                      <div>
-                        Close
-                        {
-                          
-                        }
-                      </div> */}
+                      {/* <div>Open {}</div>
+                      <div> Close{ } </div> */}
                     </S.TimeInfoBox>
                   </S.TimeWrapper>
                 </div>
