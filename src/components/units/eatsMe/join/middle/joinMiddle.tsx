@@ -43,7 +43,7 @@ export default function JoinMiddle(): JSX.Element {
     register: register3,
     handleSubmit: handleSubmit3,
     getValues: getValues3,
-  } = useForm({
+  } = useForm<{ email: string }>({
     resolver: yupResolver(schema3),
     mode: "onChange",
   });

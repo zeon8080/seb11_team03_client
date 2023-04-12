@@ -17,11 +17,19 @@ interface IJoinEmail {
   register2: UseFormRegister<FieldValues>;
   handleSubmit2: UseFormHandleSubmit<FieldValues>;
   getValues2: UseFormGetValues<FieldValues>;
-  formState3: FormState<FieldValues>;
-  register3: UseFormRegister<FieldValues>;
-  handleSubmit3: UseFormHandleSubmit<FieldValues>;
-  getValues3: UseFormGetValues<FieldValues>;
   setValue2: UseFormSetValue<FieldValues>;
+  formState3: FormState<{
+    email: string;
+  }>;
+  register3: UseFormRegister<{
+    email: string;
+  }>;
+  handleSubmit3: UseFormHandleSubmit<{
+    email: string;
+  }>;
+  getValues3: UseFormGetValues<{
+    email: string;
+  }>;
 }
 
 export default function JoinEmail(props: IJoinEmail): JSX.Element {
@@ -72,7 +80,7 @@ export default function JoinEmail(props: IJoinEmail): JSX.Element {
             <form onSubmit={props.handleSubmit2(onClickMatchAuth)}>
               <S.TokenBtn
                 isActive={time > 0 && time !== 30}
-                disabled={time === 0 || props.formState2.isValid === false}
+                disabled={time === 0 || !props.formState2.isValid}
               >
                 확인
               </S.TokenBtn>
