@@ -1,16 +1,37 @@
+import {
+  FieldValues,
+  FormState,
+  UseFormGetValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from "react-hook-form";
+import { IMutationCheckEmailArgs } from "../../../commons/types/generated/types";
 import { useClickCheckEmail } from "../hooks/custom/useClickCheckEmail";
 import { useClickMatchAuth } from "../hooks/custom/useClickMatchAuth";
 import { useTimer } from "../hooks/custom/useTimer";
 import * as S from "./joinEmailStyles";
 
-export default function JoinEmail(props: any): JSX.Element {
+interface IJoinEmail {
+  formState2: FormState<FieldValues>;
+  register2: UseFormRegister<FieldValues>;
+  handleSubmit2: UseFormHandleSubmit<FieldValues>;
+  getValues2: UseFormGetValues<FieldValues>;
+  formState3: FormState<FieldValues>;
+  register3: UseFormRegister<FieldValues>;
+  handleSubmit3: UseFormHandleSubmit<FieldValues>;
+  getValues3: UseFormGetValues<FieldValues>;
+  setValue2: UseFormSetValue<FieldValues>;
+}
+
+export default function JoinEmail(props: IJoinEmail): JSX.Element {
   const { onClickCheckEmail } = useClickCheckEmail();
   const { time, setTime, setIsStarted } = useTimer();
   const { onClickMatchAuth } = useClickMatchAuth(setTime);
   const min = Math.floor(time / 60);
   const sec = String(time % 60).padStart(2, "0");
 
-  const onClickAuth = async (data: any): Promise<void> => {
+  const onClickAuth = async (data: IMutationCheckEmailArgs): Promise<void> => {
     setTime(30);
     setIsStarted(true);
     await onClickCheckEmail(data);
@@ -41,7 +62,7 @@ export default function JoinEmail(props: any): JSX.Element {
             <input
               type="text"
               placeholder="인증번호 6자리 입력"
-              {...props.register2("token")}
+              {...props.register2("authNumber")}
             />
 
             <span id="timer">
@@ -61,7 +82,7 @@ export default function JoinEmail(props: any): JSX.Element {
           <button form={"1"} type="submit" disabled={time !== 0}>
             인증번호 재전송하기
           </button>
-          <p>{props.formState2.errors.token?.message}</p>
+          <p>{props.formState2.errors.authNumber?.message}</p>
         </S.AccreditBox>
       </S.EmailBox>
     </>

@@ -2,18 +2,23 @@ import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/stores";
 import { UseMutationLogin } from "../mutation/useMutationLogin";
 import { useRouterMovePage } from "./useRouterMovePage";
+import { ILoginAuthInput } from "../../../../commons/types/generated/types";
 
 export interface ILoginFormData {
   email: string;
   password: string;
 }
 
-export const useClickLogin = (): any => {
+interface IUseClickLogin {
+  onClickLogin: (data: ILoginAuthInput) => Promise<void>;
+}
+
+export const useClickLogin = (): IUseClickLogin => {
   const [loginUser] = UseMutationLogin();
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const { routerMovePage } = useRouterMovePage();
 
-  const onClickLogin = async (data: ILoginFormData): Promise<void> => {
+  const onClickLogin = async (data: ILoginAuthInput): Promise<void> => {
     try {
       if (data.email !== "" && data.password !== "") {
         const result = await loginUser({
